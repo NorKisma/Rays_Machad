@@ -1,6 +1,6 @@
-Madrasah Management System
+Rays Academy (Machadka Rays) Management System
 
-A full-featured Madrasah Management System built with Python Flask, MySQL, and AI-powered automation. This platform helps manage students, teachers, classes, attendance, exams, fees, and more, while integrating intelligent AI features for automation.
+A full-featured Education Management System for Rays Academy, built with Python Flask, MySQL, and AI-powered automation. This platform supports a combined curriculum of Modern and Islamic subjects, managing students, teachers, classes, attendance, exams, and fees.
 
 Table of Contents
 

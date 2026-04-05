@@ -28,9 +28,13 @@ class SystemSetting(db.Model):
     @staticmethod
     def set_setting(key, value, description=None, school_id=None):
         if school_id is None:
-            from app.utils.tenant_context import get_current_school
-            school = get_current_school()
-            school_id = school.id if school else None
+            from flask import has_request_context
+            if has_request_context():
+                from app.utils.tenant_context import get_current_school
+                school = get_current_school()
+                school_id = school.id if school else None
+            else:
+                school_id = None
         
         setting = SystemSetting.query.filter_by(key=key, school_id=school_id).first()
         if setting:
