@@ -1,0 +1,213 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<style>
+    .badge-soft-nazira {
+        background: #e0f2fe;
+        color: #0284c7;
+    }
+
+    .badge-soft-hifz {
+        background: #dcfce7;
+        color: #16a34a;
+    }
+
+    .badge-soft-revision {
+        background: #fef3c7;
+        color: #d97706;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">
+            {% if selected_class %}
+            {{ _('Students in') }} {{ selected_class.class_name }}
+            {% else %}
+            {{ _('Student Management') }}
+            {% endif %}
+        </h3>
+        <p class="text-muted small mb-0">
+            {% if selected_class %}
+            {{ _('Viewing students enrolled in') }} {{ selected_class.class_name }}
+            {% else %}
+            {{ _('View and manage enrolled students') }}
+            {% endif %}
+        </p>
+    </div>
+
+    <div class="d-flex gap-2 ms-auto">
+        <a href="{{ url_for('students.print_all_students') }}"
+            class="btn btn-soft-primary d-flex align-items-center gap-2 px-4 rounded-3 shadow-sm">
+            <i class="fa-solid fa-print"></i> {{ _('Print Directory') }}
+        </a>
+        <a href="{{ url_for('students.add_student') }}"
+            class="btn btn-primary d-flex align-items-center gap-2 px-4 rounded-3 shadow-sm">
+            <i class="fa-solid fa-plus"></i> {{ _('Add Student') }}
+        </a>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-6 col-md-3">
+        <div class="card stats-card stats-card-primary p-3 h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="icon-box-glass">
+                    <i class="fa-solid fa-user-graduate fa-xl"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-white-50 small text-uppercase fw-bold">{{ _('Total Students') }}</h6>
+                    <h4 class="mb-0 fw-bold">{{ students|length }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stats-card stats-card-income p-3 h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="icon-box-glass">
+                    <i class="fa-solid fa-user-check fa-xl"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-muted small text-uppercase fw-bold">{{ _('Active') }}</h6>
+                    <h4 class="mb-0 fw-bold text-dark">{{ active_count }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stats-card stats-card-pending p-3 h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="icon-box-glass">
+                    <i class="fa-solid fa-user-clock fa-xl"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-muted small text-uppercase fw-bold">{{ _('Pending') }}</h6>
+                    <h4 class="mb-0 fw-bold text-dark">{{ pending_count }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-6 col-md-3">
+        <div class="card stats-card stats-card-dark p-3 h-100">
+            <div class="d-flex align-items-center gap-3">
+                <div class="icon-box-glass">
+                    <i class="fa-solid fa-user-xmark fa-xl"></i>
+                </div>
+                <div>
+                    <h6 class="mb-0 text-muted small text-uppercase fw-bold">{{ _('Inactive') }}</h6>
+                    <h4 class="mb-0 fw-bold text-dark">{{ inactive_count }}</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-body p-0">
+        {% if students %}
+        <div class="table-responsive">
+            <table id="studentTable" class="table table-hover align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th class="ps-4 text-uppercase small fw-bold text-muted">{{ _('Student') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('ID') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Assigned Class') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Hifz Status') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Juz') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Status') }}</th>
+                        <th class="text-end pe-4 text-uppercase small fw-bold text-muted">{{ _('Actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for s in students %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar-sm bg-success bg-opacity-10 text-success rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                    style="width: 40px; height: 40px;">
+                                    {{ s.full_name[0] | upper }}
+                                </div>
+                                <div>
+                                    <span class="fw-semibold text-dark d-block">{{ s.full_name }}</span>
+                                    <small class="text-muted">{{ s.parent_contact }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="text-muted">{{ s.enrollment_number }}</td>
+                        <td>
+                            <span class="badge bg-light text-primary border border-primary border-opacity-10 px-3">{{
+                                s.class_assigned.class_name if s.class_assigned else _('Not Assigned') }}</span>
+                        </td>
+                        <td>
+                            {% if s.hifz_status == 'Nazira' %}
+                            <span class="badge badge-soft-nazira px-3">{{ _('Nazira') }}</span>
+                            {% elif s.hifz_status == 'Hifz' %}
+                            <span class="badge badge-soft-hifz px-3">{{ _('Hifz') }}</span>
+                            {% else %}
+                            <span class="badge badge-soft-revision px-3">{{ _('Revision') }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <span class="fw-bold text-indigo">{{ _('Juz') }} {{ s.current_juz }}</span>
+                        </td>
+                        <td>
+                            {% if s.status == 'Active' %}
+                            <span class="badge badge-soft-success px-3">{{ _('Active') }}</span>
+                            {% elif s.status == 'Pending' %}
+                            <span class="badge badge-soft-warning px-3">{{ _('Pending') }}</span>
+                            {% else %}
+                            <span class="badge badge-soft-danger px-3">{{ _('Inactive') }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="d-flex justify-content-end gap-2">
+                                {% if current_user.role in ['A', 'S'] %}
+                                <a href="{{ url_for('financials.add_fee', student_id=s.id) }}"
+                                    class="btn btn-sm btn-premium text-success" title="{{ _('Add Fee') }}">
+                                    <i class="fa-solid fa-money-bill-wave"></i>
+                                </a>
+                                <a href="{{ url_for('students.edit_student', student_id=s.id) }}"
+                                    class="btn btn-sm btn-premium" title="{{ _('Edit') }}">
+                                    <i class="fa-solid fa-pencil text-primary"></i>
+                                </a>
+                                {% endif %}
+                                <a href="{{ url_for('students.student_profile', student_id=s.id) }}"
+                                    class="btn btn-sm btn-premium text-info" title="{{ _('View Profile') }}">
+                                    <i class="fa-solid fa-user"></i>
+                                </a>
+                                {% if current_user.role in ['A', 'S'] %}
+                                <form action="{{ url_for('students.delete_student', student_id=s.id) }}" method="POST"
+                                    class="d-inline"
+                                    onsubmit="return confirm('Do you really want to delete this student?');">
+                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                    <button type="submit" class="btn btn-sm btn-premium text-danger"
+                                        title="{{ _('Delete') }}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+                                </form>
+                                {% endif %}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="text-center py-5">
+            <div class="icon-box bg-light text-muted mx-auto mb-3"
+                style="width: 80px; height: 80px; border-radius: 50%;">
+                <i class="fa-solid fa-user-graduate fa-2xl"></i>
+            </div>
+            <p class="text-muted">{{ _('No students found in the system.') }}</p>
+            <a href="{{ url_for('students.add_student') }}" class="btn btn-primary rounded-3 px-4">
+                {{ _('Enroll Your First Student') }}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Central Announcements') }}</h3>
+        <p class="text-muted small mb-0">{{ _('Manage communication with students, parents, and staff.') }}</p>
+    </div>
+    <a href="{{ url_for('announcements.add') }}" class="btn btn-primary d-flex align-items-center gap-2 rounded-3">
+        <i class="fa-solid fa-plus"></i> {{ _('Create New') }}
+    </a>
+</div>
+
+{% if announcements %}
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="table-responsive">
+        <table id="announcementTable" class="table table-hover align-middle mb-0 no-datatable">
+            <thead class="bg-light">
+                <tr>
+                    <th class="ps-4">{{ _('Announcement') }}</th>
+                    <th>{{ _('Target') }}</th>
+                    <th>{{ _('Priority') }}</th>
+                    <th>{{ _('Posted On') }}</th>
+                    <th class="text-end pe-4">{{ _('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for a in announcements %}
+                <tr>
+                    <td class="ps-4">
+                        <div class="fw-bold text-dark">{{ a.title }}</div>
+                        <small class="text-muted text-truncate d-inline-block" style="max-width: 300px;">{{ a.content
+                            }}</small>
+                    </td>
+                    <td>
+                        <span class="badge bg-light text-primary border border-primary border-opacity-10">{{
+                            _(a.target_audience) }}</span>
+                    </td>
+                    <td>
+                        {% if a.priority == 'Critical' %}
+                        <span class="badge bg-danger bg-opacity-10 text-danger">{{ _('Critical') }}</span>
+                        {% elif a.priority == 'High' %}
+                        <span class="badge bg-warning bg-opacity-10 text-warning">{{ _('High') }}</span>
+                        {% else %}
+                        <span class="badge bg-success bg-opacity-10 text-success">{{ _('Normal') }}</span>
+                        {% endif %}
+                    </td>
+                    <td><small class="text-muted">{{ a.created_at.strftime('%Y-%m-%d %H:%M') }}</small></td>
+                    <td class="text-end pe-4">
+                        <div class="d-flex justify-content-end gap-2">
+                            <form action="{{ url_for('announcements.broadcast_whatsapp', id=a.id) }}" method="POST"
+                                data-confirm-msg="{{ _('Send this announcement to all parents via WhatsApp?') }}"
+                                onsubmit="return confirm(this.getAttribute('data-confirm-msg'))">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-soft-success"
+                                    title="{{ _('Broadcast via WhatsApp') }}">
+                                    <i class="fa-brands fa-whatsapp fa-lg"></i>
+                                </button>
+                            </form>
+                            <a href="{{ url_for('announcements.edit', id=a.id) }}" class="btn btn-sm btn-soft-primary">
+                                <i class="fa-solid fa-pencil"></i>
+                            </a>
+                            <form action="{{ url_for('announcements.delete', id=a.id) }}" method="POST"
+                                data-confirm-msg="{{ _('Are you sure you want to delete this announcement?') }}"
+                                onsubmit="return confirm(this.getAttribute('data-confirm-msg'))">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-soft-danger">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% else %}
+<div class="card border-0 shadow-sm rounded-4 p-5 text-center">
+    <i class="fa-solid fa-bullhorn fa-3x text-muted opacity-25 mb-3"></i>
+    <p class="text-muted mb-0">{{ _('No announcements found.') }}</p>
+</div>
+{% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const table = $('#announcementTable').DataTable({
+            "destroy": true, // Prevent re-initialization conflicts
+            "pageLength": 10,
+            "language": window.datatables_translations || {
+                "search": "",
+                "searchPlaceholder": "{{ _('Search Announcements...') }}",
+                "emptyTable": "{{ _('No announcements found.') }}"
+            },
+            "responsive": true,
+            "dom": '<"d-flex justify-content-between align-items-center mb-4"<"d-flex align-items-center gap-2"l><"dt-buttons"B>>t<"d-flex justify-content-between align-items-center mt-4"ip>',
+            "buttons": [
+                { extend: 'copy', className: 'btn btn-sm btn-premium rounded-pill px-3 mx-1' },
+                { extend: 'print', className: 'btn btn-sm btn-premium rounded-pill px-3 mx-1' }
+            ],
+            "columnDefs": [
+                { "orderable": false, "targets": [4] } // Disable sorting on Actions column
+            ],
+            "order": [[3, "desc"]] // Sort by Date (col index 3) descending
+        });
+
+        // Link the global search bar in the header
+        $('#headerSearchInput').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+
+        // Handle initial search
+        const initialSearch = $('#headerSearchInput').val();
+        if (initialSearch) {
+            table.search(initialSearch).draw();
+        }
+    });
+
+</script>
+{% endblock %}

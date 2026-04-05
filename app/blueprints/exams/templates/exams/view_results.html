@@ -1,0 +1,161 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{{ url_for('exams.manage_exams') }}" class="btn btn-premium mb-3">
+        <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back to Exams') }}
+    </a>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <div>
+            <h3 class="fw-bold mb-0 text-dark">{{ exam.exam_name }}</h3>
+            <p class="text-muted small mb-0">
+                {% if exam.subject %}
+                <span class="badge badge-soft-primary px-2 py-1 me-1">{{ exam.subject.name }}</span>
+                {% endif %}
+                {{ _(exam.exam_type) }} • {{ exam.exam_date.strftime('%d %B %Y') }}
+            </p>
+        </div>
+        <span
+            class="badge {% if exam.status == 'Completed' %}badge-soft-success{% elif exam.status == 'Ongoing' %}badge-soft-info{% else %}badge-soft-warning{% endif %} px-4 py-2">
+            {{ _(exam.status) }}
+        </span>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body p-4">
+        <div class="row">
+            <div class="col-md-3">
+                <p class="text-muted small mb-1">{{ _('Total Marks') }}</p>
+                <h4 class="fw-bold text-primary">{{ exam.total_marks }}</h4>
+            </div>
+            <div class="col-md-3">
+                <p class="text-muted small mb-1">{{ _('Passing Marks') }}</p>
+                <h4 class="fw-bold text-success">{{ exam.passing_marks }}</h4>
+            </div>
+            <div class="col-md-3">
+                <p class="text-muted small mb-1">{{ _('Examiner') }}</p>
+                <h6 class="fw-bold">{{ exam.teacher.full_name }}</h6>
+            </div>
+            <div class="col-md-3">
+                <p class="text-muted small mb-1">{{ _('Students') }}</p>
+                <h4 class="fw-bold text-info">{{ students|length }}</h4>
+            </div>
+        </div>
+        {% if exam.juz_number or exam.surah_from %}
+        <div class="border-top mt-3 pt-3">
+            <p class="text-muted small mb-2"><i class="fa-solid fa-book-quran me-2"></i>{{ _('Quran Coverage') }}</p>
+            <div class="d-flex gap-4">
+                {% if exam.juz_number %}
+                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2">{{ _('Juz') }} {{ exam.juz_number
+                    }}</span>
+                {% endif %}
+                {% if exam.surah_from %}
+                <span class="badge bg-success bg-opacity-10 text-success px-3 py-2">{{ exam.surah_from }} - {{
+                    exam.surah_to }}</span>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="resultsTable">
+                <thead>
+                    <tr>
+                        <th class="ps-4 text-uppercase small fw-bold text-muted">{{ _('Student') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Marks') }}</th>
+                        {% if exam.exam_type in ['Hifz', 'Tajweed', 'Arabic', 'Somali', 'English'] %}
+                        <th class="text-uppercase small fw-bold text-muted">{% if exam.exam_type in ['Hifz', 'Tajweed']
+                            %}{{ _('Memorization') }}{% else %}{{ _('Vocabulary') }}{% endif %}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{% if exam.exam_type in ['Hifz', 'Tajweed']
+                            %}{{ _('Tajweed') }}{% else %}{{ _('Grammar') }}{% endif %}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Fluency') }}</th>
+                        {% endif %}
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Grade') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Status') }}</th>
+                        <th class="text-end pe-4 text-uppercase small fw-bold text-muted">{{ _('Actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    {% set result = results.get(student.id) %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar-sm bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                    style="width: 40px; height: 40px;">
+                                    {{ student.full_name[0] | upper }}
+                                </div>
+                                <span class="fw-semibold">{{ student.full_name }}</span>
+                            </div>
+                        </td>
+                        <td class="fw-bold">
+                            {% if result and result.marks_obtained is not none %}
+                            {{ result.marks_obtained }}/{{ exam.total_marks }}
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        {% if exam.exam_type in ['Hifz', 'Tajweed', 'Arabic', 'Somali', 'English'] %}
+                        <td>
+                            {% if result and result.memorization_accuracy %}
+                            {{ result.memorization_accuracy }}%
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if result and result.tajweed_score %}
+                            {{ result.tajweed_score }}%
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if result and result.fluency_score %}
+                            {{ result.fluency_score }}%
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        <td>
+                            {% if result and result.grade %}
+                            <span
+                                class="badge {% if result.grade in ['A+', 'A'] %}badge-soft-success{% elif result.grade in ['B+', 'B'] %}badge-soft-info{% elif result.grade == 'C' %}badge-soft-warning{% else %}badge-soft-danger{% endif %} px-3">
+                                {{ result.grade }}
+                            </span>
+                            {% else %}
+                            <span class="text-muted">-</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if result %}
+                            <span
+                                class="badge {% if result.status == 'Excellent' %}badge-soft-success{% elif result.status == 'Very Good' %}badge-soft-info{% elif result.status == 'Good' %}badge-soft-info{% elif result.status == 'Pass' %}badge-soft-success{% elif result.status == 'Fail' %}badge-soft-danger{% elif result.status == 'Absent' %}badge-soft-warning{% else %}badge-soft-secondary{% endif %} px-3">
+                                {{ _(result.status) }}
+                            </span>
+                            {% else %}
+                            <span class="badge badge-soft-secondary px-3">{{ _('Pending') }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-end pe-4">
+                            <a href="{{ url_for('exams.enter_result', exam_id=exam.id, student_id=student.id) }}"
+                                class="btn btn-sm btn-premium">
+                                <i class="fa-solid fa-pencil me-1"></i> {% if result %}{{ _('Edit') }}{% else %}{{
+                                _('Enter') }}{% endif %}
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="{{ get_locale() or 'en' }}" dir="{{ 'rtl' if get_locale() == 'ar' else 'ltr' }}">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RAYS ACADEMY | Secure Login</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Cairo:wght@400;600;700&display=swap"
+    rel="stylesheet">
+
+  <!-- Bootstrap & Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <style>
+    :root {
+      --primary: #0061ff;
+      --primary-dark: #0046b8;
+      --secondary: #00d2ff;
+      --dark: #1e293b;
+      --white: #ffffff;
+      --glass: rgba(255, 255, 255, 0.9);
+      --border: rgba(0, 97, 255, 0.1);
+    }
+
+    [data-theme="dark"] {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --dark: #f8fafc;
+      --white: #0f172a;
+      --glass: rgba(15, 23, 42, 0.9);
+      --border: rgba(59, 130, 246, 0.2);
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f0f7ff;
+      overflow: hidden;
+      color: var(--dark);
+    }
+
+    /* Ambient Background Animations */
+    .bg-blobs {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      animation: move 20s infinite alternate;
+    }
+
+    .blob-1 {
+      background: #0061ff;
+      top: -100px;
+      left: -100px;
+    }
+
+    .blob-2 {
+      background: #00d2ff;
+      bottom: -100px;
+      right: -100px;
+      animation-delay: -5s;
+    }
+
+    .blob-3 {
+      background: #f59e0b;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-duration: 30s;
+    }
+
+    @keyframes move {
+      from {
+        transform: translate(0, 0) rotate(0deg);
+      }
+
+      to {
+        transform: translate(100px, 100px) rotate(360deg);
+      }
+    }
+
+    /* Container & Card */
+    .login-wrapper {
+      width: 100%;
+      max-width: 1100px;
+      padding: 20px;
+      z-index: 10;
+    }
+
+    .login-container {
+      display: flex;
+      background: var(--glass);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    /* Info Side */
+    .info-side {
+      flex: 1;
+      background: linear-gradient(135deg, #0061ff 0%, #60efff 100%);
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .info-side::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: url("https://www.transparenttextures.com/patterns/carbon-fibre.png");
+      opacity: 0.1;
+    }
+
+    .brand-logo {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .brand-logo i {
+      background: rgba(255, 255, 255, 0.2);
+      padding: 15px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    .info-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.2;
+    }
+
+    .info-text {
+      font-size: 1.1rem;
+      opacity: 0.8;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 15px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* Form Side */
+    .form-side {
+      flex: 1;
+      padding: 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+    }
+
+    .top-nav {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .form-title {
+      font-size: 2rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+      color: var(--dark);
+    }
+
+    .form-subtitle {
+      color: #64748b;
+      margin-bottom: 40px;
+    }
+
+    .form-control {
+      height: 58px;
+      border-radius: 16px;
+      padding: 0 20px;
+      background: rgba(0, 0, 0, 0.02);
+      border: 2px solid transparent;
+      font-weight: 500;
+      transition: all 0.3s;
+    }
+
+    [data-theme="dark"] .form-control {
+      background: rgba(255, 255, 255, 0.02);
+      color: white;
+    }
+
+    .form-control:focus {
+      background: white;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .label-custom {
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+      color: #64748b;
+    }
+
+    .btn-premium {
+      height: 58px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      border: none;
+      border-radius: 16px;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      box-shadow: 0 10px 20px -5px rgba(79, 70, 229, 0.4);
+      transition: all 0.3s;
+    }
+
+    .btn-premium:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 30px -5px rgba(79, 70, 229, 0.5);
+      color: white;
+    }
+
+    /* Loading */
+    .loader-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.9);
+      z-index: 9999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+
+    .loader {
+      width: 100px;
+      height: 100px;
+      border: 5px solid rgba(255, 255, 255, 0.1);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 1s infinite cubic-bezier(0.5, 0, 0.5, 1);
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0deg);
+      }
+
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @media (max-width: 992px) {
+      .info-side {
+        display: none;
+      }
+
+      .login-container {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .form-side {
+        padding: 40px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div id="loader" class="loader-overlay">
+    <div class="text-center">
+      <div class="loader mb-4"></div>
+      <h4 class="text-white fw-bold">{{ _('Securing Connection...') }}</h4>
+    </div>
+  </div>
+
+  <div class="login-wrapper">
+    <div class="login-container">
+      <!-- Info Side -->
+      <div class="info-side">
+        <div class="brand-logo">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>{{ _('RAYS ACADEMY') }}</span>
+        </div>
+        <h2 class="info-title">{{ _('Excellence in Modern & Islamic Education') }}</h2>
+        <p class="info-text">
+          {{ _('Welcome to the next generation of educational management. Our secure platform ensures your data is protected while providing seamless administrative control.') }}
+        </p>
+
+        <div class="feature-item">
+          <i class="fa-solid fa-shield-check text-success fa-lg"></i>
+          <div>
+            <div class="fw-bold">{{ _('Data Isolation') }}</div>
+            <small class="opacity-75">{{ _('Your tenant data is strictly protected.') }}</small>
+          </div>
+        </div>
+        <div class="feature-item">
+          <i class="fa-solid fa-bolt text-warning fa-lg"></i>
+          <div>
+            <div class="fw-bold">{{ _('Lightning Fast') }}</div>
+            <small class="opacity-75">{{ _('Optimized for high-speed performance.') }}</small>
+          </div>
+        </div>
+
+        <div class="mt-auto opacity-50 small">
+          &copy; 2026 RaysTech. {{ _('Powering Innovation.') }}
+        </div>
+      </div>
+
+      <!-- Form Side -->
+      <div class="form-side">
+        <div class="top-nav">
+          <button class="btn btn-sm btn-light rounded-pill px-3 shadow-sm" id="themeToggle">
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <div class="dropdown">
+            <button class="btn btn-sm btn-light rounded-pill px-3 shadow-sm dropdown-toggle" data-bs-toggle="dropdown">
+              {{ get_locale().upper() }}
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0">
+              <li><a class="dropdown-item" href="{{ url_for('set_language', lang='en') }}">English</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('set_language', lang='ar') }}">العربية</a></li>
+              <li><a class="dropdown-item" href="{{ url_for('set_language', lang='so') }}">Soomaali</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="mb-5">
+          <h1 class="form-title">{{ _('Welcome Back') }}</h1>
+          <p class="form-subtitle">{{ _('Please enter your credentials to access your portal.') }}</p>
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div
+          class="alert alert-{{ 'danger' if category == 'danger' else 'primary' }} border-0 rounded-4 px-4 py-3 mb-4 shadow-sm">
+          <i class="fa-solid fa-circle-info me-2"></i> {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST" id="loginForm">
+          {{ login_form.hidden_tag() }}
+
+          <div class="mb-4">
+            <label class="label-custom">{{ _('Email Address') }}</label>
+            {{ login_form.email(class="form-control", placeholder="admin@madrasah.com") }}
+          </div>
+
+          <div class="mb-4">
+            <div class="d-flex justify-content-between">
+              <label class="label-custom">{{ _('Password') }}</label>
+              <a href="{{ url_for('auth.forgot_password') }}" class="small text-primary text-decoration-none fw-bold">{{
+                _('Forgot?') }}</a>
+            </div>
+            {{ login_form.password(class="form-control", placeholder="••••••••") }}
+          </div>
+
+          <div class="mb-4 d-flex align-items-center">
+            <div class="form-check">
+              {{ login_form.remember(class="form-check-input") }}
+              <label class="form-check-label small text-muted">{{ _('Keep me logged in') }}</label>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-premium w-100 mb-3">
+            {{ _('Login to Portal') }} <i class="fa-solid fa-arrow-right-long ms-2"></i>
+          </button>
+        </form>
+
+        <div class="text-center mt-4">
+          <p class="small text-muted mb-0">{{ _("Don't have a portal yet?") }} <a href="/#contact"
+              class="text-primary fw-bold text-decoration-none">{{ _("Contact Sales") }}</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Form Submission Loader
+    document.getElementById('loginForm').addEventListener('submit', function () {
+      document.getElementById('loader').style.display = 'flex';
+    });
+
+    // Theme Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const htmlEl = document.documentElement;
+
+    const updateTheme = (theme) => {
+      htmlEl.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeToggle.innerHTML = theme === 'dark' ? '<i class="fa-solid fa-sun text-warning"></i>' : '<i class="fa-solid fa-moon"></i>';
+    };
+
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    updateTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+      const current = htmlEl.getAttribute('data-theme');
+      updateTheme(current === 'light' ? 'dark' : 'light');
+    });
+  </script>
+</body>
+
+</html>

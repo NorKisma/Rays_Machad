@@ -1,0 +1,180 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="{{ url_for('attendance.index') }}"
+                                class="text-decoration-none text-muted">{{ _('Attendance') }}</a></li>
+                        <li class="breadcrumb-item active">{{ cls.class_name }}</li>
+                    </ol>
+                </nav>
+                <h3 class="fw-bold mb-0 text-dark">{{ _('Attendance Roll Call') }}</h3>
+                <p class="text-muted small mb-0">{{ cls.class_name }} — {{ selected_date }} 
+                    <span class="badge bg-secondary text-white">{{ _('Session') }} {{ period }}</span>
+                    {% if subject %} | <span class="badge bg-info text-white">{{ subject.name }}</span>{% endif %}
+                </p>
+            </div>
+            <a href="{{ url_for('attendance.index', date=selected_date) }}" class="btn btn-premium px-3">
+                <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back') }}
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-primary text-white p-3 px-4 border-0">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h6 class="mb-0 fw-bold"><i class="fa-solid fa-list-check me-2"></i> {{ _('Student List') }}</h6>
+                    <span class="badge bg-white text-primary rounded-pill fw-bold">{{ students|length }} {{
+                        _('Students') }}</span>
+                </div>
+            </div>
+            <div class="card-body p-0">
+                <form method="POST"
+                    action="{{ url_for('attendance.mark_attendance', class_id=cls.id, date=selected_date, subject_id=request.args.get('subject_id')) }}">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="table-responsive">
+                        <table id="attendanceTable" class="table table-hover align-middle mb-0" data-page-length="25">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4" style="width: 300px;">{{ _('Student') }}</th>
+                                    <th class="text-center">{{ _('Status') }}</th>
+                                    <th>{{ _('Remarks') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if students %}
+                                {% for s in students %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="avatar-sm bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                                style="width: 36px; height: 36px;">
+                                                {{ s.full_name[0] | upper }}
+                                            </div>
+                                            <div>
+                                                <span class="fw-bold d-block">{{ s.full_name }}</span>
+                                                <small class="text-muted">{{ s.enrollment_number }}</small>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex justify-content-center gap-2">
+                                            {% set current_status = attendance_map.get(s.id, 'Present') %}
+
+                                            <input type="radio" class="btn-check" name="status_{{ s.id }}"
+                                                id="p_{{ s.id }}" value="Present" {{ 'checked' if
+                                                current_status=='Present' }}>
+                                            <label class="btn btn-outline-success btn-sm rounded-pill px-3"
+                                                for="p_{{ s.id }}">{{ _('Present') }}</label>
+
+                                            <input type="radio" class="btn-check" name="status_{{ s.id }}"
+                                                id="l_{{ s.id }}" value="Late" {{ 'checked' if current_status=='Late'
+                                                }}>
+                                            <label class="btn btn-outline-warning btn-sm rounded-pill px-3"
+                                                for="l_{{ s.id }}">{{ _('Late') }}</label>
+
+                                            <input type="radio" class="btn-check" name="status_{{ s.id }}"
+                                                id="a_{{ s.id }}" value="Absent" {{ 'checked' if
+                                                current_status=='Absent' }}>
+                                            <label class="btn btn-outline-danger btn-sm rounded-pill px-3"
+                                                for="a_{{ s.id }}">{{ _('Absent') }}</label>
+                                        </div>
+                                    </td>
+                                    <td class="pe-4">
+                                        <input type="text" name="remarks_{{ s.id }}"
+                                            class="form-control form-control-sm border-light"
+                                            placeholder="{{ _('Optional note...') }}">
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="3" class="text-center py-5">
+                                        <p class="text-muted mb-0">{{ _('No students enrolled in this class.') }}</p>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="p-4 bg-light border-top d-flex justify-content-between align-items-center">
+                        <small class="text-muted"><i class="fa-solid fa-circle-info me-1"></i> {{ _('Unmarked students
+                            will default to Absent.') }}</small>
+                        <button type="submit" class="btn btn-primary px-5 rounded-3 fw-bold shadow-sm">
+                            <i class="fa-solid fa-save me-2"></i> {{ _('Save Attendance') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .btn-check:checked+.btn-outline-success {
+        background-color: var(--success);
+        border-color: var(--success);
+        box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-check:checked+.btn-outline-warning {
+        background-color: var(--warning);
+        border-color: var(--warning);
+        box-shadow: 0 4px 10px rgba(245, 158, 11, 0.3);
+    }
+
+    .btn-check:checked+.btn-outline-danger {
+        background-color: var(--danger);
+        border-color: var(--danger);
+        box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3);
+    }
+
+    .btn-outline-success,
+    .btn-outline-warning,
+    .btn-outline-danger {
+        border-width: 1.5px;
+        font-weight: 600;
+        transition: all 0.2s ease;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const table = $('#attendanceTable').DataTable();
+
+        // Handle form submission to include filtered-out rows (CRITICAL)
+        $('form').on('submit', function (e) {
+            const form = this;
+
+            // Iterate over all checked radio buttons in the table
+            table.$('input[type="radio"]:checked').each(function () {
+                if (!$.contains(document, this)) {
+                    $(form).append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', this.name)
+                            .val(this.value)
+                    );
+                }
+            });
+
+            // Iterate over all text inputs (remarks)
+            table.$('input[type="text"]').each(function () {
+                if (!$.contains(document, this) && this.value) {
+                    $(form).append(
+                        $('<input>')
+                            .attr('type', 'hidden')
+                            .attr('name', this.name)
+                            .val(this.value)
+                    );
+                }
+            });
+        });
+    });
+</script>
+{% endblock %}

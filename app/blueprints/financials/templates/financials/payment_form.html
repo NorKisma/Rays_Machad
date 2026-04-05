@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card border-0 shadow p-4">
+            <h4 class="fw-bold mb-4">{{ _('Record Payment') }}</h4>
+
+            <div class="bg-light p-3 rounded-4 mb-4">
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">{{ _('Student:') }}</span>
+                    <strong class="text-dark">{{ fee.student.full_name }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">{{ _('Fee Type:') }}</span>
+                    <span class="badge bg-primary bg-opacity-10 text-primary">{{ fee.fee_type }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">{{ _('Total Amount:') }}</span>
+                    <strong class="text-dark">{{ fee.amount }}</strong>
+                </div>
+                <div class="d-flex justify-content-between mb-2">
+                    <span class="text-muted">{{ _('Paid So Far:') }}</span>
+                    <strong class="text-success">{{ fee.paid_amount or 0 }}</strong>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <span class="text-muted">{{ _('Balance Due:') }}</span>
+                    <strong class="text-danger fs-5">{{ fee.balance }}</strong>
+                </div>
+            </div>
+
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">{{ _('Amount to Pay') }}</label>
+                    {{ form.amount_paid(class="form-control rounded-3", placeholder="0.00") }}
+                    <small class="text-muted">{{ _('Enter the specific amount received today.') }}</small>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">{{ form.payment_date.label }}</label>
+                    {{ form.payment_date(class="form-control rounded-3", type="date") }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">{{ form.payment_method.label }}</label>
+                    {{ form.payment_method(class="form-select rounded-3") }}
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label fw-bold">{{ form.transaction_id.label }}</label>
+                    {{ form.transaction_id(class="form-control rounded-3", placeholder=_('e.g. TRX123456')) }}
+                </div>
+
+                <div class="mb-4">
+                    <label class="form-label fw-bold">{{ form.remarks.label }}</label>
+                    {{ form.remarks(class="form-control rounded-3", rows="2") }}
+                </div>
+
+                <div class="d-grid gap-2">
+                    {{ form.submit(class="btn btn-success btn-lg rounded-3 fw-bold") }}
+                    <a href="{{ url_for('financials.manage_fees') }}" class="btn btn-light rounded-3">{{ _('Cancel')
+                        }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,617 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="{{ url_for('students.manage_students') }}"
+                                class="text-decoration-none text-muted">{{ _('Students') }}</a></li>
+                        <li class="breadcrumb-item active">{{ student.full_name }}</li>
+                    </ol>
+                </nav>
+                <h3 class="fw-bold mb-0 text-dark">{{ _('Student Profile') }}</h3>
+            </div>
+            <div class="d-flex gap-2">
+                {% if current_user.role in ['A', 'S'] %}
+                <a href="{{ url_for('students.view_id_card', student_id=student.id) }}" class="btn btn-indigo px-3">
+                    <i class="fa-solid fa-address-card me-2"></i> {{ _('Generate ID Card') }}
+                </a>
+                <a href="{{ url_for('students.edit_student', student_id=student.id) }}" class="btn btn-premium px-3">
+                    <i class="fa-solid fa-pencil me-2"></i> {{ _('Edit Profile') }}
+                </a>
+                <form action="{{ url_for('students.send_whatsapp', student_id=student.id) }}" method="POST" class="d-inline">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <button type="submit" class="btn btn-success px-3">
+                        <i class="fa-brands fa-whatsapp me-2"></i> {{ _('Send Progress Update') }}
+                    </button>
+                </form>
+                {% endif %}
+                <a href="{{ url_for('students.manage_students') }}" class="btn btn-light px-3">
+                    <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back') }}
+                </a>
+            </div>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Side: Basic Info & Stats -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                    <div class="avatar-lg bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-3 d-flex align-items-center justify-content-center fw-bold"
+                        style="width: 100px; height: 100px; font-size: 2.5rem;">
+                        {{ student.full_name[0] | upper }}
+                    </div>
+                    <h4 class="fw-bold text-dark mb-1">{{ student.full_name }}</h4>
+                    <p class="text-muted small mb-3">{{ student.enrollment_number }}</p>
+
+                    <div class="mb-4">
+                        {% if student.status == 'Active' %}
+                        <span class="badge badge-soft-success px-4 rounded-pill">{{ _('Active') }}</span>
+                        {% else %}
+                        <span class="badge badge-soft-danger px-4 rounded-pill">{{ student.status }}</span>
+                        {% endif %}
+                    </div>
+
+                    <div class="row g-2 pt-3 border-top">
+                        <div class="col-6">
+                            <div class="p-2 bg-light rounded-3">
+                                <small class="text-muted d-block">{{ _('Hifz Status') }}</small>
+                                <span class="fw-bold text-primary">{{ _(student.hifz_status) }}</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2 bg-light rounded-3">
+                                <small class="text-muted d-block">{{ _('Current Juz') }}</small>
+                                <span class="fw-bold text-indigo text-truncate d-block">{{ student.current_juz }}</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2 bg-light rounded-3 text-truncate">
+                                <small class="text-muted d-block">{{ _('Surah') }}</small>
+                                <span class="fw-bold text-success text-truncate d-block" title="{{ student.current_surah or '---' }}">{{ student.current_surah or '---' }}</span>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="p-2 bg-light rounded-3">
+                                <small class="text-muted d-block">{{ _('Aya') }}</small>
+                                <span class="fw-bold text-warning">{{ student.current_aya or '0' }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Detailed Details -->
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-body p-4">
+                        <ul class="nav nav-tabs nav-tabs-custom mb-4 border-bottom-0" id="profileTabs">
+                            <li class="nav-item">
+                                <a class="nav-link active fw-bold border-0 bg-transparent text-primary"
+                                    data-bs-toggle="tab" href="#personal">{{ _('Information') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold border-0 bg-transparent text-muted" data-bs-toggle="tab"
+                                    href="#attendance">{{ _('Attendance') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold border-0 bg-transparent text-muted" data-bs-toggle="tab"
+                                    href="#results">{{ _('Exam Results') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold border-0 bg-transparent text-muted" data-bs-toggle="tab"
+                                    href="#quran">{{ _('Quran Progress') }}</a>
+                            </li>
+                            {% if current_user.role != 'T' %}
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold border-0 bg-transparent text-muted" data-bs-toggle="tab"
+                                    href="#fees">{{ _('Fees & Financials') }}</a>
+                            </li>
+                            {% endif %}
+                            <li class="nav-item">
+                                <a class="nav-link fw-bold border-0 bg-transparent text-muted" data-bs-toggle="tab"
+                                    href="#analytics"><i class="fa-solid fa-chart-pie me-1"></i> {{ _('Analytics')
+                                    }}</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content pt-2">
+                            <!-- Analytics Tab -->
+                            <div class="tab-pane fade" id="analytics">
+                                <div class="row g-4">
+                                    <div class="col-md-6">
+                                        <div class="p-4 bg-light rounded-4 h-100">
+                                            <h6 class="fw-bold text-dark mb-4 text-center">{{ _('Attendance
+                                                Distribution') }}</h6>
+                                            <div style="height: 250px;">
+                                                <canvas id="attendanceChart"></canvas>
+                                            </div>
+                                            <div class="mt-4 text-center">
+                                                <small class="text-muted">{{ _('Based on all recorded sessions.')
+                                                    }}</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="p-4 bg-light rounded-4 h-100">
+                                            <h6 class="fw-bold text-dark mb-4">{{ _('Performance Summary') }}</h6>
+                                            <div class="d-flex flex-column gap-3">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted">{{ _('Total Exams') }}</span>
+                                                    <span class="badge bg-primary rounded-pill">{{ exam_results|length
+                                                        }}</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted">{{ _('Avg. Marks') }}</span>
+                                                    <span class="fw-bold">
+                                                        {% if exam_results %}
+                                                        {{ (exam_results|map(attribute='marks_obtained')|sum /
+                                                        exam_results|length)|round(1) }}
+                                                        {% else %}
+                                                        0
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <span class="text-muted">{{ _('Attendance Rate') }}</span>
+                                                    <span class="fw-bold text-success">
+                                                        {% set total_att = attendance_stats|sum %}
+                                                        {% if total_att > 0 %}
+                                                        {{ (attendance_stats[0] / total_att * 100)|round }}%
+                                                        {% else %}
+                                                        0%
+                                                        {% endif %}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="mt-4 pt-4 border-top">
+                                                <p class="small text-muted mb-0">
+                                                    <i class="fa-solid fa-circle-info me-1"></i>
+                                                    {{ _('This data provides a suitable overview of student engagement
+                                                    and academic standing.') }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Personal Info Tab -->
+                            <div class="tab-pane fade show active" id="personal">
+                                <div class="mb-4">
+                                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-user me-2"></i> {{
+                                        _('Personal Information') }}</h6>
+                                    <div class="row g-3">
+                                        <div class="col-sm-6">
+                                            <label class="small text-muted d-block">{{ _('Gender') }}</label>
+                                            <span class="fw-semibold text-dark">{{ student.gender }}</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="small text-muted d-block">{{ _('Date of Birth') }}</label>
+                                            <span class="fw-semibold text-dark">{{ student.date_of_birth.strftime('%d
+                                                %B, %Y') if student.date_of_birth else 'N/A' }}</span>
+                                        </div>
+                                        <div class="col-sm-12">
+                                            <label class="small text-muted d-block">{{ _('Assigned Class') }}</label>
+                                            <span class="fw-semibold text-dark">{{ student.class_assigned.class_name if
+                                                student.class_assigned else _('Not Assigned') }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-0 pt-4 border-top">
+                                    <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-house-user me-2"></i> {{
+                                        _('Family & Contact') }}</h6>
+                                    <div class="row g-3">
+                                        <div class="col-sm-6">
+                                            <label class="small text-muted d-block">{{ _("Father's Name") }}</label>
+                                            <span class="fw-semibold text-dark">{{ student.father_name or '---'
+                                                }}</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="small text-muted d-block">{{ _("Mother's Name") }}</label>
+                                            <span class="fw-semibold text-dark">{{ student.mother_name or '---'
+                                                }}</span>
+                                        </div>
+                                        <div class="col-sm-6">
+                                            <label class="small text-muted d-block">{{ _('Parent Contact') }}</label>
+                                            <span class="fw-semibold text-dark">{{ student.parent_contact }}</span>
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <label class="small text-muted d-block">{{ _('Residential Address')
+                                                }}</label>
+                                            <span class="fw-semibold text-dark">{{ student.address or '---' }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Attendance History Tab -->
+                            <div class="tab-pane fade" id="attendance">
+                                {% if attendance_history %}
+                                <div class="table-responsive">
+                                    <table id="profileAttendanceTable" class="table table-hover align-middle">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Date') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Subject') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Session') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Status') }}</th>
+                                                <th class="small fw-bold text-muted border-0 d-none d-md-table-cell">{{ _('Remarks') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for record in attendance_history %}
+                                            <tr>
+                                                <td class="small">{{ record.attendance_date.strftime('%d %b, %Y') }}</td>
+                                                <td class="small">{{ record.subject.name if record.subject else _('General') }}</td>
+                                                <td class="small">
+                                                    <span class="badge bg-light text-dark border">{{ _('Session') }} {{ record.period or 1 }}</span>
+                                                </td>
+                                                <td>
+                                                    {% if record.status == 'Present' %}
+                                                    <span class="badge badge-soft-success px-3">{{ _('Present')
+                                                        }}</span>
+                                                    {% elif record.status == 'Absent' %}
+                                                    <span class="badge badge-soft-danger px-3">{{ _('Absent') }}</span>
+                                                    {% elif record.status == 'Late' %}
+                                                    <span class="badge badge-soft-warning px-3">{{ _('Late') }}</span>
+                                                    {% else %}
+                                                    <span class="badge badge-soft-info px-3">{{ _(record.status)
+                                                        }}</span>
+                                                    {% endif %}
+                                                </td>
+                                                <td class="small text-muted d-none d-md-table-cell">{{ record.remarks or
+                                                    '---' }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% else %}
+                                <div class="alert alert-light border-0 rounded-4 p-5 text-center">
+                                    <div class="icon-box bg-light text-muted mx-auto mb-3"
+                                        style="width: 60px; height: 60px; border-radius: 50%;">
+                                        <i class="fa-solid fa-calendar-xmark fa-xl"></i>
+                                    </div>
+                                    <h6 class="fw-bold text-dark">{{ _('No Attendance Data') }}</h6>
+                                    <p class="text-muted small mb-0">{{ _('There are no attendance records for this
+                                        student yet.') }}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            <!-- Exam Results Tab -->
+                            <div class="tab-pane fade" id="results">
+                                {% if exam_results %}
+                                <div class="table-responsive">
+                                    <table id="profileExamsTable" class="table table-hover align-middle">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Exam') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Marks') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Result') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Grade') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for result in exam_results %}
+                                            <tr>
+                                                <td>
+                                                    <div class="fw-bold text-dark mb-0">{{ result.exam.exam_name }}
+                                                    </div>
+                                                    <small class="text-muted">{{ _(result.exam.exam_type) }} • {{
+                                                        result.exam.exam_date.strftime('%d %b') }}</small>
+                                                </td>
+                                                <td>
+                                                    <span class="fw-bold">{{ result.marks_obtained or 0 }}</span><small
+                                                        class="text-muted">/{{ result.exam.total_marks }}</small>
+                                                </td>
+                                                <td>
+                                                    <span
+                                                        class="badge {% if result.status == 'Excellent' %}badge-soft-success{% elif result.status == 'Very Good' %}badge-soft-info{% elif result.status == 'Good' %}badge-soft-info{% elif result.status == 'Pass' %}badge-soft-success{% elif result.status == 'Fail' %}badge-soft-danger{% elif result.status == 'Absent' %}badge-soft-warning{% else %}badge-soft-secondary{% endif %} px-3">
+                                                        {{ _(result.status) }}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    {% if result.grade %}
+                                                    <span
+                                                        class="badge {% if result.grade in ['A+', 'A'] %}badge-soft-success{% elif result.grade in ['B+', 'B'] %}badge-soft-info{% elif result.grade == 'C' %}badge-soft-warning{% else %}badge-soft-danger{% endif %} px-3">
+                                                        {{ result.grade }}
+                                                    </span>
+                                                    {% else %}
+                                                    <span class="text-muted small">---</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% else %}
+                                <div class="alert alert-light border-0 rounded-4 p-5 text-center">
+                                    <div class="icon-box bg-light text-muted mx-auto mb-3"
+                                        style="width: 60px; height: 60px; border-radius: 50%;">
+                                        <i class="fa-solid fa-chart-line fa-xl"></i>
+                                    </div>
+                                    <h6 class="fw-bold text-dark">{{ _('No Exam Results') }}</h6>
+                                    <p class="text-muted small mb-0">{{ _('This student has no recorded exam results
+                                        yet.') }}</p>
+                                </div>
+                                {% endif %}
+                            </div>
+
+                            {% if current_user.role != 'T' %}
+                            <!-- Fees Tab -->
+                            <div class="tab-pane fade" id="fees">
+                                <div class="row g-4 mb-4">
+                                    <div class="col-md-12">
+                                        <div class="p-4 bg-light rounded-4">
+                                            <h6 class="fw-bold text-dark mb-3">{{ _('Standard Fee Structure') }} ({{
+                                                student.class_assigned.class_name if student.class_assigned else
+                                                'N/A' }})</h6>
+                                            <div class="row g-3">
+                                                <div class="col-6 col-md-3">
+                                                    <small class="text-muted d-block">{{ _('Standard Tuition') }}</small>
+                                                    <span class="fw-bold">{{ student.class_assigned.tuition_fee or
+                                                        0.00 }}</span>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <small class="text-muted d-block text-primary">{{ _('Student Monthly Fee') }}</small>
+                                                    <span class="fw-bold text-primary">{{ student.monthly_fee or 0.00 }}</span>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <small class="text-muted d-block">{{ _('Admission') }}</small>
+                                                    <span class="fw-bold">{{ student.class_assigned.admission_fee or
+                                                        0.00 }}</span>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <small class="text-muted d-block">{{ _('Exam Fee') }}</small>
+                                                    <span class="fw-bold">{{ student.class_assigned.exam_fee or 0.00
+                                                        }}</span>
+                                                </div>
+                                                <div class="col-6 col-md-3">
+                                                    <small class="text-muted d-block">{{ _('Bus Fee') }}</small>
+                                                    <span class="fw-bold">{{ student.class_assigned.bus_fee or 0.00
+                                                        }}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="fw-bold text-primary mb-3"><i class="fa-solid fa-receipt me-2"></i> {{
+                                    _('Payment History') }}</h6>
+                                {% if fees %}
+                                <div class="table-responsive">
+                                    <table id="profileFeesTable" class="table table-hover align-middle">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Month/Type') }}
+                                                </th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Amount') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Due Date') }}
+                                                </th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Status') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for fee in fees %}
+                                            <tr>
+                                                <td>
+                                                    <span class="fw-bold text-dark d-block">{{ fee.fee_month or
+                                                        '---' }}</span>
+                                                    <small class="text-muted">{{ fee.fee_type }}</small>
+                                                </td>
+                                                <td class="fw-bold text-primary">{{ fee.amount }}</td>
+                                                <td class="small">{{ fee.due_date.strftime('%d %b, %Y') if
+                                                    fee.due_date else '---' }}</td>
+                                                <td>
+                                                    {% if fee.status == 'Paid' %}
+                                                    <span class="badge badge-soft-success px-3">{{ _('Paid')
+                                                        }}</span>
+                                                    {% else %}
+                                                    <span class="badge badge-soft-danger px-3">{{ _('Unpaid')
+                                                        }}</span>
+                                                    {% endif %}
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                {% else %}
+                                <div class="alert alert-light border-0 rounded-4 p-5 text-center">
+                                    <div class="icon-box bg-light text-muted mx-auto mb-3"
+                                        style="width: 60px; height: 60px; border-radius: 50%;">
+                                        <i class="fa-solid fa-money-bill-transfer fa-xl"></i>
+                                    </div>
+                                    <h6 class="fw-bold text-dark">{{ _('No Payment Records') }}</h6>
+                                    <p class="text-muted small mb-0">{{ _('There are no fee records for this student
+                                        yet.') }}</p>
+                                </div>
+                                {% endif %}
+                                {% if current_user.role in ['A', 'S'] %}
+                                <div class="mt-4 text-center">
+                                    <a href="{{ url_for('financials.add_fee', student_id=student.id) }}"
+                                        class="btn btn-primary rounded-3 px-4 shadow-sm">
+                                        <i class="fa-solid fa-plus me-2"></i> {{ _('Add Fee/Record Payment') }}
+                                    </a>
+                                </div>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+
+                            <!-- Quran Progress Tab -->
+                            <div class="tab-pane fade" id="quran">
+                                {% if quran_progress %}
+                                <div class="row g-4 mb-4">
+                                    <div class="col-md-6">
+                                        <div class="p-4 bg-light rounded-4 h-100">
+                                            <h6 class="fw-bold text-dark mb-4"><i class="fa-solid fa-book-quran me-2"></i> {{ _('Current Position') }}</h6>
+                                            <div class="d-flex align-items-center mb-4">
+                                                <div class="bg-primary bg-opacity-10 text-primary p-3 rounded-4 me-3">
+                                                    <i class="fa-solid fa-book-open-reader fa-2xl"></i>
+                                                </div>
+                                                <div>
+                                                    <h3 class="fw-bold mb-0 text-dark">{{ quran_progress.current_surah or '---' }}</h3>
+                                                    <div class="text-muted small">
+                                                        {{ _('Juz') }} {{ quran_progress.current_juz or 1 }} • {{ _('Aya') }} {{ quran_progress.current_aya or 1 }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-3">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <small class="text-muted">{{ _('Juz Completion') }}</small>
+                                                    <small class="fw-bold text-primary">{{ quran_progress.total_juz_completed or 0 }}/30</small>
+                                                </div>
+                                                <div class="progress rounded-pill" style="height: 10px;">
+                                                    <div class="progress-bar bg-primary" role="progressbar" 
+                                                         style="width: {{ ((quran_progress.total_juz_completed or 0) / 30 * 100)|round }}%"></div>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="mb-0">
+                                                <div class="d-flex justify-content-between mb-1">
+                                                    <small class="text-muted">{{ _('Progress Depth') }}</small>
+                                                    <small class="fw-bold text-success">{{ quran_progress.total_pages_memorized or 0 }} {{ _('Pages') }}</small>
+                                                </div>
+                                                <div class="progress rounded-pill" style="height: 10px;">
+                                                    <div class="progress-bar bg-success" role="progressbar" style="width: 100%;"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="p-4 bg-light rounded-4 h-100">
+                                            <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-info-circle me-2"></i> {{ _('Additional Info') }}</h6>
+                                            <div class="mb-3">
+                                                <label class="text-muted small d-block">{{ _('Recitation Mode') }}</label>
+                                                <span class="badge badge-soft-indigo fs-6">{{ _(quran_progress.mode or 'Nazira') }}</span>
+                                            </div>
+                                            <div class="mb-0">
+                                                <label class="text-muted small d-block">{{ _('Overall Note') }}</label>
+                                                <p class="text-dark small border-start border-primary border-3 ps-3 mt-2 fst-italic">
+                                                    {{ quran_progress.notes or _('No special notes recorded.') }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <h6 class="fw-bold text-dark mb-3"><i class="fa-solid fa-history me-2"></i> {{ _('Recent Sessions') }}</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle">
+                                        <thead class="bg-light">
+                                            <tr>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Date') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Type') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Range') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Rating') }}</th>
+                                                <th class="small fw-bold text-muted border-0">{{ _('Mistakes') }}</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for session in quran_sessions %}
+                                            <tr>
+                                                <td class="small">{{ session.session_date.strftime('%d %b, %Y') }}</td>
+                                                <td><span class="badge border bg-white text-dark small">{{ _(session.session_type) }}</span></td>
+                                                <td class="small">
+                                                    <strong>{{ session.surah_from or '---' }} {{ session.aya_from }}</strong>
+                                                    <i class="fa-solid fa-arrow-right mx-1 opacity-50"></i>
+                                                    <strong>{{ session.surah_to or '---' }} {{ session.aya_to }}</strong>
+                                                </td>
+                                                <td>
+                                                    <span class="badge {% if session.rating == 'Excellent' %}bg-success{% elif session.rating == 'Good' %}bg-info{% else %}bg-warning text-dark{% endif %} px-3">
+                                                        {{ _(session.rating) }}
+                                                    </span>
+                                                </td>
+                                                <td class="small text-danger fw-bold text-center">{{ session.mistakes_count or 0 }}</td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="mt-3 text-center">
+                                    <a href="{{ url_for('quran.student_progress', progress_id=quran_progress.id) }}" class="btn btn-premium btn-sm rounded-pill px-4">
+                                        {{ _('View Complete Record') }}
+                                    </a>
+                                </div>
+                                {% else %}
+                                <div class="alert alert-light border-0 rounded-4 p-5 text-center">
+                                    <div class="icon-box bg-light text-muted mx-auto mb-3"
+                                        style="width: 60px; height: 60px; border-radius: 50%;">
+                                        <i class="fa-solid fa-book-bible fa-xl"></i>
+                                    </div>
+                                    <h6 class="fw-bold text-dark">{{ _('No Quran Progress Records') }}</h6>
+                                    <p class="text-muted small mb-3">{{ _('This student does not have a Quran profile yet.') }}</p>
+                                    {% if current_user.role in ['A', 'T'] %}
+                                    <a href="{{ url_for('quran.add_progress', student_id=student.id) }}" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                                        <i class="fa-solid fa-plus me-2"></i> {{ _('Initialize Quran Progress') }}
+                                    </a>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+<style>
+    .nav-tabs-custom .nav-link {
+        border-bottom: 2px solid transparent !important;
+        margin-right: 20px;
+        padding: 5px 0;
+    }
+
+    .nav-tabs-custom .nav-link.active {
+        color: var(--primary) !important;
+        border-bottom-color: var(--primary) !important;
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Attendance Chart
+        const attendanceCanvas = document.getElementById('attendanceChart');
+        if (attendanceCanvas) {
+            const ctx = attendanceCanvas.getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: JSON.parse('{{ attendance_labels|tojson|safe }}'),
+                    datasets: [{
+                        data: JSON.parse('{{ attendance_stats|tojson|safe }}'),
+                        backgroundColor: ['#10b981', '#ef4444', '#f59e0b'],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: { usePointStyle: true, padding: 20 }
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

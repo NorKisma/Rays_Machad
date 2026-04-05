@@ -1,0 +1,157 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <!-- Header Section -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb mb-1">
+                        <li class="breadcrumb-item"><a href="{{ url_for('classes.manage_classes') }}"
+                                class="text-decoration-none text-muted">{{ _('Classes') }}</a></li>
+                        <li class="breadcrumb-item active">{{ cls.class_name }}</li>
+                    </ol>
+                </nav>
+                <h3 class="fw-bold mb-0 text-dark">{{ _('Class Schedule') }}</h3>
+                <p class="text-muted small mb-0">{{ cls.class_name }} — {{ cls.teacher.full_name if cls.teacher else
+                    _('No Teacher') }}</p>
+            </div>
+            <a href="{{ url_for('classes.manage_classes') }}" class="btn btn-premium px-3">
+                <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back to Classes') }}
+            </a>
+        </div>
+
+        <div class="row g-4">
+            <!-- Left Side: Add Session Form -->
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                        <h6 class="fw-bold text-primary"><i class="fa-solid fa-clock me-2"></i> {{ _('Add Weekly
+                            Session') }}</h6>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
+
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">{{ _('Day') }}</label>
+                                {{ form.day_of_week(class="form-select form-select-sm") }}
+                            </div>
+
+                            <div class="row g-2 mb-3">
+                                <div class="col-6">
+                                    <label class="form-label small fw-bold text-muted">{{ _('Start Time') }}</label>
+                                    {{ form.start_time(class="form-control form-control-sm", placeholder="08:00") }}
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label small fw-bold text-muted">{{ _('End Time') }}</label>
+                                    {{ form.end_time(class="form-control form-control-sm", placeholder="10:00") }}
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-muted">{{ _('Room / Location') }}</label>
+                                {{ form.room(class="form-control form-control-sm", placeholder=_("e.g. Room 101")) }}
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-sm w-100 rounded-3 shadow-sm py-2 fw-bold">
+                                <i class="fa-solid fa-plus me-2"></i> {{ _('Add to Schedule') }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side: Session Management -->
+            <div class="col-md-8">
+                <div class="card border-0 shadow-sm rounded-4 h-100">
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table id="scheduleSessionsTable" class="table table-hover align-middle mb-0">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4 text-uppercase small fw-bold text-muted">{{ _('Day') }}</th>
+                                        <th class="text-uppercase small fw-bold text-muted">{{ _('Time Window') }}</th>
+                                        <th class="text-uppercase small fw-bold text-muted">{{ _('Location') }}</th>
+                                        <th class="text-end pe-4 text-uppercase small fw-bold text-muted">{{
+                                            _('Actions') }}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% if sessions %}
+                                    {% for s in sessions %}
+                                    <tr>
+                                        <td class="ps-4">
+                                            <span class="fw-bold text-dark">{{ _(s.day_of_week) }}</span>
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge bg-light text-primary border border-primary border-opacity-10">
+                                                {{ s.start_time.strftime('%H:%M') }} - {{ s.end_time.strftime('%H:%M')
+                                                }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <small class="text-muted"><i
+                                                    class="fa-solid fa-location-dot me-1 text-danger opacity-75"></i> {{
+                                                s.room or '---' }}</small>
+                                        </td>
+                                        <td class="text-end pe-4">
+                                            <form action="{{ url_for('classes.delete_session', session_id=s.id) }}"
+                                                method="POST" class="d-inline"
+                                                onsubmit="return confirm('Remove this session?');">
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <button type="submit" class="btn btn-link text-danger p-0 border-0"
+                                                    title="{{ _('Delete') }}">
+                                                    <i class="fa-solid fa-trash-can"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                    {% else %}
+                                    <tr>
+                                        <td colspan="4" class="text-center py-5">
+                                            <p class="text-muted mb-0">{{ _('No sessions scheduled for this class yet.')
+                                                }}</p>
+                                        </td>
+                                    </tr>
+                                    {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const table = $('#scheduleSessionsTable').DataTable({
+            "paging": false,
+            "info": false,
+            "language": {
+                "search": "{{ _('Filter Sessions:') }}",
+                "emptyTable": "{{ _('No sessions scheduled for this class yet.') }}"
+            },
+            "dom": '<"d-flex justify-content-between align-items-center p-3"l>rt'
+        });
+
+        // Link the global search bar in the header to DataTables
+        $('#headerSearchInput').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+
+        // Handle initial search
+        const initialSearch = $('#headerSearchInput').val();
+        if (initialSearch) {
+            table.search(initialSearch).draw();
+        }
+    });
+</script>
+{% endblock %}

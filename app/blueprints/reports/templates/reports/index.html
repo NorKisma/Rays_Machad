@@ -1,0 +1,104 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Reports & Analytics') }}</h3>
+        <p class="text-muted small mb-0">{{ _('Generate and export professional reports for your madrasah') }}</p>
+    </div>
+</div>
+
+<!-- Overview Stats -->
+<div class="row g-4 mb-5">
+    <div class="col-md-3">
+        <div class="card glass border-0 p-4 h-100 shadow-sm transition-hover">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-bold text-uppercase">{{ _('Active Students') }}</span>
+                <i class="fa-solid fa-users text-primary"></i>
+            </div>
+            <h2 class="fw-bold mb-0">{{ active_students }} / {{ total_students }}</h2>
+            {% set student_percentage = ((active_students / total_students * 100) | round | int) if total_students > 0
+            else 0 %}
+            <div class="progress mt-3 rounded-pill" style="height: 6px;">
+                <div class="progress-bar bg-primary" role="progressbar"
+                    style="--width: {{ student_percentage }}%; width: var(--width);"
+                    aria-valuenow="{{ student_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card glass border-0 p-4 h-100 shadow-sm transition-hover">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-bold text-uppercase">{{ _('Total Fees Due') }}</span>
+                <i class="fa-solid fa-clock-rotate-left text-warning"></i>
+            </div>
+            <h2 class="fw-bold mb-1 text-warning">${{ total_unpaid }}</h2>
+            <small class="text-muted">{{ _('Pending collection') }}</small>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card glass border-0 p-4 h-100 shadow-sm transition-hover">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-bold text-uppercase">{{ _('Total Collected') }}</span>
+                <i class="fa-solid fa-circle-check text-success"></i>
+            </div>
+            <h2 class="fw-bold mb-1 text-success">${{ total_collected }}</h2>
+            <small class="text-muted">{{ _('Confirmed revenue') }}</small>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card glass border-0 p-4 h-100 shadow-sm transition-hover">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="text-muted small fw-bold text-uppercase">{{ _('Net Balance') }}</span>
+                <i class="fa-solid fa-vault text-info"></i>
+            </div>
+            <h2 class="fw-bold mb-1 text-info">${{ total_collected - total_expenses }}</h2>
+            <small class="text-muted">{{ _('After expenses') }}</small>
+        </div>
+    </div>
+</div>
+
+<h5 class="fw-bold mb-4">{{ _('Available Reports') }}</h5>
+
+<div class="row g-4">
+    {% for report in reports %}
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100 transition-all hover-translate-y">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-3 mb-3">
+                    <div class="icon-box bg-{{ report.color }} bg-opacity-10 text-{{ report.color }}">
+                        <i class="fa-solid {{ report.icon }} fa-xl"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-0 text-dark">{{ _(report.title) }}</h6>
+                        <small class="badge bg-light text-muted">{{ _('Exportable') }}</small>
+                    </div>
+                </div>
+                <p class="text-muted small mb-4">{{ _(report.description) }}</p>
+                <div class="d-grid">
+                    <a href="{{ url_for(report.link) }}"
+                        class="btn btn-outline-{{ report.color }} rounded-pill btn-sm py-2">
+                        <i class="fa-solid fa-arrow-up-right-from-square me-2"></i> {{ _('Open & Generate') }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="mt-5 p-4 rounded-4 bg-light border border-light">
+    <div class="row align-items-center">
+        <div class="col-md-8">
+            <h6 class="fw-bold mb-1">{{ _('Pro Tip: Instant Reporting') }}</h6>
+            <p class="text-muted small mb-0">{{ _('You can generate instant Excel, PDF, or Print reports directly from
+                any management table across the system by clicking the Export buttons above each table.') }}</p>
+        </div>
+        <div class="col-md-4 text-end">
+            <div class="d-flex gap-2 justify-content-end">
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

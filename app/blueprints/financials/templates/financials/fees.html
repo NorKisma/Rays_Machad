@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">{{ _('Manage Fees') }}</h3>
+            <p class="text-muted small mb-0">{{ _('View and track student fee payments.') }}</p>
+        </div>
+        <div class="d-flex gap-2">
+            <div class="dropdown">
+                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    <i class="fa-solid fa-filter me-2"></i> {{ current_status if current_status else _('All Status') }}
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ url_for('financials.manage_fees') }}">{{ _('All') }}</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('financials.manage_fees', status='Paid') }}">{{
+                            _('Paid') }}</a></li>
+                    <li><a class="dropdown-item" href="{{ url_for('financials.manage_fees', status='Unpaid') }}">{{
+                            _('Unpaid') }}</a></li>
+                </ul>
+            </div>
+            <a href="{{ url_for('financials.add_fee') }}" class="btn btn-primary">
+                <i class="fa-solid fa-plus me-2"></i> {{ _('Add Record') }}
+            </a>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle" id="feesTable">
+            <thead>
+                <tr>
+                    <th>{{ _('Enrollment') }}</th>
+                    <th>{{ _('Student Name') }}</th>
+                    <th>{{ _('Fee Type') }}</th>
+                    <th>{{ _('Month') }}</th>
+                    <th>{{ _('Amount') }}</th>
+                    <th>{{ _('Paid') }}</th>
+                    <th>{{ _('Balance') }}</th>
+                    <th>{{ _('Due Date') }}</th>
+                    <th>{{ _('Status') }}</th>
+                    <th>{{ _('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fee in fees %}
+                <tr>
+                    <td><code class="text-primary fw-bold">{{ fee.student.enrollment_number }}</code></td>
+                    <td>{{ fee.student.full_name }}</td>
+                    <td>{{ fee.fee_type }}</td>
+                    <td><span class="badge bg-light text-dark">{{ fee.fee_month or '-' }}</span></td>
+                    <td class="fw-bold">{{ fee.amount }}</td>
+                    <td class="text-success">{{ fee.paid_amount or 0 }}</td>
+                    <td class="text-danger fw-bold">{{ fee.balance }}</td>
+                    <td>{{ fee.due_date.strftime('%Y-%m-%d') }}</td>
+                    <td>
+                        {% if fee.status == 'Paid' %}
+                        <span class="badge badge-soft-success">{{ _('Paid') }}</span>
+                        {% elif fee.status == 'Partial' %}
+                        <span class="badge badge-soft-info">{{ _('Partial') }}</span>
+                        {% else %}
+                        <span class="badge badge-soft-warning">{{ _('Unpaid') }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            {% if fee.status != 'Paid' %}
+                            <a href="{{ url_for('financials.pay_fee', fee_id=fee.id) }}"
+                                class="btn btn-sm btn-success px-3 d-flex align-items-center gap-1">
+                                <i class="fa-solid fa-check"></i> {{ _('Pay Now') if fee.status == 'Unpaid' else _('Pay
+                                Balance') }}
+                            </a>
+                            {% endif %}
+
+                            {% if fee.status != 'Unpaid' %}
+                            <a href="{{ url_for('financials.view_receipt', fee_id=fee.id) }}"
+                                class="btn btn-sm btn-outline-primary px-3 d-flex align-items-center gap-1">
+                                <i class="fa-solid fa-receipt"></i> {{ _('Receipt') }}
+                            </a>
+                            {% endif %}
+
+                            <form action="{{ url_for('financials.delete_fee', fee_id=fee.id) }}" method="POST"
+                                onsubmit="return confirm('Are you sure?');">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-outline-danger" title="{{ _('Delete') }}">
+                                    <i class="fa-solid fa-trash-can"></i>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

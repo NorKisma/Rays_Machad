@@ -1,0 +1,169 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Summary Stats -->
+<div class="row g-4 mb-4">
+    <div class="col-md-4">
+        <div class="card border-0 p-3 h-100 bg-primary text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-children fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{
+                        _('Registered Children') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">{{ children|length }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 p-3 h-100 bg-success text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-calendar-check fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{ _('Avg. Attendance') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">{{ attendance_avg }}%</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card border-0 p-3 h-100 bg-danger text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-receipt fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{ _('Total Outstanding') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">${{ "{:,.2f}".format(total_due) }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <!-- Children Progress Section -->
+    <div class="col-md-8">
+        <div class="card border-0 p-4 shadow-sm rounded-4">
+            <h5 class="fw-bold mb-4"><i class="fa-solid fa-chart-line me-2 text-primary"></i>{{ _("Children's Academic
+                Progress") }}</h5>
+
+            {% if children %}
+            {% for student in children %}
+            <div class="student-progress-card mb-5 {% if not loop.last %}pb-4 border-bottom{% endif %}">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="avatar-md bg-soft-primary text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                            style="width: 48px; height: 48px;">
+                            {{ student.full_name[0] | upper }}
+                        </div>
+                        <div>
+                            <h6 class="fw-bold mb-0">{{ student.full_name }}</h6>
+                            <small class="text-muted">{{ student.class_assigned.class_name if student.class_assigned
+                                else _('Unassigned') }}</small>
+                        </div>
+                    </div>
+                    <div class="text-end">
+                        <span class="badge bg-soft-info text-info px-3 rounded-pill">{{ student.hifz_status }}</span>
+                        <small class="d-block text-muted mt-1">{{ _('Juz') }} {{ student.current_juz }}</small>
+                    </div>
+                </div>
+
+                <div class="row g-3">
+                    {% set results = student.exam_results.order_by(db.desc('id')).limit(4).all() %}
+                    {% if results %}
+                    {% for res in results %}
+                    <div class="col-6 col-md-3">
+                        <div class="p-3 bg-light rounded-4 text-center border transition-hover">
+                            <small class="text-truncate d-block mb-1 text-muted" title="{{ res.exam.exam_name }}">{{
+                                res.exam.exam_name }}</small>
+                            <span class="fw-bold d-block fs-5">{{ res.marks_obtained|int }}/{{ res.exam.total_marks
+                                }}</span>
+                            <span
+                                class="badge {% if res.grade in ['A+', 'A', 'B+'] %}bg-success{% else %}bg-warning{% endif %} bg-opacity-10 {% if res.grade in ['A+', 'A', 'B+'] %}text-success{% else %}text-warning{% endif %} small">{{
+                                res.grade }}</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    {% else %}
+                    <div class="col-12">
+                        <div class="p-4 bg-light rounded-4 text-center border-dashed">
+                            <p class="text-muted small mb-0">{{ _('No exam results available for this student yet.') }}
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+            {% else %}
+            <div class="text-center py-5">
+                <div class="icon-box bg-light text-muted mx-auto mb-3"
+                    style="width: 80px; height: 80px; border-radius: 50%;">
+                    <i class="fa-solid fa-user-slash fa-2xl"></i>
+                </div>
+                <h6>{{ _('No children linked to your account.') }}</h6>
+                <p class="text-muted small">{{ _('Please contact administration to link your children to this portal.')
+                    }}</p>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Right Sidebar Notifications/Actions -->
+    <div class="col-md-4">
+        <div class="card border-0 p-4 shadow-sm rounded-4 mb-4">
+            <h5 class="fw-bold mb-4">{{ _('Financial Actions') }}</h5>
+            <div class="p-3 bg-soft-danger rounded-4 border border-danger border-opacity-10 mb-4">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <small class="text-danger fw-bold text-uppercase">{{ _('Pending Balance') }}</small>
+                    <i class="fa-solid fa-circle-exclamation text-danger"></i>
+                </div>
+                <h3 class="fw-bold mb-0 text-danger">${{ "{:,.2f}".format(total_due) }}</h3>
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-outline-primary rounded-pill py-2" disabled>
+                    <i class="fa-solid fa-credit-card me-2"></i> {{ _('Online Payment') }}
+                </button>
+                <small class="text-muted text-center x-small">{{ _('Online payments coming soon') }}</small>
+            </div>
+        </div>
+
+        <div class="card border-0 p-4 shadow-sm rounded-4">
+            <h5 class="fw-bold mb-4">{{ _('Recent Notifications') }}</h5>
+            <div class="notification-list">
+                <div class="notification-item mb-4 pb-4 border-bottom d-flex gap-3">
+                    <div class="icon-circle bg-primary bg-opacity-10 text-primary">
+                        <i class="fa-solid fa-mosque"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1 small">{{ _('Madrasah Update') }}</h6>
+                        <small class="text-muted d-block mb-1">Jan 26, 2026</small>
+                        <p class="small mb-0">{{ _('Welcome to the new Madrasah Bilaal Parent Portal!') }}</p>
+                    </div>
+                </div>
+                <!-- Static for now, can be made dynamic if a Notification model exists -->
+                <div class="notification-item d-flex gap-3">
+                    <div class="icon-circle bg-success bg-opacity-10 text-success">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1 small">{{ _('Attendance System') }}</h6>
+                        <small class="text-muted d-block mb-1">Jan 25, 2026</small>
+                        <p class="small mb-0">{{ _('You can now track your children\'s attendance in real-time.') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

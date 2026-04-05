@@ -1,0 +1,186 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <a href="{{ url_for('students.manage_students') }}" class="btn btn-premium mb-3">
+            <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back to Students') }}
+        </a>
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <div class="d-flex align-items-center gap-4">
+                    <div class="avatar-lg bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold fs-3"
+                        style="width: 80px; height: 80px;">
+                        {{ student.full_name[0] | upper }}
+                    </div>
+                    <div>
+                        <h3 class="fw-bold text-dark mb-1">{{ student.full_name }}</h3>
+                        <div class="d-flex gap-3 text-muted">
+                            <span class="small"><i class="fa-solid fa-id-card me-2"></i>{{ student.enrollment_number
+                                }}</span>
+                            <span class="small"><i class="fa-solid fa-layer-group me-2"></i>{{
+                                student.class_assigned.class_name if student.class_assigned else _('No Class') }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="fw-bold text-secondary mb-0">{{ _('Exam History') }}</h5>
+
+            <!-- Summary Stats -->
+            <div class="d-flex gap-3">
+                <div class="bg-white rounded-3 shadow-sm px-3 py-2 border">
+                    <span class="text-muted small d-block">{{ _('Total Exams') }}</span>
+                    <span class="fw-bold text-dark">{{ results|length }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table id="examHistoryTable" class="table table-hover align-middle mb-0">
+                        <thead class="bg-light">
+                            <tr>
+                                <th class="ps-4 py-3 text-uppercase small fw-bold text-muted">{{ _('Date') }}</th>
+                                <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Exam') }}</th>
+                                <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Type') }}</th>
+                                <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Score') }}</th>
+                                <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Grade') }}</th>
+                                <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Status') }}</th>
+                                <th class="text-end pe-4 py-3 text-uppercase small fw-bold text-muted">{{ _('Actions')
+                                    }}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if results %}
+                            {% for result in results %}
+                            <tr>
+                                <td class="ps-4 fw-medium text-muted">
+                                    {{ result.exam.exam_date.strftime('%d %b %Y') }}
+                                </td>
+                                <td>
+                                    <div class="fw-bold text-dark">{{ result.exam.exam_name }}</div>
+                                    {% if result.exam.subject %}
+                                    <div class="mb-1"><span class="badge badge-soft-info text-info small py-0 px-2" style="font-size: 0.7rem;">{{ result.exam.subject.name }}</span></div>
+                                    {% endif %}
+                                    <small class="text-muted">{{ result.exam.description|truncate(30) }}</small>
+                                </td>
+                                <td>
+                                    <span class="badge bg-light text-dark border">{{ _(result.exam.exam_type) }}</span>
+                                </td>
+                                <td>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold">{{ result.marks_obtained }}/{{ result.exam.total_marks
+                                            }}</span>
+                                        {% if result.exam.exam_type in ['Hifz', 'Tajweed', 'Arabic', 'Somali',
+                                        'English'] %}
+                                        {% if result.memorization_accuracy %}
+                                        <small class="text-muted d-block"
+                                            title="{% if result.exam.exam_type in ['Hifz', 'Tajweed'] %}{{ _('Memorization') }}{% else %}{{ _('Vocabulary') }}{% endif %}">
+                                            {% if result.exam.exam_type in ['Hifz', 'Tajweed'] %}{{ _('Mem:') }}{% else
+                                            %}{{ _('Voc:') }}{% endif %} {{ result.memorization_accuracy }}%
+                                        </small>
+                                        {% endif %}
+                                        {% if result.tajweed_score %}
+                                        <small class="text-muted d-block"
+                                            title="{% if result.exam.exam_type in ['Hifz', 'Tajweed'] %}{{ _('Tajweed') }}{% else %}{{ _('Grammar') }}{% endif %}">
+                                            {% if result.exam.exam_type in ['Hifz', 'Tajweed'] %}{{ _('Taj:') }}{% else
+                                            %}{{ _('Gra:') }}{% endif %} {{ result.tajweed_score }}%
+                                        </small>
+                                        {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </td>
+                                <td>
+                                    {% if result.grade %}
+                                    <span
+                                        class="badge {% if result.grade in ['A+', 'A'] %}badge-soft-success{% elif result.grade in ['B+', 'B'] %}badge-soft-info{% elif result.grade == 'C' %}badge-soft-warning{% else %}badge-soft-danger{% endif %} px-3">
+                                        {{ result.grade }}
+                                    </span>
+                                    {% else %}
+                                    <span class="text-muted">-</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <span
+                                        class="badge {% if result.status == 'Excellent' %}badge-soft-success{% elif result.status == 'Very Good' %}badge-soft-info{% elif result.status == 'Good' %}badge-soft-info{% elif result.status == 'Pass' %}badge-soft-success{% elif result.status == 'Fail' %}badge-soft-danger{% elif result.status == 'Absent' %}badge-soft-warning{% else %}badge-soft-secondary{% endif %} px-3">
+                                        {{ _(result.status) }}
+                                    </span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a href="{{ url_for('exams.enter_result', exam_id=result.exam_id, student_id=student.id) }}"
+                                        class="btn btn-sm btn-light border" title="{{ _('View Details') }}">
+                                        <i class="fa-solid fa-eye text-muted"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center py-5">
+                                    <div class="d-flex flex-column align-items-center justify-content-center">
+                                        <div class="icon-box bg-light text-muted mb-3 rounded-circle d-flex align-items-center justify-content-center"
+                                            style="width: 60px; height: 60px;">
+                                            <i class="fa-solid fa-clipboard-question fa-xl"></i>
+                                        </div>
+                                        <h6 class="text-muted fw-bold">{{ _('No exam results found') }}</h6>
+                                        <p class="text-muted small mb-0">{{ _('This student has not taken any exams
+                                            yet.') }}</p>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const langData = JSON.parse(`{{ {
+                "search": _('Search:'),
+                "lengthMenu": _('Show _MENU_ entries'),
+                "info": _('Showing _START_ to _END_ of _TOTAL_ entries'),
+                "paginate": {
+                    "first": _('First'),
+                    "last": _('Last'),
+                    "next": _('Next'),
+                    "previous": _('Previous')
+                },
+                "emptyTable": _('No exam results found')
+            } | tojson | safe }}`);
+
+        const table = $('#examHistoryTable').DataTable({
+            "pageLength": 10,
+            "order": [[0, "desc"]],
+            "language": langData,
+            "responsive": true,
+            "dom": '<"d-flex justify-content-between align-items-center p-3"l>t<"d-flex justify-content-between align-items-center p-3"ip>'
+        });
+
+        // Link the global search bar in the header to DataTables
+        $('#headerSearchInput').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+
+        // If there's already a search value from server-side, apply it
+        const initialSearch = $('#headerSearchInput').val();
+        if (initialSearch) {
+            table.search(initialSearch).draw();
+        }
+    });
+</script>
+{% endblock %}

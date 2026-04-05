@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block title %}Add New School - SaaS Admin{% endblock %}
+
+{% block content %}
+<div class="container-fluid px-4 py-4">
+    <div class="mb-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url_for('saas_admin.list_schools') }}">Schools</a></li>
+                <li class="breadcrumb-item active">Add New</li>
+            </ol>
+        </nav>
+        <h1 class="h3 mb-0 fw-bold">Provision New School</h1>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card border-0 shadow-sm rounded-4 p-3">
+                <div class="card-body">
+                    <form method="POST">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">School Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="e.g. Al-Noor Madrasah"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Subdomain</label>
+                            <div class="input-group">
+                                <input type="text" name="subdomain" class="form-control" placeholder="alnoor" required>
+                                <span class="input-group-text">.raystechcenter.online</span>
+                            </div>
+                            <small class="text-muted">Lowercase letters and numbers only.</small>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Admin Email</label>
+                            <input type="email" name="admin_email" class="form-control" placeholder="admin@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Payment Phone Number</label>
+                            <input type="text" name="payment_phone" class="form-control" placeholder="e.g. 25261xxx">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Requested Amount ($)</label>
+                            <input type="number" step="0.01" name="requested_amount" class="form-control"
+                                placeholder="0.00">
+                        </div>
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-primary py-2 fw-bold">Create School</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="alert alert-info rounded-4 border-0 shadow-sm">
+                <h5 class="fw-bold"><i class="fa-solid fa-circle-info me-2"></i> What happens next?</h5>
+                <p class="small mb-0">Once you <strong>Approve</strong> a school from the list, the system will
+                    automatically create their Administrator account and send the login credentials (email & password)
+                    to the school's admin email address.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

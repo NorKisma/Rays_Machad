@@ -1,0 +1,14 @@
+server {
+    listen 80;
+    server_name vmi3051540.contaboserver.net; 
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/var/www/RaysTech/madrasah_mgmt/madrasah.sock;
+    }
+
+    location /static {
+        alias /var/www/RaysTech/madrasah_mgmt/app/static;
+        expires 30d;
+    }
+}

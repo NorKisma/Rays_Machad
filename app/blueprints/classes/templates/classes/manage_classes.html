@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Class Management') }}</h3>
+        <p class="text-muted small mb-0">{{ _('Manage academic levels and classrooms') }}</p>
+    </div>
+
+    <div class="d-flex gap-2 ms-auto">
+        <a href="{{ url_for('classes.add_class') }}"
+            class="btn btn-primary d-flex align-items-center gap-2 px-4 rounded-3 shadow-sm">
+            <i class="fa-solid fa-plus"></i> {{ _('Create New Class') }}
+        </a>
+    </div>
+</div>
+
+<div class="row g-4">
+    {% if classes %}
+    {% for c in classes %}
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start mb-3">
+                    <div class="icon-box bg-primary bg-opacity-10 text-primary">
+                        <i class="fa-solid fa-book-open fa-lg"></i>
+                    </div>
+                    <div class="dropdown">
+                        <button class="btn btn-link text-muted p-0" data-bs-toggle="dropdown">
+                            <i class="fa-solid fa-ellipsis-vertical"></i>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3">
+                            <li><a class="dropdown-item" href="{{ url_for('classes.view_schedule', class_id=c.id) }}"><i
+                                        class="fa-solid fa-calendar-days me-2"></i> {{ _('View Schedule') }}</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('classes.edit_class', class_id=c.id) }}"><i
+                                        class="fa-solid fa-pencil me-2"></i> {{ _('Edit') }}</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item text-danger" href="#"><i class="fa-solid fa-trash me-2"></i> {{
+                                    _('Delete') }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <h5 class="fw-bold text-dark mb-1">{{ c.class_name }}</h5>
+                <p class="text-muted small mb-4 line-clamp-2">{{ c.description or _('No description available.') }}</p>
+
+                <div class="d-flex align-items-center gap-2 pt-3 border-top">
+                    <div class="avatar-xs bg-light text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                        style="width: 24px; height: 24px; font-size: 0.7rem;">
+                        {{ c.teacher.full_name[0] | upper if c.teacher else '?' }}
+                    </div>
+                    <div class="d-flex flex-column">
+                        <span class="small text-dark fw-bold">{{ c.teacher.full_name if c.teacher else _('No teacher
+                            assigned') }}</span>
+                        <small class="text-muted" style="font-size: 0.7rem;">{{ c.students|length }} {{ _('Students
+                            Enrolled') }}</small>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer bg-transparent border-0 p-4 pt-0">
+                <a href="{{ url_for('students.manage_students', class_id=c.id) }}"
+                    class="btn btn-premium w-100 rounded-3 text-primary small d-flex align-items-center justify-content-center gap-2">
+                    <i class="fa-solid fa-users"></i> {{ _('View Students') }}
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <div class="col-12 text-center py-5">
+        <div class="icon-box bg-light text-muted mx-auto mb-3" style="width: 80px; height: 80px; border-radius: 50%;">
+            <i class="fa-solid fa-school fa-2xl"></i>
+        </div>
+        <h5 class="fw-bold">{{ _('No Classes Created') }}</h5>
+        <p class="text-muted">{{ _('Start by creating your first academic class.') }}</p>
+        <a href="{{ url_for('classes.add_class') }}" class="btn btn-primary px-4 rounded-3 mt-2">
+            {{ _('Create Class') }}
+        </a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

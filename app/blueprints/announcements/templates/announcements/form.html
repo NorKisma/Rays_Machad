@@ -1,0 +1,64 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+            <div class="card-header bg-primary text-white p-4">
+                <h4 class="mb-0 fw-bold">{{ title }}</h4>
+                <p class="mb-0 opacity-75 small">{{ _('Fill in the details for the news/broadcast.') }}</p>
+            </div>
+            <div class="card-body p-4">
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-uppercase text-muted">{{ form.title.label }}</label>
+                        {{ form.title(class="form-control rounded-3 py-2", placeholder=_("e.g. Eid Holidays
+                        Announcement")) }}
+                        {% for error in form.title.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold small text-uppercase text-muted">{{ form.content.label
+                            }}</label>
+                        {{ form.content(class="form-control rounded-3 py-2", rows="5", placeholder=_("Type the
+                        announcement body here...")) }}
+                        {% for error in form.content.errors %}<small class="text-danger">{{ error }}</small>{% endfor %}
+                    </div>
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-uppercase text-muted">{{
+                                form.target_audience.label }}</label>
+                            {{ form.target_audience(class="form-select rounded-3 py-2") }}
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label fw-bold small text-uppercase text-muted">{{ form.priority.label
+                                }}</label>
+                            {{ form.priority(class="form-select rounded-3 py-2") }}
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="form-label fw-bold small text-uppercase text-muted">{{ form.expires_at.label
+                            }}</label>
+                        {{ form.expires_at(class="form-control rounded-3 py-2", type="datetime-local") }}
+                        <small class="text-muted">{{ _('Announcement will not show on dashboard after this date.')
+                            }}</small>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill py-2 shadow-sm">
+                            <i class="fa-solid fa-paper-plane me-2"></i> {{ form.submit.label }}
+                        </button>
+                        <a href="{{ url_for('announcements.index') }}" class="btn btn-light px-5 rounded-pill py-2">
+                            {{ _('Cancel') }}
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

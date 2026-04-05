@@ -1,0 +1,180 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 p-3 h-100 bg-primary text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-users fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{ _('Total Students') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">450</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 p-3 h-100 bg-success text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-money-check-dollar fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{ _('Fees Collected') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">$12,450</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 p-3 h-100 bg-info text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-user-plus fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{ _('New Enrolments') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">12</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 p-3 h-100 bg-warning text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-clock-rotate-left fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{
+                        _('Pending Fees') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">15%</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-7">
+        <div class="card border-0 p-4 h-100">
+            <h5 class="fw-bold mb-4">{{ _('Recent Student Registrations') }}</h5>
+            <div class="table-responsive">
+                <table id="staffDashboardStudents" class="table table-hover align-middle">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="border-0 rounded-start">{{ _('Student Name') }}</th>
+                            <th class="border-0">{{ _('Class') }}</th>
+                            <th class="border-0">{{ _('Date') }}</th>
+                            <th class="border-0 rounded-end">{{ _('Status') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="avatar-sm bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                        style="width: 32px; height: 32px;">AH</div>
+                                    <span>Ahmed Hassan</span>
+                                </div>
+                            </td>
+                            <td>Class 3</td>
+                            <td>Jan 24, 2026</td>
+                            <td><span class="badge bg-success bg-opacity-10 text-success px-3">{{ _('Active') }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="avatar-sm bg-info bg-opacity-10 text-info rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                        style="width: 32px; height: 32px;">FM</div>
+                                    <span>Fatima Mohamed</span>
+                                </div>
+                            </td>
+                            <td>Class 1</td>
+                            <td>Jan 23, 2026</td>
+                            <td><span class="badge bg-success bg-opacity-10 text-success px-3">{{ _('Active') }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="avatar-sm bg-warning bg-opacity-10 text-warning rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                        style="width: 32px; height: 32px;">YM</div>
+                                    <span>Yasin Muse</span>
+                                </div>
+                            </td>
+                            <td>Class 5</td>
+                            <td>Jan 22, 2026</td>
+                            <td><span class="badge bg-warning bg-opacity-10 text-warning px-3">{{ _('Pending') }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mt-auto pt-3">
+                <a href="{{ url_for('students.add_student') }}" class="btn btn-primary rounded-pill w-100">
+                    <i class="fa-solid fa-plus me-2"></i> {{ _('Register New Student') }}
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-5">
+        <div class="card border-0 p-4 h-100">
+            <h5 class="fw-bold mb-4">{{ _('Recent Announcements') }}</h5>
+            <div class="announcement-feed" style="max-height: 350px; overflow-y: auto;">
+                {% for ann in announcements %}
+                <div
+                    class="announcement-item p-3 rounded-4 bg-light mb-3 border-start border-4 {% if ann.priority == 'Critical' %}border-danger{% elif ann.priority == 'High' %}border-warning{% else %}border-primary{% endif %} shadow-sm">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="badge bg-primary bg-opacity-10 text-primary small">{{ ann.target_audience }}</span>
+                        <small class="text-muted">{{ ann.created_at.strftime('%d %b') }}</small>
+                    </div>
+                    <h6 class="fw-bold mb-1 small">{{ ann.title }}</h6>
+                    <p class="small text-muted mb-0">{{ ann.content[:100] }}{% if ann.content|length > 100 %}...{% endif
+                        %}</p>
+                </div>
+                {% else %}
+                <div class="text-center py-5 text-muted small">
+                    <i class="fa-solid fa-bell-slash mb-2 d-block fa-2xl opacity-25"></i>
+                    {{ _('No active announcements.') }}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="mt-4 pt-3 border-top">
+                <a href="{{ url_for('announcements.manage_announcements') }}"
+                    class="btn btn-outline-primary btn-sm rounded-pill w-100">
+                    <i class="fa-solid fa-bullhorn me-2"></i> {{ _('Manage All Announcements') }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        $('#staffDashboardStudents').DataTable({
+            "paging": false,
+            "info": false,
+            "searching": false,
+            "ordering": true,
+            "language": {
+                "emptyTable": "{{ _('No recent registrations found.') }}"
+            }
+        });
+    });
+</script>
+{% endblock %}

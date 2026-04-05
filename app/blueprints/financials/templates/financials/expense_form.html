@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm p-4">
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <div class="icon-box bg-danger bg-opacity-10 text-danger">
+                    <i class="fa-solid fa-receipt fa-xl"></i>
+                </div>
+                <div>
+                    <h3 class="fw-bold mb-0 text-dark">{{ _('Record New Expense') }}</h3>
+                    <p class="text-muted small mb-0">{{ _('Track outgoing payments and operational costs.') }}</p>
+                </div>
+            </div>
+
+            <form method="POST">
+                {{ form.hidden_tag() }}
+
+                <div class="row g-3">
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">{{ form.title.label }}</label>
+                        {{ form.title(class="form-control rounded-3 py-2", placeholder=_('e.g. Electric Bill January'))
+                        }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">{{ form.category.label }}</label>
+                        {{ form.category(class="form-select rounded-3 py-2") }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">{{ form.amount.label }}</label>
+                        {{ form.amount(class="form-control rounded-3 py-2", placeholder="0.00") }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">{{ form.expense_date.label }}</label>
+                        {{ form.expense_date(class="form-control rounded-3 py-2", type="date") }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">{{ form.payment_method.label }}</label>
+                        {{ form.payment_method(class="form-select rounded-3 py-2") }}
+                    </div>
+
+                    <div class="col-md-6">
+                        <label class="form-label fw-bold">{{ form.status.label }}</label>
+                        {{ form.status(class="form-select rounded-3 py-2") }}
+                    </div>
+
+                    <div class="col-md-12" id="staffSection" style="display: none;">
+                        <label class="form-label fw-bold">{{ form.teacher_id.label }}</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fa-solid fa-user-tie"></i></span>
+                            {{ form.teacher_id(class="form-select rounded-end py-2") }}
+                        </div>
+                        <small class="text-muted">{{ _('Select staff member if this is a salary payment.') }}</small>
+                    </div>
+
+                    <div class="col-md-12">
+                        <label class="form-label fw-bold">{{ form.description.label }}</label>
+                        {{ form.description(class="form-control rounded-3", rows="3", placeholder=_('Detailed
+                        description...')) }}
+                    </div>
+                </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const categorySelect = document.querySelector('select[name="category"]');
+                        const staffSection = document.getElementById('staffSection');
+
+                        function toggleStaff() {
+                            if (categorySelect.value === 'Salary') {
+                                staffSection.style.display = 'block';
+                            } else {
+                                staffSection.style.display = 'none';
+                            }
+                        }
+
+                        categorySelect.addEventListener('change', toggleStaff);
+                        toggleStaff(); // Initial check
+                    });
+                </script>
+
+                <div class="mt-4 pt-3 border-top d-flex gap-2">
+                    {{ form.submit(class="btn btn-danger px-4 rounded-3") }}
+                    <a href="{{ url_for('financials.manage_expenses') }}" class="btn btn-light px-4 rounded-3">{{
+                        _('Cancel') }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

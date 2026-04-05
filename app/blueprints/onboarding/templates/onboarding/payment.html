@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Complete Your Subscription') }} - Rays Madrasah</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --dark: #0f172a;
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--dark);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .payment-card {
+            background: var(--glass);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            padding: 50px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .plan-pill {
+            background: rgba(37, 99, 235, 0.1);
+            color: #3b82f6;
+            padding: 5px 15px;
+            border-radius: 99px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .price-display {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+            background: linear-gradient(to bottom, #fff 0%, rgba(255, 255, 255, 0.5) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .form-control {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            color: white;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            color: white;
+            box-shadow: none;
+        }
+
+        .form-label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 10px;
+        }
+
+        .btn-pay {
+            background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+            border: none;
+            border-radius: 15px;
+            padding: 18px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 15px 35px rgba(37, 99, 235, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-pay:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 45px rgba(37, 99, 235, 0.5);
+        }
+
+        .btn-pay:disabled {
+            opacity: 0.7;
+            transform: none;
+        }
+
+        .method-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .method-item {
+            flex: 1;
+            padding: 15px;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .method-item.active {
+            border-color: var(--primary);
+            background: rgba(37, 99, 235, 0.1);
+        }
+
+        .method-item img {
+            width: 32px;
+        }
+
+        /* PIN Prompt Overlay */
+        .pin-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.95);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 25px;
+        }
+
+        .pin-overlay.show {
+            display: flex;
+        }
+
+        .pin-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px 40px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .phone-container {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+        }
+
+        .phone-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            position: relative;
+            z-index: 2;
+            animation: bounce-phone 2s ease-in-out infinite;
+        }
+
+        .phone-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: #10b981;
+            filter: blur(40px);
+            opacity: 0.4;
+            z-index: 1;
+            animation: pulse-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce-phone {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: translate(-50%, -50%) scale(1);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+
+        @keyframes pulse-phone {
+
+            0%,
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5);
+            }
+
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .spinner-dots {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .spinner-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: dotBounce 1.4s ease-in-out infinite;
+        }
+
+        .spinner-dots span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .spinner-dots span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes dotBounce {
+
+            0%,
+            80%,
+            100% {
+                transform: scale(0.6);
+                opacity: 0.4;
+            }
+
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .flash-messages {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- PIN Prompt Overlay (Premium UX) -->
+    <div class="pin-overlay" id="pinOverlay">
+        <div class="pin-card">
+            <div class="phone-container">
+                <div class="phone-icon">
+                    <i class="fa-solid fa-mobile-screen-button"></i>
+                </div>
+                <!-- Interactive Glow -->
+                <div class="phone-glow"></div>
+            </div>
+
+            <h4 class="fw-bold mb-3" style="letter-spacing: -0.5px;">{{ _('Fadlan Gali PIN-ka EVC ee Telkaaga') }}</h4>
+
+            <p class="opacity-70 mb-4 px-3">
+                {{ _('Waxaa telkaaga ku soo dhacay codsi lacag bixin ah. Fadlan geli PIN-kaaga EVC si aad u
+                dhamaystirto.') }}
+            </p>
+
+            <div class="p-3 rounded-4 mb-4"
+                style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2);">
+                <p class="fw-bold mb-0" style="color: #10b981; font-size: 1.1rem;">
+                    <i class="fa-solid fa-fingerprint me-2"></i>{{ _('Fadlan gali PIN-ka EVC') }}
+                </p>
+                <p class="opacity-50 small mt-1 mb-0" id="overlayPhone"></p>
+            </div>
+
+            <div class="spinner-dots mt-4">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <p class="opacity-40 small mt-3 fw-medium text-uppercase ls-1">{{ _('Sugaya Jawaabtaada...') }}</p>
+        </div>
+    </div>
+
+    <div class="payment-card">
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show rounded-3" role="alert"
+                style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: white;">
+                {{ message }}
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="text-center mb-5">
+            <span class="plan-pill">{{ _('SELECT PLAN') }}</span>
+            <div class="d-flex justify-content-center align-items-baseline gap-2">
+                <span class="price-display" id="priceDisplay">$15</span>
+                <span class="opacity-50">/mo</span>
+            </div>
+            <p class="opacity-60">{{ _('Activating portal for') }} <strong>{{ school.name }}</strong></p>
+        </div>
+
+        <form method="POST" id="paymentForm" onsubmit="return handlePayment()">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <div class="mb-4">
+                <label class="form-label">{{ _('Choose Payment Method') }}</label>
+                <div class="method-toggle">
+                    <div class="method-item active" onclick="selectMethod('Basic', 15, this)">
+                        <img src="https://img.icons8.com/color/32/bank-cards.png">
+                        <span class="small fw-bold">Basic - $15</span>
+                    </div>
+                    <div class="method-item" onclick="selectMethod('Advanced', 30, this)">
+                        <img src="https://img.icons8.com/color/32/crown.png">
+                        <span class="small fw-bold">Enterprise - $30</span>
+                    </div>
+                </div>
+                <input type="hidden" name="plan" id="planInput" value="Basic">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label">{{ _('Lambarka EVC Plus / Waafi') }}</label>
+                <input type="tel" name="phone" id="phoneInput" class="form-control" placeholder="e.g. 061XXXXXXX"
+                    required>
+                <small class="opacity-50">
+                    <i class="fa-solid fa-info-circle me-1"></i>
+                    {{ _('Gali telkaaga si aad PIN-ka EVC uga gasho.') }}
+                </small>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 btn-pay" id="payBtn">
+                {{ _('Lacag Bixi') }} <i class="fa-solid fa-bolt ms-2"></i>
+            </button>
+        </form>
+
+        <div class="mt-4 text-center">
+            <a href="/" class="text-white opacity-40 text-decoration-none small hover-opacity-100">
+                <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Cancel and Return Home') }}
+            </a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function selectMethod(plan, price, el) {
+            document.querySelectorAll('.method-item').forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('priceDisplay').innerText = '$' + price;
+            document.getElementById('planInput').value = plan;
+        }
+
+        function handlePayment() {
+            const phone = document.getElementById('phoneInput').value.trim();
+            if (!phone) return false;
+
+            // Show the PIN overlay
+            document.getElementById('overlayPhone').innerText = phone;
+            document.getElementById('pinOverlay').classList.add('show');
+
+            // Disable the button
+            const btn = document.getElementById('payBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> {{ _("Sugaya...") }}';
+
+            // Let the form submit naturally
+            return true;
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <div>
+                <h3 class="fw-bold mb-0 text-dark">{{ _('Role Permissions') }}</h3>
+                <p class="text-muted small mb-0">{{ _('Manage which roles can access specific system modules') }}</p>
+            </div>
+            <a href="{{ url_for('settings.settings') }}" class="btn btn-outline-primary btn-sm rounded-3">
+                <i class="fa-solid fa-arrow-left me-2"></i>{{ _('Back to Settings') }}
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-primary bg-opacity-10 border-0 p-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="icon-box bg-primary text-white p-2 rounded-3">
+                        <i class="fa-solid fa-shield-halved fa-lg"></i>
+                    </div>
+                    <div>
+                        <h5 class="fw-bold mb-0 text-dark">{{ _('Access Control Matrix') }}</h5>
+                        <small class="text-muted">{{ _('Configure permissions for each user role') }}</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-0">
+                <form method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                    <div class="table-responsive">
+                        <table id="permissionsTable" class="table table-hover align-middle mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4 py-3 text-uppercase small fw-bold text-muted" style="width: 250px;">
+                                        {{ _('Module / Section') }}</th>
+                                    {% for role_code, role_name in roles %}
+                                    <th class="text-center py-3 text-uppercase small fw-bold text-muted">{{ _(role_name)
+                                        }}
+                                    </th>
+                                    {% endfor %}
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for mod_code, mod_name in modules %}
+                                <tr>
+                                    <td class="ps-4 fw-semibold text-dark">
+                                        <div class="d-flex align-items-center gap-3">
+                                            <div class="bg-light p-2 rounded-2 text-primary">
+                                                {% if mod_code == 'students' %}<i class="fa-solid fa-users"></i>
+                                                {% elif mod_code == 'teachers' %}<i
+                                                    class="fa-solid fa-chalkboard-user"></i>
+                                                {% elif mod_code == 'classes' %}<i class="fa-solid fa-book"></i>
+                                                {% elif mod_code == 'attendance' %}<i
+                                                    class="fa-solid fa-clipboard-user"></i>
+                                                {% elif mod_code == 'exams' %}<i class="fa-solid fa-chart-line"></i>
+                                                {% elif mod_code == 'financials' %}<i
+                                                    class="fa-solid fa-money-bill-wave"></i>
+                                                {% elif mod_code == 'reports' %}<i
+                                                    class="fa-solid fa-square-poll-vertical"></i>
+                                                {% elif mod_code == 'manage_users' %}<i
+                                                    class="fa-solid fa-user-gear"></i>
+                                                {% endif %}
+                                            </div>
+                                            {{ _(mod_name) }}
+                                        </div>
+                                    </td>
+                                    {% for role_code, role_name in roles %}
+                                    <td class="text-center">
+                                        <div class="form-check form-switch d-flex justify-content-center">
+                                            <input class="form-check-input" type="checkbox"
+                                                name="perm_{{ role_code }}_{{ mod_code }}"
+                                                id="perm_{{ role_code }}_{{ mod_code }}" {% if
+                                                current_perms.get(role_code + '_' + mod_code) %}checked{% endif %}
+                                                style="width: 2.5em; height: 1.25em; cursor: pointer;">
+                                        </div>
+                                    </td>
+                                    {% endfor %}
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="p-4 bg-light border-top d-flex justify-content-between align-items-center">
+                        <div class="small text-muted">
+                            <i class="fa-solid fa-circle-info me-1"></i>
+                            {{ _('Note: Administrators (Admin) always have full access to all modules.') }}
+                        </div>
+                        <button type="submit" class="btn btn-primary px-5 rounded-3 shadow-sm fw-bold">
+                            <i class="fa-solid fa-save me-2"></i> {{ _('Save Permissions') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

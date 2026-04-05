@@ -1,0 +1,124 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">{{ _('Subjects Management') }}</h3>
+            <p class="text-muted small mb-0">{{ _('Manage the curriculum and available subjects.') }}</p>
+        </div>
+        {% if current_user.role == 'A' %}
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('settings.manage_categories', type='Subject') }}"
+                class="btn btn-outline-primary rounded-pill px-4">
+                <i class="fa-solid fa-tags me-2"></i> {{ _('Add Category') }}
+            </a>
+            <a href="{{ url_for('classes.add_subject') }}" class="btn btn-primary rounded-pill px-4">
+                <i class="fa-solid fa-plus me-2"></i> {{ _('Add New Subject') }}
+            </a>
+        </div>
+        {% endif %}
+    </div>
+
+    {# Standard categories for translation #}
+    <div class="d-none">
+        {{ _('Quranic Sciences') }}
+        {{ _('Islamic Jurisprudence') }}
+        {{ _('Theology & Creed') }}
+        {{ _('Prophetic Traditions') }}
+        {{ _('Languages') }}
+        {{ _('Ethics & Manners') }}
+    </div>
+
+    <div class="table-responsive">
+        <table id="subjectsTable" class="table table-hover align-middle">
+            <thead class="bg-light">
+                <tr>
+                    <th class="border-0 px-3">{{ _('Subject Name') }}</th>
+                    <th class="border-0">{{ _('Code') }}</th>
+                    <th class="border-0">{{ _('Category') }}</th>
+                    <th class="border-0">{{ _('Description') }}</th>
+                    {% if current_user.role == 'A' %}
+                    <th class="border-0 text-end px-3">{{ _('Actions') }}</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td class="px-3">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="icon-box-sm bg-primary bg-opacity-10 text-primary">
+                                <i class="fa-solid fa-book-open"></i>
+                            </div>
+                            <span class="fw-bold">{{ _(subject.name) }}</span>
+                        </div>
+                    </td>
+                    <td><code class="text-dark bg-light px-2 py-1 rounded small">{{ subject.code or '-' }}</code></td>
+                    <td>
+                        {% if subject.category == 'Quranic Sciences' %}
+                        <span
+                            class="badge bg-success bg-opacity-10 text-success border-success border-opacity-10 rounded-pill px-3">{{
+                            _('Quranic Sciences') }}</span>
+                        {% elif subject.category == 'Islamic Jurisprudence' %}
+                        <span
+                            class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-10 rounded-pill px-3">{{
+                            _('Islamic Jurisprudence') }}</span>
+                        {% elif subject.category == 'Theology & Creed' %}
+                        <span
+                            class="badge bg-info bg-opacity-10 text-info border-info border-opacity-10 rounded-pill px-3">{{
+                            _('Theology & Creed') }}</span>
+                        {% elif subject.category == 'Prophetic Traditions' %}
+                        <span
+                            class="badge bg-warning bg-opacity-10 text-warning border-warning border-opacity-10 rounded-pill px-3">{{
+                            _('Prophetic Traditions') }}</span>
+                        {% elif subject.category == 'Languages' %}
+                        <span
+                            class="badge bg-indigo bg-opacity-10 text-indigo border-indigo border-opacity-10 rounded-pill px-3"
+                            style="background-color: rgba(102, 16, 242, 0.1); color: #6610f2; border: 1px solid rgba(102, 16, 242, 0.1);">{{
+                            _('Languages') }}</span>
+                        {% elif subject.category == 'Ethics & Manners' %}
+                        <span
+                            class="badge bg-danger bg-opacity-10 text-danger border-danger border-opacity-10 rounded-pill px-3">{{
+                            _('Ethics & Manners') }}</span>
+                        {% else %}
+                        <span
+                            class="badge bg-secondary bg-opacity-10 text-secondary border-secondary border-opacity-10 rounded-pill px-3">{{
+                            _(subject.category) }}</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <p class="mb-0 small text-muted text-truncate" style="max-width: 200px;">
+                            {{ _(subject.description) if subject.description else _('No description') }}
+                        </p>
+                    </td>
+                    {% if current_user.role == 'A' %}
+                    <td class="text-end px-3">
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{{ url_for('classes.edit_subject', subject_id=subject.id) }}"
+                                class="btn btn-sm btn-icon btn-light-primary" title="{{ _('Edit') }}">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+
+                            <form action="{{ url_for('classes.delete_subject', subject_id=subject.id) }}" method="POST"
+                                class="d-inline" data-confirm="{{ _('Are you sure?') }}"
+                                onsubmit="return confirm(this.getAttribute('data-confirm'));">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit" class="btn btn-sm btn-icon btn-light-danger"
+                                    title="{{ _('Delete') }}">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+
+
+
+                        </div>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">{{ _('Announcements') }}</h3>
+            <p class="text-muted small mb-0">{{ _('Stay updated with the latest news from the Madrasah.') }}</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        {% for ann in announcements %}
+        <div class="col-md-6 col-lg-4">
+            <div
+                class="card border-0 h-100 rounded-4 shadow-sm transition-hover border-start border-4 {% if ann.priority == 'Critical' %}border-danger{% elif ann.priority == 'High' %}border-warning{% else %}border-primary{% endif %}">
+                <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-3">{{
+                            _(ann.target_audience) }}</span>
+                        <small class="text-muted">{{ ann.created_at.strftime('%d %b, %Y') }}</small>
+                    </div>
+                    <h5 class="fw-bold text-dark mb-3">{{ ann.title }}</h5>
+                    <p class="text-muted mb-4 small">{{ ann.content }}</p>
+
+                    {% if ann.priority == 'Critical' %}
+                    <div class="mt-auto d-flex align-items-center gap-2 text-danger small fw-bold">
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                        {{ _('Important Update') }}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <div class="col-12 py-5 text-center text-muted">
+            <div class="mb-3">
+                <i class="fa-solid fa-bell-slash fa-3x opacity-25"></i>
+            </div>
+            <h5>{{ _('No active announcements found.') }}</h5>
+            <p class="small">{{ _('Check back later for new updates.') }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .transition-hover {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .transition-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1) !important;
+    }
+</style>
+{% endblock %}

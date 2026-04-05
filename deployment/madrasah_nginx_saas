@@ -1,0 +1,36 @@
+server {
+    listen 80;
+    server_name raystechcenter.online www.raystechcenter.online *.raystechcenter.online 161.97.100.147;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name raystechcenter.online www.raystechcenter.online *.raystechcenter.online 161.97.100.147;
+
+    ssl_certificate /etc/nginx/ssl/madrasah.crt;
+    ssl_certificate_key /etc/nginx/ssl/madrasah.key;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+
+    # Smooth transition: Redirect /madrasah to root /
+    location = /madrasah {
+        return 301 /;
+    }
+    location /madrasah/ {
+        rewrite ^/madrasah/(.*) /$1 permanent;
+    }
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/var/www/RaysTech/madrasah_mgmt/madrasah.sock;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+    }
+
+    location /static {
+        alias /var/www/RaysTech/madrasah_mgmt/app/static;
+        expires 30d;
+    }
+}

@@ -1,0 +1,471 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ _('Official Receipt') }} #{{ fee.id }}{% endblock %}
+
+{% block styles %}
+<style>
+    /* Professional Design System */
+    :root {
+        --receipt-primary: #1e1b4b;
+        --receipt-accent: #4f46e5;
+        --receipt-border: #e2e8f0;
+        --receipt-text-main: #1e293b;
+        --receipt-text-muted: #64748b;
+        --receipt-bg: #f8fafc;
+    }
+
+    @media print {
+        @page {
+            size: A4;
+            margin: 0;
+        }
+
+        body {
+            background-color: white !important;
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .no-print,
+        .sidebar,
+        .main-header,
+        footer {
+            display: none !important;
+        }
+
+        .main-content {
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+            background: white !important;
+        }
+
+        /* Hide the default print header from layout to prevent top spacing */
+        .main-content>.d-print-block {
+            display: none !important;
+        }
+
+        .full-page-receipt {
+            box-shadow: none !important;
+            border: none !important;
+            width: 210mm !important;
+            height: 297mm !important;
+            padding: 15mm !important;
+            margin: 0 !important;
+        }
+    }
+
+    /* Web Preview Styling */
+    .receipt-wrapper {
+        background: #f1f5f9;
+        padding: 0;
+        min-height: 100vh;
+    }
+
+    .full-page-receipt {
+        background: white;
+        width: 210mm;
+        margin: 0 auto;
+        min-height: 297mm;
+        padding: 20mm;
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: hidden;
+        color: var(--receipt-text-main);
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Elegant Header */
+    .receipt-header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 4px solid var(--receipt-primary);
+        padding-bottom: 1.5rem;
+        margin-bottom: 2rem;
+    }
+
+    .brand-section {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .brand-logo {
+        width: 80px;
+        height: 80px;
+        background: var(--receipt-primary);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+        font-size: 2.5rem;
+        box-shadow: 0 10px 20px rgba(30, 27, 75, 0.2);
+    }
+
+    .madrasah-title {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--receipt-primary);
+        margin: 0;
+        letter-spacing: -0.5px;
+    }
+
+    .receipt-type-badge {
+        background: var(--receipt-bg);
+        color: var(--receipt-primary);
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 0.9rem;
+        border: 1px solid var(--receipt-border);
+    }
+
+    /* Information Grid */
+    .info-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+        background: var(--receipt-bg);
+        padding: 2rem;
+        border-radius: 24px;
+        border: 1px solid var(--receipt-border);
+    }
+
+    .info-group label {
+        display: block;
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: var(--receipt-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-group .value {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: var(--receipt-primary);
+    }
+
+    /* Professional Table */
+    .fees-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 3rem;
+    }
+
+    .fees-table th {
+        text-align: left;
+        padding: 1.25rem;
+        background: var(--receipt-primary);
+        color: white;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .fees-table th:first-child {
+        border-radius: 12px 0 0 0;
+    }
+
+    .fees-table th:last-child {
+        border-radius: 0 12px 0 0;
+        text-align: right;
+    }
+
+    .fees-table td {
+        padding: 1.5rem 1.25rem;
+        border-bottom: 1px solid var(--receipt-border);
+        font-weight: 500;
+    }
+
+    .fees-table tr:last-child td {
+        border-bottom: none;
+    }
+
+    /* Financial Summary Area */
+    .summary-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 4rem;
+        margin-top: auto;
+    }
+
+    .notes-area {
+        background: #fffbeb;
+        border-left: 4px solid #f59e0b;
+        padding: 1.5rem;
+        border-radius: 0 15px 15px 0;
+    }
+
+    .total-card {
+        background: var(--receipt-primary);
+        color: white;
+        padding: 2rem;
+        border-radius: 24px;
+        text-align: right;
+        box-shadow: 0 20px 40px rgba(30, 27, 75, 0.15);
+    }
+
+    .total-card label {
+        display: block;
+        font-size: 0.9rem;
+        opacity: 0.7;
+        margin-bottom: 0.5rem;
+    }
+
+    .amount-large {
+        font-size: 3rem;
+        font-weight: 900;
+        line-height: 1;
+    }
+
+    /* Verification Elements */
+    .valid-stamp {
+        width: 120px;
+        height: 120px;
+        border: 4px double #10b981;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #10b981;
+        font-weight: 900;
+        text-transform: uppercase;
+        transform: rotate(-15deg);
+        position: absolute;
+        bottom: 150px;
+        right: 250px;
+        opacity: 0.3;
+        font-size: 1.2rem;
+    }
+
+    .qr-placeholder {
+        width: 100px;
+        height: 100px;
+        background: var(--receipt-bg);
+        border: 1px solid var(--receipt-border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 0.6rem;
+        text-align: center;
+        color: var(--receipt-text-muted);
+    }
+
+    .signature-area {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5rem;
+        padding-top: 2rem;
+    }
+
+    .sig-block {
+        text-align: center;
+        width: 200px;
+    }
+
+    .sig-line {
+        border-top: 2px solid var(--receipt-primary);
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-text {
+        text-align: center;
+        margin-top: 4rem;
+        font-size: 0.75rem;
+        color: var(--receipt-text-muted);
+        border-top: 1px solid var(--receipt-border);
+        padding-top: 2rem;
+    }
+
+    @media screen and (max-width: 210mm) {
+        .receipt-wrapper {
+            padding: 0;
+            background: white;
+        }
+
+        .full-page-receipt {
+            width: 100%;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 1rem;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="receipt-wrapper">
+    <div class="container no-print mb-4 d-flex justify-content-between">
+        <a href="{{ url_for('financials.manage_fees') }}" class="btn btn-dark rounded-pill px-4">
+            <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Return to Finance') }}
+        </a>
+        <button onclick="window.print()" class="btn btn-primary rounded-pill px-5 shadow-lg">
+            <i class="fa-solid fa-print me-2"></i> {{ _('Print Receipt') }}
+        </button>
+    </div>
+
+    <!-- START FULL PAGE RECEIPT -->
+    <div class="full-page-receipt">
+
+        <!-- Header -->
+        <div class="receipt-header-top">
+            <div class="brand-section">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-mosque"></i>
+                </div>
+                <div>
+                    <h1 class="madrasah-title">{{ madrasah_name }}</h1>
+                    <p class="mb-0 fw-bold">{{ madrasah_address }}</p>
+                    <p class="mb-0 text-muted">{{ _('Contact:') }} {{ madrasah_phone }}</p>
+                </div>
+            </div>
+            <div class="text-end">
+                <div class="receipt-type-badge mb-3">{{ _('Official Receipt') }}</div>
+                <h4 class="fw-bold text-muted mb-0">No. {{ "REC-{:06d}".format(fee.id) }}</h4>
+                <p class="small text-muted mb-0">{{ _('Generated on:') }} {{ now.strftime('%d %b %Y, %H:%M') }}</p>
+            </div>
+        </div>
+
+        <!-- Info Grid -->
+        <div class="info-container">
+            <div class="info-group">
+                <label>{{ _('Student Name') }}</label>
+                <div class="value">{{ fee.student.full_name }}</div>
+                <div class="small text-muted mt-1">{{ _('ID:') }} {{ fee.student.enrollment_number }}</div>
+            </div>
+            <div class="info-group">
+                <label>{{ _('Academic Class') }}</label>
+                <div class="value">{{ fee.student.class_assigned.class_name if fee.student.class_assigned else 'N/A' }}
+                </div>
+                <div class="small text-muted mt-1">{{ _('Parent:') }} {{ fee.student.parent_name or 'N/A' }}</div>
+            </div>
+            <div class="info-group text-end">
+                <label>{{ _('Payment Date') }}</label>
+                <div class="value">{{ fee.payment_date.strftime('%d %b %Y') if fee.payment_date else now.strftime('%d %b
+                    %Y') }}</div>
+                <div class="small text-muted mt-1">{{ _('Method:') }} {{ fee.payment_method or 'N/A' }}</div>
+            </div>
+        </div>
+
+        <!-- Table -->
+        <table class="fees-table">
+            <thead>
+                <tr>
+                    <th>{{ _('Description of Fees') }}</th>
+                    <th>{{ _('Billing Period') }}</th>
+                    <th class="text-end">{{ _('Subtotal') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        <div class="fw-bold fs-5">{{ fee.fee_type }} Fee</div>
+                        <div class="small text-muted mt-1">{{ fee.remarks or _('Official payment for tuition and
+                            educational services.') }}</div>
+                    </td>
+                    <td>{{ fee.fee_month or _('One-time Payment') }}</td>
+                    <td class="text-end fw-bold fs-5 text-primary">${{ "{:,.2f}".format(fee.amount) }}</td>
+                </tr>
+                <!-- Spacer for design depth -->
+                {% for i in range(3) %}
+                <tr>
+                    <td colspan="3" class="py-4"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <!-- Security Stamp -->
+        <div class="valid-stamp">Verified &<br>Paid</div>
+
+        <!-- Footer Area -->
+        <div class="summary-grid">
+            <div class="d-flex flex-column justify-content-between">
+                <div class="notes-area">
+                    <h6 class="fw-bold mb-2">{{ _('Terms & Conditions:') }}</h6>
+                    <ul class="small mb-0 list-unstyled">
+                        <li>• {{ _('This is a computer-generated document and acts as a valid proof of payment.') }}
+                        </li>
+                        <li>• {{ _('Fees once paid are non-refundable and non-transferable.') }}</li>
+                        <li>• {{ _('Please keep this receipt for future academic reference.') }}</li>
+                    </ul>
+                </div>
+
+                <div class="d-flex align-items-center gap-4">
+                    <div class="qr-placeholder">
+                        <i class="fa-solid fa-qrcode fa-2x mb-1"></i><br>SCAN TO<br>VERIFY
+                    </div>
+                    <div class="small text-muted">
+                        {{ _('Transaction ID:') }}<br>
+                        <span class="fw-bold text-dark">{{ fee.transaction_id or 'TX-' + now.strftime('%Y%m%d%H%M')
+                            }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="total-card">
+                <div class="mb-3 text-start border-bottom border-white border-opacity-25 pb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small opacity-75">{{ _('Total Invoiced:') }}</span>
+                        <span class="fw-bold">${{ "{:,.2f}".format(fee.amount) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-1">
+                        <span class="small opacity-75">{{ _('Total Paid:') }}</span>
+                        <span class="fw-bold text-success">${{ "{:,.2f}".format(fee.paid_amount or 0) }}</span>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <span class="small opacity-75">{{ _('Current Balance:') }}</span>
+                        <span class="fw-bold text-danger">${{ "{:,.2f}".format(fee.balance) }}</span>
+                    </div>
+                </div>
+
+                <label>{{ _('Latest Payment') }}</label>
+                <div class="amount-large">${{ "{:,.2f}".format(fee.paid_amount) }}</div>
+                <div class="mt-3 badge bg-white text-dark py-2 px-3 rounded-pill fw-bold">
+                    {% if fee.status == 'Paid' %}
+                    {{ _('STATUS: FULLY PAID') }}
+                    {% else %}
+                    {{ _('STATUS: PARTIAL PAYMENT') }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- Signatures -->
+        <div class="signature-area">
+            <div class="sig-block">
+                <div class="sig-line"></div>
+                <div class="small fw-bold">{{ _('Accountant Signature') }}</div>
+            </div>
+            <div class="sig-block">
+                <div class="sig-line"></div>
+                <div class="small fw-bold">{{ _('Director / Office Seal') }}</div>
+            </div>
+            <div class="sig-block">
+                <div class="sig-line"></div>
+                <div class="small fw-bold">{{ _('Student / Parent Signature') }}</div>
+            </div>
+        </div>
+
+        <!-- Footer Text -->
+        <div class="footer-text">
+            <p class="mb-1 fw-bold">© {{ now.year }} {{ madrasah_name }} | {{ _('Financial Department') }}</p>
+            <p class="mb-1 text-muted">{{ _('This receipt is valid only with the official institution stamp and digital
+                signature.') }}</p>
+            <p class="mb-0 text-muted" style="font-size: 0.65rem; opacity: 0.6;">&copy; 2026 RaysTech Center. Designed &
+                Developed. All Rights Reserved.</p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,628 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+<div class="d-flex flex-column flex-md-row min-vh-100">
+    <!-- Mobile top bar with menu toggle -->
+    <header
+        class="mobile-header d-md-none px-3 border-bottom w-100 d-flex align-items-center justify-content-between no-print"
+        style="position: sticky; top: 0; z-index: 1020; height: 64px;">
+        <div class="d-flex align-items-center gap-2">
+            <button class="btn btn-premium btn-sm shadow-sm" type="button" id="sidebarToggle"
+                aria-label="Toggle navigation menu" style="width: 38px; height: 38px; border-radius: 10px;">
+                <i class="fa-solid fa-bars-staggered"></i>
+            </button>
+            <div class="d-flex align-items-center gap-2 ms-1">
+                <div class="bg-gradient-premium p-1 rounded-2 shadow-sm"
+                    style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fa-solid fa-graduation-cap text-white" style="font-size: 0.85rem;"></i>
+                </div>
+                <span class="fw-bold text-dark" style="letter-spacing: -0.5px; font-size: 1rem;">
+                    {{ madrasah_name.split()[0] if madrasah_name else _('Academy') }}</span>
+            </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+            <!-- Mobile Theme Toggle -->
+            <button class="btn btn-premium btn-sm shadow-sm" id="themeToggleMobile"
+                style="width: 38px; height: 38px; border-radius: 10px;">
+                <i class="fa-solid fa-moon theme-icon-dark"></i>
+                <i class="fa-solid fa-sun theme-icon-light d-none"></i>
+            </button>
+
+            <!-- Language Switcher Mobile -->
+            <div class="dropdown language-switcher">
+                <button class="btn btn-premium btn-sm shadow-sm p-0 d-flex align-items-center justify-content-center"
+                    type="button" data-bs-toggle="dropdown" style="width: 38px; height: 38px; border-radius: 10px;">
+                    <span class="fw-bold" style="font-size: 0.7rem;">{{ 'US' if get_locale() == 'en' else 'SA' if
+                        get_locale() == 'ar' else 'SO' }}</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-3 mt-2"
+                    style="border-radius: 16px; min-width: 240px;">
+                    <li class="dropdown-header-custom mb-2">
+                        <div>{{ _('Select Language') }}</div>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between mb-2 {{ 'active' if get_locale() == 'en' }}"
+                            href="{{ url_for('set_language', lang='en') }}">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="lang-id-box" style="width: 32px; height: 32px; font-size: 0.7rem;">US</div>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold" style="font-size: 0.85rem;">English</span>
+                                    <small class="text-muted opacity-75" style="font-size: 0.65rem;">English</small>
+                                </div>
+                            </div>
+                            {% if get_locale() == 'en' %}<i class="fa-solid fa-circle-check fs-6"></i>{% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between mb-2 {{ 'active' if get_locale() == 'ar' }}"
+                            href="{{ url_for('set_language', lang='ar') }}">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="lang-id-box" style="width: 32px; height: 32px; font-size: 0.7rem;">SA</div>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold" style="font-size: 0.85rem;">Arabic</span>
+                                    <small class="text-muted opacity-75" style="font-size: 0.65rem;">العربية</small>
+                                </div>
+                            </div>
+                            {% if get_locale() == 'ar' %}<i class="fa-solid fa-circle-check fs-6"></i>{% endif %}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center justify-content-between {{ 'active' if get_locale() == 'so' }}"
+                            href="{{ url_for('set_language', lang='so') }}">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="lang-id-box" style="width: 32px; height: 32px; font-size: 0.7rem;">SO</div>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-bold" style="font-size: 0.85rem;">Somali</span>
+                                    <small class="text-muted opacity-75" style="font-size: 0.65rem;">Soomaali</small>
+                                </div>
+                            </div>
+                            {% if get_locale() == 'so' %}<i class="fa-solid fa-circle-check fs-6"></i>{% endif %}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- User Profile Dropdown -->
+            <div class="dropdown user-profile-dropdown">
+                <button class="btn btn-premium p-0 border-0" type="button" id="userDropdownMobile"
+                    data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 10px;">
+                    <div class="user-avatar-box bg-gradient-premium text-white rounded-2 d-flex align-items-center justify-content-center shadow-sm"
+                        style="width: 38px; height: 38px; font-size: 0.9rem; font-weight: bold;">
+                        {{ current_user.name[:1].upper() }}
+                    </div>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-3 mt-2"
+                    aria-labelledby="userDropdownMobile" style="min-width: 240px; border-radius: 16px;">
+                    <li class="dropdown-header-custom mb-2">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm text-primary"
+                                style="width: 40px; height: 40px; font-size: 1.1rem;">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                            <div>
+                                <div class="fw-bold text-dark text-truncate" style="max-width: 140px;">{{
+                                    current_user.name }}</div>
+                                <small class="text-muted d-block" style="font-size: 0.7rem;">
+                                    {{ _('Administrator') if current_user.role == 'A' else _('Teacher') if
+                                    current_user.role == 'T' else _('Staff') if current_user.role == 'S' else
+                                    _('Finance') if current_user.role == 'F' else _('Parent') if current_user.role ==
+                                    'P' else _('Student') }}
+                                </small>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <hr class="dropdown-divider opacity-10 my-2">
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2"
+                            href="{{ url_for('auth.change_password') }}">
+                            <i class="fa-solid fa-key text-muted opacity-75" style="width: 18px;"></i>
+                            {{ _('Security') }}
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-danger fw-bold"
+                            href="{{ url_for('auth.logout') }}">
+                            <i class="fa-solid fa-right-from-bracket" style="width: 18px;"></i>
+                            {{ _('Logout') }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar backdrop for mobile -->
+    <div id="sidebarBackdrop" class="sidebar-backdrop d-md-none"></div>
+
+    <div id="sidebar" class="sidebar d-flex flex-column" style="z-index: 9999;">
+
+        <!-- Mobile User Profile -->
+        <div class="d-md-none px-4 py-3 border-bottom border-light border-opacity-10">
+            <div class="d-flex align-items-center gap-3">
+                <div class="user-avatar-box bg-gradient-premium text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                    style="width: 48px; height: 48px; font-size: 1.2rem; font-weight: bold;">
+                    {{ current_user.name[:1].upper() }}
+                </div>
+                <div class="overflow-hidden">
+                    <h6 class="mb-0 fw-bold text-white text-truncate">{{ current_user.name }}</h6>
+                    <small class="text-white-50 d-block">{{ _('Administrator') if current_user.role == 'A' else
+                        _('Teacher') if current_user.role == 'T' else _('Staff') if current_user.role == 'S' else
+                        _('Finance') if current_user.role == 'F' else _('Parent') if current_user.role == 'P' else
+                        _('Student') }}</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 d-none d-md-block">
+            <div class="d-flex align-items-center gap-3">
+                <div class="logo-icon bg-gradient-premium p-2 rounded-3 shadow-sm">
+                    <i class="fa-solid fa-school fa-xl text-white"></i>
+                </div>
+                <div>
+                    <h4 class="mb-0 fw-bold text-white letter-spacing-1 text-truncate" style="max-width: 150px;">
+                        {{ madrasah_name.split()[0] if madrasah_name else _('Academy') }}
+                    </h4>
+                    <small class="text-white-50 text-uppercase fw-bold text-truncate d-block"
+                        style="font-size: 0.65rem; letter-spacing: 0.1em; max-width: 150px;">
+                        {{ ' '.join(madrasah_name.split()[1:]) if madrasah_name and madrasah_name.split()|length > 1
+                        else _('Hub') }}
+                    </small>
+                </div>
+            </div>
+        </div>
+
+        <ul class="nav flex-column flex-grow-1 pb-5">
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'auth' and request.endpoint == 'auth.dashboard' else '' }}"
+                    href="{{ url_for('auth.dashboard') }}">
+                    <i class="fa-solid fa-house me-2"></i> {{ _('Dashboard') }}
+                </a>
+            </li>
+
+            {% if RolePermission.check(current_user.role, 'students') %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'students' else '' }}"
+                    href="{{ url_for('students.manage_students') }}">
+                    <i class="fa-solid fa-users me-2"></i> {{ _('Students') }}
+                </a>
+            </li>
+            {% endif %}
+
+            {% if RolePermission.check(current_user.role, 'teachers') %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'teachers' else '' }}"
+                    href="{{ url_for('teachers.manage_teachers') }}">
+                    <i class="fa-solid fa-chalkboard-user me-2"></i> {{ _('Teachers') }}
+                </a>
+            </li>
+            {% endif %}
+
+            {% if RolePermission.check(current_user.role, 'classes') %}
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center justify-content-between {{ 'active' if request.blueprint == 'classes' else '' }}"
+                    data-bs-toggle="collapse" href="#classesDropdown" role="button"
+                    aria-expanded="{{ 'true' if request.blueprint == 'classes' else 'false' }}">
+                    <span><i class="fa-solid fa-book me-2"></i> {{ _('Classes') }}</span>
+                    <i class="fa-solid fa-chevron-down ms-auto small transition-300"></i>
+                </a>
+                <div class="collapse {{ 'show' if request.blueprint == 'classes' else '' }}" id="classesDropdown">
+                    <ul class="nav flex-column ms-3 border-start border-light border-opacity-10">
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'classes.manage_classes' else '' }}"
+                                href="{{ url_for('classes.manage_classes') }}">
+                                <i class="fa-solid fa-graduation-cap me-2 small"></i> {{ _('Class Schedules') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'classes.manage_subjects' else '' }}"
+                                href="{{ url_for('classes.manage_subjects') }}">
+                                <i class="fa-solid fa-book-open me-2 small"></i> {{ _('Curriculum Subjects') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            {% if RolePermission.check(current_user.role, 'attendance') %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'attendance' else '' }}"
+                    href="{{ url_for('attendance.index') }}">
+                    <i class="fa-solid fa-clipboard-user me-2"></i> {{ _('Attendance') }}
+                </a>
+            </li>
+            {% endif %}
+
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'quran' else '' }}"
+                    href="{{ url_for('quran.index') }}">
+                    <i class="fa-solid fa-book-quran me-2"></i> {{ _('Quran Progress') }}
+                </a>
+            </li>
+            {% if RolePermission.check(current_user.role, 'exams') %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'exams' else '' }}"
+                    href="{{ url_for('exams.manage_exams') }}">
+                    <i class="fa-solid fa-chart-line me-2"></i> {{ _('Exams') }}
+                </a>
+            </li>
+            {% endif %}
+
+
+            <!-- Financials Link -->
+            {% if RolePermission.check(current_user.role, 'financials') %}
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center justify-content-between {{ 'active' if request.blueprint == 'financials' and request.endpoint != 'financials.manage_structures' else '' }}"
+                    data-bs-toggle="collapse" href="#financialsDropdown" role="button"
+                    aria-expanded="{{ 'true' if request.blueprint == 'financials' and request.endpoint != 'financials.manage_structures' else 'false' }}">
+                    <span><i class="fa-solid fa-money-bill-wave me-2"></i> {{ _('Financials') }}</span>
+                    <i class="fa-solid fa-chevron-down ms-auto small transition-300"></i>
+                </a>
+                <div class="collapse {{ 'show' if request.blueprint == 'financials' and request.endpoint != 'financials.manage_structures' else '' }}"
+                    id="financialsDropdown">
+                    <ul class="nav flex-column ms-3 border-start border-light border-opacity-10">
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'financials.index' else '' }}"
+                                href="{{ url_for('financials.index') }}">
+                                <i class="fa-solid fa-chart-pie me-2 small"></i> {{ _('Overview') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'financials.manage_fees' else '' }}"
+                                href="{{ url_for('financials.manage_fees') }}">
+                                <i class="fa-solid fa-hand-holding-dollar me-2 small"></i> {{ _('Student Fees') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'financials.manage_expenses' else '' }}"
+                                href="{{ url_for('financials.manage_expenses') }}">
+                                <i class="fa-solid fa-money-bill-transfer me-2 small"></i> {{ _('Institutional
+                                Expenses') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'financials.manage_payables' else '' }}"
+                                href="{{ url_for('financials.manage_payables') }}">
+                                <i class="fa-solid fa-file-invoice-dollar me-2 small text-warning"></i> {{ _('Payable
+                                Account') }}
+                                {% set payable_count = db.session.query(db.func.count(Expense.id)).filter(Expense.status
+                                == 'Payable').scalar() or 0 %}
+                                {% if payable_count > 0 %}
+                                <span class="badge rounded-pill bg-warning text-dark ms-auto me-2"
+                                    style="font-size: 0.65rem;">{{ payable_count }}</span>
+                                {% endif %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+
+            {% if RolePermission.check(current_user.role, 'reports') %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'reports' else '' }}"
+                    href="{{ url_for('reports.index') }}">
+                    <i class="fa-solid fa-square-poll-vertical me-2"></i> {{ _('Reports') }}
+                </a>
+            </li>
+            {% endif %}
+
+
+
+            <!-- Management Dropdown -->
+            {% if current_user.role == 'A' or RolePermission.check(current_user.role, 'manage_users') %}
+            <li class="nav-item">
+                <a class="nav-link d-flex align-items-center justify-content-between {{ 'active' if request.blueprint == 'settings' or request.endpoint == 'auth.manage_users' or request.endpoint == 'financials.manage_structures' else '' }}"
+                    data-bs-toggle="collapse" href="#settingsDropdown" role="button"
+                    aria-expanded="{{ 'true' if request.blueprint == 'settings' or request.endpoint == 'auth.manage_users' or request.endpoint == 'financials.manage_structures' else 'false' }}">
+                    <span><i class="fa-solid fa-sliders me-2"></i> {{ _('General Settings') }}</span>
+                    <i class="fa-solid fa-chevron-down ms-auto small transition-300"></i>
+                </a>
+                <div class="collapse {{ 'show' if request.blueprint == 'settings' or request.endpoint == 'auth.manage_users' or request.endpoint == 'financials.manage_structures' else '' }}"
+                    id="settingsDropdown">
+                    <ul class="nav flex-column ms-3 border-start border-light border-opacity-10">
+                        {% if RolePermission.check(current_user.role, 'financials') %}
+
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'auth.manage_users' else '' }}"
+                                href="{{ url_for('auth.manage_users') }}">
+                                <i class="fa-solid fa-user-gear me-2 small"></i> {{ _('Manage Users') }}
+                            </a>
+                        </li>
+                        {% endif %}
+
+
+
+                        {% if current_user.role == 'A' %}
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.blueprint == 'settings' and request.endpoint == 'settings.settings' else '' }}"
+                                href="{{ url_for('settings.settings') }}">
+                                <i class="fa-solid fa-house-gear me-2 small"></i> {{ _('Institutional Settings') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'settings.manage_permissions' else '' }}"
+                                href="{{ url_for('settings.manage_permissions') }}">
+                                <i class="fa-solid fa-user-shield me-2 small"></i> {{ _('Role Permissions') }}
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </li>
+            {% endif %}
+            {% if current_user.role in ['A', 'S'] %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.blueprint == 'announcements' else '' }}"
+                    href="{{ url_for('announcements.index') }}">
+                    <i class="fa-solid fa-bullhorn me-2"></i> {{ _('Announcements') }}
+                </a>
+            </li>
+            {% endif %}
+
+
+
+            {% if current_user.role == 'P' %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.endpoint == 'auth.my_children' else '' }}"
+                    href="{{ url_for('auth.my_children') }}">
+                    <i class="fa-solid fa-children me-2"></i> {{ _('My Children') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.endpoint == 'auth.my_payments' else '' }}"
+                    href="{{ url_for('auth.my_payments') }}">
+                    <i class="fa-solid fa-receipt me-2"></i> {{ _('Payments') }}
+                </a>
+            </li>
+            {% endif %}
+
+            {% if current_user.role == 'T' and current_user.teacher_profile %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.endpoint == 'teachers.teacher_profile' and request.view_args.get('teacher_id') == current_user.teacher_profile.id else '' }}"
+                    href="{{ url_for('teachers.teacher_profile', teacher_id=current_user.teacher_profile.id) }}">
+                    <i class="fa-solid fa-user-tie me-2"></i> {{ _('My Profile') }}
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.endpoint == 'teachers.view_schedule' and request.view_args.get('teacher_id') == current_user.teacher_profile.id else '' }}"
+                    href="{{ url_for('teachers.view_schedule', teacher_id=current_user.teacher_profile.id) }}">
+                    <i class="fa-solid fa-calendar-days me-2"></i> {{ _('My Schedule') }}
+                </a>
+            </li>
+            {% endif %}
+            {% if current_user.role == 'U' and current_user.student_profile %}
+            <li class="nav-item">
+                <a class="nav-link {{ 'active' if request.endpoint == 'students.student_profile' and request.view_args.get('student_id') == current_user.student_profile.id else '' }}"
+                    href="{{ url_for('students.student_profile', student_id=current_user.student_profile.id) }}">
+                    <i class="fa-solid fa-user-circle me-2"></i> {{ _('My Profile') }}
+                </a>
+            </li>
+            {% endif %}
+
+            {% if current_user.is_authenticated and current_user.email == 'nor.jws@gmail.com' %}
+            <li class="nav-item mt-4 pt-4 border-top border-light border-opacity-10">
+                <a class="nav-link {{ 'active' if request.blueprint == 'saas_admin' else '' }}"
+                    href="{{ url_for('saas_admin.list_schools') }}" style="color: #fbbf24;">
+                    <i class="fa-solid fa-server me-2"></i> {{ _('SaaS Master Admin') }}
+                </a>
+            </li>
+            {% endif %}
+
+        </ul>
+
+
+
+    </div>
+
+    <div class="main-content d-flex flex-column min-vh-100">
+        <!-- Print-only Header -->
+        <div class="d-none d-print-block mb-4 p-4 border-bottom">
+            <div class="d-flex justify-content-between align-items-center">
+                <div>
+                    <h2 class="fw-bold mb-0 text-primary">{{ madrasah_name }}</h2>
+                    <p class="text-muted small mb-0">{{ madrasah_address }}</p>
+                    <p class="text-muted small mb-0">{{ madrasah_phone }}</p>
+                </div>
+                <div class="text-end">
+                    <h4 class="text-uppercase text-muted letter-spacing-1 mb-0">{{ _('Official Record') }}</h4>
+                    <p class="small text-muted">{{ now.strftime('%d %B %Y') }}</p>
+                </div>
+            </div>
+        </div>
+
+        <header class="main-header d-flex justify-content-between align-items-center mb-4 no-print">
+            <div class="header-left d-flex align-items-center gap-4">
+                <div>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb mb-1">
+                            <li class="breadcrumb-item small text-uppercase text-muted fw-bold d-none d-md-block">{{
+                                _('Education Management') }}</li>
+                        </ol>
+                    </nav>
+                    <h2 class="fw-bold mb-0">
+                        {% if current_user.role == 'A' %}{{ _('Admin Dashboard') }}
+                        {% elif current_user.role == 'T' %}{{ _('Teacher Dashboard') }}
+                        {% elif current_user.role == 'S' %}{{ _('Staff Dashboard') }}
+                        {% elif current_user.role == 'F' %}{{ _('Finance Dashboard') }}
+                        {% elif current_user.role == 'P' %}{{ _('Parent Dashboard') }}
+                        {% elif current_user.role == 'U' %}{{ _('Student Dashboard') }}
+                        {% else %}{{ _('Dashboard') }}
+                        {% endif %}
+                    </h2>
+                </div>
+            </div>
+
+            <div class="header-right d-none d-md-flex align-items-center gap-3">
+                <button class="btn btn-premium d-flex align-items-center gap-2 shadow-sm" id="themeToggle">
+                    <i class="fa-solid fa-moon theme-icon-dark"></i>
+                    <i class="fa-solid fa-sun theme-icon-light d-none"></i>
+                </button>
+
+                <div class="dropdown language-switcher">
+                    <button class="btn btn-premium d-flex align-items-center gap-2" type="button" id="langDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style="border-radius: 50px; padding: 4px 14px 4px 6px;">
+                        <div class="lang-id-box"
+                            style="width: 32px; height: 32px; font-size: 0.75rem; background: var(--primary); color: white;">
+                            {{ 'US' if get_locale() == 'en' else 'SA' if get_locale() == 'ar' else 'SO' }}
+                        </div>
+                        <span class="d-none d-md-inline fw-bold" style="font-size: 0.85rem;">
+                            {{ 'English' if get_locale() == 'en' else 'العربية' if get_locale() == 'ar' else 'Soomaali'
+                            }}
+                        </span>
+                        <i class="fa-solid fa-chevron-down small opacity-50 ms-1" style="font-size: 0.7rem;"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-3" aria-labelledby="langDropdown">
+                        <li class="dropdown-header-custom">
+                            <div>{{ _('Select') }}<br>{{ _('Language') }}</div>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between mb-2 {{ 'active' if get_locale() == 'en' }}"
+                                href="{{ url_for('set_language', lang='en') }}">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="lang-id-box">US</div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold">English</span>
+                                        <small class="text-muted opacity-75">English</small>
+                                    </div>
+                                </div>
+                                {% if get_locale() == 'en' %}<i class="fa-solid fa-circle-check"></i>{% endif %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between mb-2 {{ 'active' if get_locale() == 'ar' }}"
+                                href="{{ url_for('set_language', lang='ar') }}">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="lang-id-box">SA</div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold">Arabic</span>
+                                        <small class="text-muted opacity-75">العربية</small>
+                                    </div>
+                                </div>
+                                {% if get_locale() == 'ar' %}<i class="fa-solid fa-circle-check"></i>{% endif %}
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item d-flex align-items-center justify-content-between {{ 'active' if get_locale() == 'so' }}"
+                                href="{{ url_for('set_language', lang='so') }}">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="lang-id-box">SO</div>
+                                    <div class="d-flex flex-column">
+                                        <span class="fw-bold">Somali</span>
+                                        <small class="text-muted opacity-75">Soomaali</small>
+                                    </div>
+                                </div>
+                                {% if get_locale() == 'so' %}<i class="fa-solid fa-circle-check"></i>{% endif %}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- User Profile Dropdown -->
+                <div class="dropdown user-profile-dropdown">
+                    <button class="btn btn-premium d-flex align-items-center gap-2" type="button" id="userDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        style="border-radius: 50px; padding: 4px 14px 4px 6px;">
+                        <div class="user-avatar-box bg-gradient-premium text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                            style="width: 32px; height: 32px; font-size: 0.85rem;">
+                            {{ current_user.name[:1].upper() }}
+                        </div>
+                        <span class="d-none d-md-inline fw-bold text-dark" style="font-size: 0.85rem;">
+                            {{ current_user.name.split()[0] }}
+                        </span>
+                        <i class="fa-solid fa-chevron-down small opacity-50 ms-1" style="font-size: 0.7rem;"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 p-3" aria-labelledby="userDropdown"
+                        style="min-width: 240px;">
+                        <li class="dropdown-header-custom mb-3">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="bg-light rounded-circle d-flex align-items-center justify-content-center shadow-sm text-primary"
+                                    style="width: 42px; height: 42px; font-size: 1.25rem;">
+                                    <i class="fa-solid fa-user"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold text-dark text-truncate" style="max-width: 150px;">{{
+                                        current_user.name }}</div>
+                                    <small class="text-muted d-block" style="font-size: 0.75rem; line-height: 1.2;">
+                                        {% if current_user.role == 'A' %}{{ _('Administrator') }}
+                                        {% elif current_user.role == 'T' %}{{ _('Teacher') }}
+                                        {% elif current_user.role == 'S' %}{{ _('Staff') }}
+                                        {% elif current_user.role == 'F' %}{{ _('Finance') }}
+                                        {% elif current_user.role == 'P' %}{{ _('Parent') }}
+                                        {% elif current_user.role == 'U' %}{{ _('Student') }}
+                                        {% endif %}
+                                    </small>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider opacity-10 my-2">
+                        </li>
+
+                        {% if current_user.role == 'T' and current_user.teacher_profile %}
+                        <li>
+                            <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2"
+                                href="{{ url_for('teachers.teacher_profile', teacher_id=current_user.teacher_profile.id) }}">
+                                <i class="fa-solid fa-user-tie text-muted opacity-75" style="width: 20px;"></i>
+                                {{ _('My Profile') }}
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if current_user.role == 'U' and current_user.student_profile %}
+                        <li>
+                            <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2"
+                                href="{{ url_for('students.student_profile', student_id=current_user.student_profile.id) }}">
+                                <i class="fa-solid fa-user-graduate text-muted opacity-75" style="width: 20px;"></i>
+                                {{ _('My Profile') }}
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li>
+                            <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2"
+                                href="{{ url_for('auth.change_password') }}">
+                                <i class="fa-solid fa-key text-muted opacity-75" style="width: 20px;"></i>
+                                {{ _('Change Password') }}
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider opacity-10 my-2">
+                        </li>
+                        <li>
+                            <a class="dropdown-item py-2 rounded-2 d-flex align-items-center gap-2 text-danger fw-bold"
+                                href="{{ url_for('auth.logout') }}">
+                                <i class="fa-solid fa-right-from-bracket" style="width: 20px;"></i>
+                                {{ _('Logout') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages mb-4">
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category if category != 'message' else 'info' }} alert-dismissible fade show rounded-4 border-0 shadow-sm d-flex align-items-center gap-3"
+                role="alert">
+                <i
+                    class="fa-solid {% if category == 'success' %}fa-circle-check{% elif category == 'danger' %}fa-triangle-exclamation{% else %}fa-circle-info{% endif %} fs-5"></i>
+                <div>{{ message | safe }}</div>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="flex-grow-1">{% block content %}{% endblock %}</div>
+
+        <div class="mt-auto">{% include 'includes/footer.html' %}</div>
+    </div>
+</div>
+{% endblock %}

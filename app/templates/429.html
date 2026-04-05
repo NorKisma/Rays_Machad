@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="icon-box bg-warning bg-opacity-10 text-warning mx-auto mb-4"
+                style="width: 100px; height: 100px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                <i class="fa-solid fa-gauge-high fa-3x"></i>
+            </div>
+            <h1 class="fw-bold text-dark mb-3">{{ _('Too Many Requests') }}</h1>
+            <p class="text-muted mb-4">
+                {{ _('You have made too many requests in a short period. Please slow down and try again in a few
+                minutes.') }}
+            </p>
+            <div class="p-3 bg-light rounded-4 mb-4">
+                <small class="text-muted d-block mb-1">{{ _('Reason') }}</small>
+                <span class="fw-bold">{{ _('Rate Limit Exceeded') }}</span>
+            </div>
+            <a href="{{ url_for('auth.dashboard') }}" class="btn btn-primary rounded-pill px-4 py-2 shadow-sm">
+                <i class="fa-solid fa-house me-2"></i> {{ _('Return to Dashboard') }}
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

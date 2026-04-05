@@ -1,0 +1,346 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid px-0">
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div class="d-flex align-items-center gap-3">
+            <a href="{{ url_for('quran.index') }}" class="btn btn-light rounded-3">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <div>
+                <h3 class="fw-bold mb-1">{{ progress.student.full_name }}</h3>
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge rounded-pill bg-success-soft text-success px-3">{{ progress.mode }}</span>
+                    <span class="text-muted small">ID: {{ progress.student.enrollment_number }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex gap-2">
+            {% if current_user.role in ['A', 'T'] %}
+            <a href="#quickRecord" class="btn btn-primary d-flex align-items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-plus"></i> {{ _('Add Session') }}
+            </a>
+            <a href="{{ url_for('quran.edit_progress', progress_id=progress.id) }}" class="btn btn-outline-warning d-flex align-items-center gap-2 shadow-sm">
+                <i class="fa-solid fa-pen"></i> {{ _('Edit Overall') }}
+            </a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Progress Summary Sidebar -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-4">{{ _('Position Summary') }}</h5>
+                    
+                    <div class="p-3 bg-light rounded-4 mb-4 text-center">
+                        <div class="text-muted small mb-1">{{ _('Current Surah') }}</div>
+                        <h4 class="fw-bold mb-1">{{ progress.current_surah }}</h4>
+                        <div class="text-primary small">Juz {{ progress.current_juz }} · Aya {{ progress.current_aya }}</div>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="small fw-semibold text-muted">{{ _('Juz Completion') }}</span>
+                            <span class="small fw-bold">{{ progress.total_juz_completed or 0 }}/30</span>
+                        </div>
+                        <div class="progress" style="height: 10px; border-radius: 99px;">
+                            <div class="progress-bar bg-success bg-gradient" style="width: {{ juz_pct }}%;"></div>
+                        </div>
+                    </div>
+
+                    <div class="mb-0">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="small fw-semibold text-muted">{{ _('Page Completion') }}</span>
+                            <span class="small fw-bold">{{ progress.total_pages_memorized or 0 }}/604</span>
+                        </div>
+                        <div class="progress" style="height: 10px; border-radius: 99px;">
+                            <div class="progress-bar bg-primary bg-gradient" style="width: {{ page_pct }}%;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes Card -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3 d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-note-sticky text-warning"></i> {{ _('Notes') }}
+                    </h5>
+                    {% if progress.notes %}
+                    <p class="text-muted small mb-0">{{ progress.notes }}</p>
+                    {% else %}
+                    <p class="text-muted small italic opacity-50 mb-0">{{ _('No student notes added.') }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Teacher Info -->
+            <div class="card border-0 shadow-sm rounded-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">{{ _('Teacher') }}</h5>
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="bg-light rounded-circle d-flex align-items-center justify-content-center p-2" style="width:48px; height:48px;">
+                            <i class="fa-solid fa-chalkboard-user text-primary fa-lg"></i>
+                        </div>
+                        <div>
+                            <div class="fw-semibold">{{ progress.teacher.full_name if progress.teacher else 'No Teacher' }}</div>
+                            <small class="text-muted">{{ progress.teacher.specialization if progress.teacher and progress.teacher.specialization else 'Quran Teacher' }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Session History -->
+        <div class="col-lg-8">
+            {% if current_user.role in ['A', 'T'] %}
+            <div id="quickRecord" class="card border-0 shadow-sm rounded-4 mb-4 overflow-hidden border-start border-success border-4">
+                <div class="card-header bg-success-soft py-3 px-4 border-0">
+                    <h6 class="fw-bold mb-0 text-success d-flex align-items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i> {{ _('Record Today\'s Session') }}
+                    </h6>
+                </div>
+                <div class="card-body p-4 bg-white">
+                    <form method="post" action="{{ url_for('quran.add_session', progress_id=progress.id) }}">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        
+                        <div class="row g-3">
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('Teacher') }}</label>
+                                <select name="teacher_id" class="form-select border-light-subtle shadow-sm py-2">
+                                    {% for t in teachers %}
+                                    <option value="{{ t.id }}" {{ 'selected' if progress.teacher_id == t.id }}>{{ t.full_name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('Date') }}</label>
+                                <input type="date" name="session_date" class="form-control border-light-subtle shadow-sm py-2" value="{{ now.strftime('%Y-%m-%d') }}">
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('Session Type') }}</label>
+                                <select name="session_type" class="form-select border-light-subtle shadow-sm py-2">
+                                    <option value="Nazira">Nazira (Recitation)</option>
+                                    <option value="Hifz" {{ 'selected' if progress.mode == 'Hifz' }}>Hifz (Memorization)</option>
+                                    <option value="Muraja'a" {{ 'selected' if progress.mode == "Muraja'a" }}>Muraja'a (Revision)</option>
+                                    <option value="Test">Test / Exam</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('Rating') }}</label>
+                                <select name="rating" class="form-select border-light-subtle bg-light shadow-sm py-2" style="pointer-events: none; -webkit-appearance: none; -moz-appearance: none; appearance: none;" tabindex="-1">
+                                    <option value="Excellent">Excellent</option>
+                                    <option value="Good" selected>Good</option>
+                                    <option value="Average">Average</option>
+                                    <option value="Poor">Needs Work</option>
+                                </select>
+                            </div>
+
+                            <div class="col-6 col-md-3">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('FROM SURAH') }}</label>
+                                <select name="surah_from" id="surah_from_inline" class="form-select border-light-subtle shadow-sm py-2">
+                                    {% for num, name in SURAHS %}
+                                    <option value="{{ name }}">{{ num }}. {{ name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('FROM AYA') }}</label>
+                                <input type="number" name="aya_from" class="form-control border-light-subtle shadow-sm py-2" min="1" value="1">
+                            </div>
+
+                            <div class="col-6 col-md-3">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('TO SURAH') }}</label>
+                                <select name="surah_to" class="form-select border-light-subtle shadow-sm py-2" id="surah_to_inline">
+                                    {% for num, name in SURAHS %}
+                                    <option value="{{ name }}" data-num="{{ num }}">{{ num }}. {{ name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="hidden" name="surah_to_number" id="to_surah_number_inline" value="1">
+                            </div>
+                            <div class="col-6 col-md-2">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('TO AYA') }}</label>
+                                <input type="number" name="aya_to" class="form-control border-light-subtle shadow-sm py-2" min="1" value="1">
+                            </div>
+                            <div class="col-md-2">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('Mistakes') }}</label>
+                                <input type="number" name="mistakes_count" class="form-control border-light-subtle shadow-sm py-2" value="0" min="0">
+                            </div>
+
+                            <div class="col-md-8">
+                                <label class="form-label fw-bold small text-muted text-uppercase letter-spacing-1">{{ _('Teacher Notes') }}</label>
+                                <textarea name="teacher_notes" class="form-control border-light-subtle shadow-sm py-2" rows="1" placeholder="{{ _('Optional notes...') }}"></textarea>
+                            </div>
+                            
+                            <div class="col-md-4 d-flex align-items-center justify-content-end gap-3">
+                                <div class="form-check form-switch mb-0">
+                                    <input class="form-check-input" type="checkbox" name="update_position" value="1" id="updatePositionInline" checked>
+                                    <label class="form-check-label fw-bold small text-primary" for="updatePositionInline">Update Pos</label>
+                                </div>
+                                <button type="submit" class="btn btn-success px-4 rounded-3 fw-bold shadow-sm d-flex align-items-center gap-2">
+                                    <i class="fa-solid fa-check-circle"></i> {{ _('Save Record') }}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="card border-0 shadow-sm rounded-4 h-100">
+                <div class="card-header bg-white border-0 py-4 px-4">
+                    <h5 class="fw-bold mb-0">{{ _('Session History') }}</h5>
+                </div>
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th class="ps-4 py-3 text-muted small fw-semibold">{{ _('Date') }}</th>
+                                    <th class="py-3 text-muted small fw-semibold">{{ _('Type') }}</th>
+                                    <th class="py-3 text-muted small fw-semibold">{{ _('Range') }}</th>
+                                    <th class="py-3 text-muted small fw-semibold">{{ _('Rating') }}</th>
+                                    <th class="py-3 text-muted small fw-semibold d-none d-md-table-cell">{{ _('Mistakes') }}</th>
+                                    <th class="py-3 text-muted small fw-semibold text-end pe-4">{{ _('Actions') }}</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for s in sessions %}
+                                <tr>
+                                    <td class="ps-4">
+                                        <div class="fw-semibold">{{ s.session_date.strftime('%d %b %Y') }}</div>
+                                        <small class="text-muted text-xs">{{ s.teacher.full_name if s.teacher else '' }}</small>
+                                    </td>
+                                    <td>
+                                        <span class="badge rounded-pill bg-light text-dark px-2 border">{{ s.session_type }}</span>
+                                    </td>
+                                    <td>
+                                        <div class="small fw-semibold">{{ s.surah_from }} ({{ s.aya_from }}) → {{ s.surah_to }} ({{ s.aya_to }})</div>
+                                        <small class="text-muted">{{ s.pages_covered or 0 }} {{ _('pages') }}</small>
+                                    </td>
+                                    <td>
+                                        {% if s.rating == 'Excellent' %}
+                                        <span class="badge bg-success shadow-sm shadow-success-soft">Excellent</span>
+                                        {% elif s.rating == 'Good' %}
+                                        <span class="badge bg-primary shadow-sm shadow-primary-soft">Good</span>
+                                        {% elif s.rating == 'Average' %}
+                                        <span class="badge bg-warning text-dark shadow-sm">Average</span>
+                                        {% else %}
+                                        <span class="badge bg-danger shadow-sm shadow-danger-soft">Needs Work</span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="d-none d-md-table-cell">
+                                        <span class="text-muted">{{ s.mistakes_count or 0 }}</span>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="d-flex justify-content-end gap-1">
+                                            {% if current_user.role in ['A', 'T'] %}
+                                            <form method="post" action="{{ url_for('quran.delete_session', session_id=s.id) }}" 
+                                                  onsubmit='return confirm("{{ _("Delete this session record?") }}")'>
+                                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                <button type="submit" class="btn btn-sm btn-light border rounded-3">
+                                                    <i class="fa-solid fa-trash text-danger"></i>
+                                                </button>
+                                            </form>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% if s.teacher_notes %}
+                                <tr class="bg-light-soft">
+                                    <td colspan="6" class="ps-4 py-2 opacity-75">
+                                        <small><i class="fa-solid fa-comment-dots text-muted me-2"></i> {{ s.teacher_notes }}</small>
+                                    </td>
+                                </tr>
+                                {% endif %}
+                                {% else %}
+                                <tr>
+                                    <td colspan="6" class="text-center py-5 text-muted">
+                                        <i class="fa-solid fa-calendar-xmark fa-3x mb-3 opacity-25"></i>
+                                        <p>{{ _('No session history found.') }}</p>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function() {
+    // Helper to update surah number
+    function updateSurahNumber(selectId, hiddenId) {
+        let selected = $(selectId).find(':selected');
+        let num = selected.data('num');
+        $(hiddenId).val(num);
+    }
+
+    // Handle Surah To number update
+    $('#surah_to_inline').on('change', function() {
+        updateSurahNumber('#surah_to_inline', '#to_surah_number_inline');
+    });
+
+    // Auto-set "To Surah" when "From Surah" is changed to save time
+    $('#surah_from_inline').on('change', function() {
+        let val = $(this).val();
+        let toSelect = $('#surah_to_inline');
+        if (!toSelect.val() || toSelect.val() == 'Al-Fatihah') {
+            toSelect.val(val).trigger('change');
+        }
+    });
+
+    // Initialize the number on load
+    updateSurahNumber('#surah_to_inline', '#to_surah_number_inline');
+
+    // Initialize Select2 for surah selects to improve usability
+    $('#surah_from_inline, #surah_to_inline').each(function() {
+        $(this).select2({
+            theme: 'bootstrap-5',
+            width: '100%',
+            placeholder: 'Search Surah...'
+        });
+    });
+    // Auto-Rating logic based on mistakes count
+    $('input[name="mistakes_count"]').on('input change', function() {
+        let mistakes = parseInt($(this).val()) || 0;
+        let ratingSelect = $('select[name="rating"]');
+        
+        if (mistakes === 0) {
+            ratingSelect.val('Excellent').trigger('change');
+        } else if (mistakes <= 2) {
+            ratingSelect.val('Good').trigger('change');
+        } else if (mistakes <= 5) {
+            ratingSelect.val('Average').trigger('change');
+        } else {
+            ratingSelect.val('Poor').trigger('change');
+        }
+    });
+});
+</script>
+
+<style>
+.bg-success-soft { background-color: rgba(25, 135, 84, 0.08); }
+.bg-light-soft { background-color: rgba(248, 249, 250, 0.5); }
+.shadow-success-soft { box-shadow: 0 4px 10px rgba(25, 135, 84, 0.1); }
+.text-xs { font-size: 0.75rem; }
+.card-body .form-control:focus, 
+.card-body .form-select:focus,
+.select2-container--bootstrap-5.select2-container--focus .select2-selection { 
+    background-color: #fff !important; 
+    border-color: #198754 !important; 
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.15) !important; 
+    outline: none !important;
+}
+.letter-spacing-1 { letter-spacing: 0.5px; }
+.btn-success.shadow-sm { box-shadow: 0 4px 12px rgba(25, 135, 84, 0.2) !important; }
+</style>
+{% endblock %}

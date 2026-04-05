@@ -1,0 +1,34 @@
+<footer class="site-footer mt-5 py-3 no-print border-top" style="border-color: var(--border-color) !important;">
+    <div class="container-fluid px-0">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-center gap-3 text-center text-md-start">
+            <div class="site-footer-text small fw-medium">
+                &copy; {{ now.year if now else '2026' }}
+                <a href="https://norkisma.github.io/RaysTech_portfolio/" target="_blank"
+                    class="site-footer-brand text-decoration-none">
+                    {{ _('Rays Tech Center') }}
+                </a>.
+                {{ _('Designed & Developed. All Rights Reserved.') }}
+            </div>
+            <div class="d-flex gap-4 align-items-center">
+                <a href="#" class="footer-link">{{ _('Support') }}</a>
+                <a href="#" class="footer-link">{{ _('Privacy Policy') }}</a>
+                <span class="site-footer-version small">v1.2.0</span>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Print-only Footer -->
+<div class="d-none d-print-block mt-5 pt-4 border-top text-center text-muted small">
+    <div class="row">
+        <div class="col-4">
+            {{ _('Printed on:') }} {{ now.strftime('%Y-%m-%d %H:%M') if now else '' }}
+        </div>
+        <div class="col-4">
+            {{ madrasah_name }} - {{ _('Official Report') }}
+        </div>
+        <div class="col-4">
+            {{ _('Page') }} <span class="pageNumber"></span>
+        </div>
+    </div>
+</div>

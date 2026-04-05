@@ -1,0 +1,81 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="card border-0 shadow-sm p-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">{{ _('Payable Account (Liabilities)') }}</h3>
+            <p class="text-muted small mb-0">{{ _('Review and settle outstanding institutional obligations.') }}</p>
+        </div>
+        <div class="d-flex gap-2">
+            <a href="{{ url_for('financials.index') }}" class="btn btn-light rounded-pill px-4">
+                <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back to Overview') }}
+            </a>
+        </div>
+    </div>
+
+    <div class="alert alert-soft-warning border-0 rounded-4 p-3 mb-4 d-flex align-items-center gap-3">
+        <div class="icon-box bg-warning bg-opacity-10 text-warning"
+            style="width: 40px; height: 40px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+            <i class="fa-solid fa-circle-exclamation"></i>
+        </div>
+        <div>
+            <h6 class="fw-bold mb-0 text-warning">{{ _('Pending Settlements') }}</h6>
+            <p class="small mb-0 text-muted">{{ _('These items are registered as institutional costs but have not been
+                paid out yet.') }}</p>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-hover align-middle" id="payablesTable">
+            <thead>
+                <tr>
+                    <th>{{ _('Date') }}</th>
+                    <th>{{ _('Title') }}</th>
+                    <th>{{ _('Category') }}</th>
+                    <th>{{ _('Amount') }}</th>
+                    <th>{{ _('Payee') }}</th>
+                    <th>{{ _('Actions') }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for expense in expenses %}
+                <tr>
+                    <td>{{ expense.expense_date.strftime('%Y-%m-%d') }}</td>
+                    <td class="fw-bold">{{ expense.title }}</td>
+                    <td><span class="badge bg-light text-dark">{{ expense.category }}</span></td>
+                    <td class="text-danger fw-bold"> -{{ expense.amount }} </td>
+                    <td>
+                        {% if expense.teacher_id %}
+                        <span class="badge badge-soft-primary"><i class="fa-solid fa-user-tie me-1"></i> {{
+                            expense.staff_member.full_name }}</span>
+                        {% else %}
+                        <span class="text-muted small">N/A</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+                            <form action="{{ url_for('financials.pay_expense', expense_id=expense.id) }}" method="POST"
+                                class="d-inline" data-confirm="{{ _('Confirm that this amount has been paid out?') }}"
+                                onsubmit="return confirm(this.getAttribute('data-confirm'));">
+                                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                <button type="submit"
+                                    class="btn btn-sm btn-outline-success d-flex align-items-center gap-2 px-3 rounded-pill"
+                                    title="{{ _('Mark as Paid') }}">
+                                    <i class="fa-solid fa-check-double"></i> {{ _('Settle Payment') }}
+                                </button>
+                            </form>
+                            <a href="{{ url_for('financials.view_voucher', expense_id=expense.id) }}"
+                                class="btn btn-sm btn-outline-info" title="{{ _('View Voucher') }}">
+                                <i class="fa-solid fa-receipt"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

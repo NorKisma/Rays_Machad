@@ -1,0 +1,220 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-lg-10">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-header bg-gradient-premium border-0 py-4 px-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="icon-box bg-white bg-opacity-20 text-white">
+                        <i class="fa-solid fa-file-invoice fa-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0 text-white">{{ _('Enter Result') }}</h4>
+                        <p class="text-white-50 small mb-0">{{ student.full_name }} • {{ exam.exam_name }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4 p-md-5">
+                <div class="row g-4 mb-5">
+                    <div class="col-md-4">
+                        <div class="p-3 rounded-4 bg-light border-start border-primary border-4 shadow-sm">
+                            <small class="text-muted d-block mb-1 fw-bold text-uppercase">{{ _('Exam Type') }}</small>
+                            <h5 class="mb-0 fw-bold">{{ _(exam.exam_type) }}</h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded-4 bg-light border-start border-success border-4 shadow-sm">
+                            <small class="text-muted d-block mb-1 fw-bold text-uppercase">{{ _('Total Marks') }}</small>
+                            <h5 class="mb-0 fw-bold"><span id="total_marks_val">{{ exam.total_marks }}</span></h5>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="p-3 rounded-4 bg-light border-start border-warning border-4 shadow-sm">
+                            <small class="text-muted d-block mb-1 fw-bold text-uppercase">{{ _('Passing Marks')
+                                }}</small>
+                            <h5 class="mb-0 fw-bold"><span id="passing_marks_val">{{ exam.passing_marks }}</span></h5>
+                        </div>
+                    </div>
+                </div>
+
+                <form method="POST">
+                    {{ form.hidden_tag() }}
+
+                    {% if exam.exam_type in ['Hifz', 'Tajweed', 'Arabic', 'Somali', 'English'] %}
+                    <!-- Detailed Evaluation Section -->
+                    <div class="section-header d-flex align-items-center gap-3 mb-4">
+                        <div class="section-number bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                            style="width: 32px; height: 32px; min-width: 32px;">1</div>
+                        <h5 class="fw-bold mb-0 text-primary">{{ _('Breakdown Scores') }}</h5>
+                        <div class="flex-grow-1 border-bottom opacity-25"></div>
+                    </div>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-muted">
+                                {% if exam.exam_type in ['Hifz', 'Tajweed'] %}
+                                {{ _('Memorization Accuracy') }}
+                                {% else %}
+                                {{ _('Vocabulary / Writing') }}
+                                {% endif %}
+                            </label>
+                            <div class="input-group">
+                                {{ form.memorization_accuracy(class="form-control form-control-lg border-end-0",
+                                placeholder="0-100") }}
+                                <span class="input-group-text bg-light text-muted border-start-0">%</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-muted">
+                                {% if exam.exam_type in ['Hifz', 'Tajweed'] %}
+                                {{ _('Tajweed Score') }}
+                                {% else %}
+                                {{ _('Grammar / Rules') }}
+                                {% endif %}
+                            </label>
+                            <div class="input-group">
+                                {{ form.tajweed_score(class="form-control form-control-lg border-end-0",
+                                placeholder="0-100") }}
+                                <span class="input-group-text bg-light text-muted border-start-0">%</span>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label small fw-bold text-muted">
+                                {% if exam.exam_type in ['Hifz', 'Tajweed'] %}
+                                {{ _('Fluency Score') }}
+                                {% else %}
+                                {{ _('Speaking / Fluency') }}
+                                {% endif %}
+                            </label>
+                            <div class="input-group">
+                                {{ form.fluency_score(class="form-control form-control-lg border-end-0",
+                                placeholder="0-100") }}
+                                <span class="input-group-text bg-light text-muted border-start-0">%</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+
+                    <!-- Final Marks and Status -->
+                    <div class="section-header d-flex align-items-center gap-3 mb-4">
+                        <div class="section-number bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                            style="width: 32px; height: 32px; min-width: 32px;">2</div>
+                        <h5 class="fw-bold mb-0 text-success">{{ _('Final Result') }}</h5>
+                        <div class="flex-grow-1 border-bottom opacity-25"></div>
+                    </div>
+
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Final Marks Obtained') }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted border-end-0"><i
+                                        class="fa-solid fa-star-half-stroke"></i></span>
+                                {{ form.marks_obtained(class="form-control form-control-lg border-start-0",
+                                placeholder="Final mark") }}
+                            </div>
+                            <small class="text-muted">{{ _('Max marks') }}: {{ exam.total_marks }}</small>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Status') }}</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light text-muted border-end-0"><i
+                                        class="fa-solid fa-flag"></i></span>
+                                {{ form.status(class="form-select form-select-lg border-start-0 bg-light-soft", style="pointer-events: none; background-color: #f8f9fa !important;", tabindex="-1") }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-5">
+                        <label class="form-label small fw-bold text-muted">{{ _('Feedback / Remarks') }}</label>
+                        {{ form.remarks(class="form-control", rows="4", placeholder=_("Provide constructive feedback for
+                        the student...")) }}
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-5 pt-4 border-top">
+                        <a href="{{ url_for('exams.view_results', exam_id=exam.id) }}"
+                            class="btn btn-premium px-4 text-muted border-0 d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-xmark"></i> {{ _('Cancel') }}
+                        </a>
+                        <button type="submit"
+                            class="btn btn-primary px-5 rounded-3 shadow-md fw-bold d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-circle-check"></i> {{ _('Save Result') }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const totalMarks = parseFloat(document.getElementById('total_marks_val').innerText) || 100;
+        const passingMarks = parseFloat(document.getElementById('passing_marks_val').innerText) || 50;
+
+        const marksInput = document.getElementById('marks_obtained');
+        const statusSelect = document.getElementById('status');
+
+        const memoInput = document.getElementById('memorization_accuracy');
+        const tajweedInput = document.getElementById('tajweed_score');
+        const fluencyInput = document.getElementById('fluency_score');
+
+        // If detailed inputs exist, make marks_obtained readonly as requested
+        if (memoInput && tajweedInput && fluencyInput) {
+            marksInput.setAttribute('readonly', 'readonly');
+            marksInput.classList.add('bg-light');
+        }
+
+        function calculateMarks() {
+            if (!memoInput || !tajweedInput || !fluencyInput) return;
+
+            const mem = parseFloat(memoInput.value) || 0;
+            const taj = parseFloat(tajweedInput.value) || 0;
+            const flu = parseFloat(fluencyInput.value) || 0;
+
+            // Simple average of the components
+            let average = (mem + taj + flu) / 3;
+
+            // Adjusted calculation: (Average % / 100) * totalMarks
+            // This ensures if total marks is say 20, and they get 100% (avg), they get 20 marks.
+            let finalValue = (average / 100) * totalMarks;
+
+            marksInput.value = finalValue.toFixed(1);
+            autoStatus(finalValue);
+        }
+
+        function autoStatus(marks) {
+            const percentage = (marks / totalMarks) * 100;
+            const $statusSelect = $(statusSelect);
+
+            if (marks <= 0 && percentage <= 0) {
+                $statusSelect.val('Pending').trigger('change');
+            } else if (percentage >= 90) {
+                $statusSelect.val('Excellent').trigger('change');
+            } else if (percentage >= 80) {
+                $statusSelect.val('Very Good').trigger('change');
+            } else if (percentage >= 70) {
+                $statusSelect.val('Good').trigger('change');
+            } else if (marks >= passingMarks) {
+                $statusSelect.val('Pass').trigger('change');
+            } else {
+                $statusSelect.val('Fail').trigger('change');
+            }
+        }
+
+        // Run initial status on load
+        autoStatus(parseFloat(marksInput.value) || 0);
+
+        // Attach listeners
+        if (memoInput) memoInput.addEventListener('input', calculateMarks);
+        if (tajweedInput) tajweedInput.addEventListener('input', calculateMarks);
+        if (fluencyInput) fluencyInput.addEventListener('input', calculateMarks);
+
+        // Always allow manual marks to trigger status update (even if typed directly)
+        marksInput.addEventListener('input', function () {
+            autoStatus(parseFloat(this.value) || 0);
+        });
+    });
+</script>
+{% endblock %}

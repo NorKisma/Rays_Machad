@@ -1,0 +1,85 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-9 col-lg-7">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-header bg-transparent border-0 pt-4 px-4 pb-0">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="icon-box bg-primary bg-opacity-10 text-primary">
+                        <i class="fa-solid fa-user-plus fa-xl"></i>
+                    </div>
+                    <div>
+                        <h4 class="fw-bold mb-0 text-dark">
+                            {% if is_first_user %}{{ _('Initial System Setup') }}{% else %}{{ _('Register New Account')
+                            }}{% endif %}
+                        </h4>
+                        <p class="text-muted small mb-0">
+                            {% if is_first_user %}{{ _('Create the first administrator account to begin') }}{% else %}{{
+                            _('Add a new student, staff member or administrator') }}{% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-body p-4">
+                <form method="POST" action="{{ url_for('auth.register') }}" class="needs-validation" novalidate>
+                    {{ register_form.hidden_tag() }}
+
+                    <div class="row g-4">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Full Name') }}</label>
+                            {{ register_form.name(class="form-control" + (" is-invalid" if register_form.name.errors
+                            else ""), placeholder=_("Enter full name")) }}
+                            {% for error in register_form.name.errors %}<div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Email Address') }}</label>
+                            {{ register_form.email(class="form-control" + (" is-invalid" if register_form.email.errors
+                            else ""), placeholder="name@example.com") }}
+                            {% for error in register_form.email.errors %}<div class="invalid-feedback">{{ error }}</div>
+                            {% endfor %}
+                        </div>
+
+                        {% if not is_first_user %}
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-muted">{{ _('System Role') }}</label>
+                            {{ register_form.role(class="form-select") }}
+                        </div>
+                        {% endif %}
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Password') }}</label>
+                            {{ register_form.password(class="form-control" + (" is-invalid" if
+                            register_form.password.errors else ""), placeholder="••••••••") }}
+                            {% for error in register_form.password.errors %}<div class="invalid-feedback">{{ error }}
+                            </div>{% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Confirm Password') }}</label>
+                            {{ register_form.confirm_password(class="form-control" + (" is-invalid" if
+                            register_form.confirm_password.errors else ""), placeholder="••••••••") }}
+                            {% for error in register_form.confirm_password.errors %}<div class="invalid-feedback">{{
+                                error }}</div>{% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2 mt-5">
+                        <button type="submit" class="btn btn-primary px-4 rounded-3 d-flex align-items-center gap-2">
+                            <i class="fa-solid fa-user-check"></i>
+                            {% if is_first_user %}{{ _('Complete Setup') }}{% else %}{{ _('Create Account') }}{% endif
+                            %}
+                        </button>
+                        <a href="{{ url_for('auth.manage_users') }}" class="btn btn-premium px-4 rounded-3 text-muted">
+                            {{ _('Cancel') }}
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Attendance History') }}</h3>
+        <p class="text-muted small mb-0">{{ _('Review and filter past attendance records') }}</p>
+    </div>
+    <a href="{{ url_for('attendance.index') }}" class="btn btn-light rounded-pill px-4">
+        <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back to Marking') }}
+    </a>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 mb-4">
+    <div class="card-body p-4">
+        <form method="GET" action="{{ url_for('attendance.history') }}" class="row g-3 align-items-end">
+            <div class="col-md-2">
+                <label class="form-label small fw-bold text-muted">{{ _('Class') }}</label>
+                <select name="class_id" class="form-select">
+                    <option value="">{{ _('All Classes') }}</option>
+                    {% for c in classes %}
+                    <option value="{{ c.id }}" {% if request.args.get('class_id') == c.id|string %}selected{% endif %}>{{ c.class_name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small fw-bold text-muted">{{ _('Subject') }}</label>
+                <select name="subject_id" class="form-select">
+                    <option value="">{{ _('All Subjects') }}</option>
+                    {% for s in subjects %}
+                    <option value="{{ s.id }}" {% if request.args.get('subject_id') == s.id|string %}selected{% endif %}>{{ s.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small fw-bold text-muted">{{ _('Session') }}</label>
+                <select name="period" class="form-select">
+                    <option value="">{{ _('All Sessions') }}</option>
+                    <option value="1" {% if request.args.get('period') == '1' %}selected{% endif %}>1</option>
+                    <option value="2" {% if request.args.get('period') == '2' %}selected{% endif %}>2</option>
+                    <option value="3" {% if request.args.get('period') == '3' %}selected{% endif %}>3</option>
+                    <option value="4" {% if request.args.get('period') == '4' %}selected{% endif %}>4</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small fw-bold text-muted">{{ _('From Date') }}</label>
+                <input type="date" name="start_date" class="form-control" value="{{ request.args.get('start_date', '') }}">
+            </div>
+            <div class="col-md-2">
+                <label class="form-label small fw-bold text-muted">{{ _('To Date') }}</label>
+                <input type="date" name="end_date" class="form-control" value="{{ request.args.get('end_date', '') }}">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-primary w-100 rounded-3">
+                    <i class="fa-solid fa-filter me-1"></i> {{ _('Filter') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0" id="historyTable">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">{{ _('Date') }}</th>
+                        <th>{{ _('Student') }}</th>
+                        <th>{{ _('Class') }}</th>
+                        <th>{{ _('Subject') }}</th>
+                        <th class="text-center">{{ _('Session') }}</th>
+                        <th>{{ _('Status') }}</th>
+                        <th class="pe-4">{{ _('Remarks') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in attendance_records %}
+                    <tr>
+                        <td class="ps-4">
+                            <span class="fw-bold">{{ record.attendance_date.strftime('%d %b, %Y') }}</span>
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="avatar-xs bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 30px; height: 30px; font-size: 0.8rem;">
+                                    {{ record.student.full_name[0] | upper }}
+                                </div>
+                                <a href="{{ url_for('students.student_profile', student_id=record.student_id) }}" class="text-decoration-none text-dark fw-semibold">
+                                    {{ record.student.full_name }}
+                                </a>
+                            </div>
+                        </td>
+                        <td>{{ record.class_assigned.class_name if record.class_assigned else '---' }}</td>
+                        <td>
+                            {% if record.subject %}
+                            <span class="badge badge-soft-primary">{{ record.subject.name }}</span>
+                            {% else %}
+                            <span class="text-muted small">General</span>
+                            {% endif %}
+                        </td>
+                        <td class="text-center">
+                            <span class="badge bg-light text-dark border px-2">S{{ record.period or 1 }}</span>
+                        </td>
+                        <td>
+                            {% if record.status == 'Present' %}
+                            <span class="badge badge-soft-success px-3">{{ _('Present') }}</span>
+                            {% elif record.status == 'Absent' %}
+                            <span class="badge badge-soft-danger px-3">{{ _('Absent') }}</span>
+                            {% elif record.status == 'Late' %}
+                            <span class="badge badge-soft-warning px-3">{{ _('Late') }}</span>
+                            {% else %}
+                            <span class="badge badge-soft-info px-3">{{ _(record.status) }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="pe-4">
+                            <small class="text-muted">{{ record.remarks or '---' }}</small>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-5">
+                            <i class="fa-solid fa-clipboard-question fa-3x text-light mb-3"></i>
+                            <p class="text-muted">{{ _('No attendance records found matching your filters.') }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function() {
+        $('#historyTable').DataTable({
+            "order": [[ 0, "desc" ]],
+            "pageLength": 50
+        });
+    });
+</script>
+{% endblock %}

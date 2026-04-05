@@ -1,0 +1,207 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="container-fluid px-0">
+
+    <!-- Page Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+            <h3 class="fw-bold mb-1">
+                <i class="fa-solid fa-book-quran me-2 text-success"></i>
+                {{ _('Quran Progress Tracker') }}
+            </h3>
+            <p class="text-muted small mb-0">{{ _('Monitor and manage students\' Quran learning journey') }}</p>
+        </div>
+        {% if current_user.role in ['A', 'T'] %}
+        <a href="{{ url_for('quran.add_progress') }}" class="btn btn-success d-flex align-items-center gap-2 shadow-sm">
+            <i class="fa-solid fa-plus"></i> {{ _('Add Student Progress') }}
+        </a>
+        {% endif %}
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg,#0f9d58,#34a853);">
+                <div class="card-body text-white d-flex align-items-center gap-3">
+                    <div class="bg-white bg-opacity-25 rounded-3 p-2" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fa-solid fa-users fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">{{ total }}</div>
+                        <small class="opacity-90">{{ _('Total Students') }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg,#1a73e8,#4285f4);">
+                <div class="card-body text-white d-flex align-items-center gap-3">
+                    <div class="bg-white bg-opacity-25 rounded-3 p-2" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fa-solid fa-brain fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">{{ hifz_count }}</div>
+                        <small class="opacity-90">{{ _('Hifz') }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg,#f9ab00,#fbbc04);">
+                <div class="card-body text-white d-flex align-items-center gap-3">
+                    <div class="bg-white bg-opacity-25 rounded-3 p-2" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fa-solid fa-eye fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">{{ nazira_count }}</div>
+                        <small class="opacity-90">{{ _('Nazira') }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card border-0 shadow-sm rounded-4 h-100" style="background: linear-gradient(135deg,#7c4dff,#9c6bff);">
+                <div class="card-body text-white d-flex align-items-center gap-3">
+                    <div class="bg-white bg-opacity-25 rounded-3 p-2" style="width:48px;height:48px;display:flex;align-items:center;justify-content:center;">
+                        <i class="fa-solid fa-rotate fa-lg"></i>
+                    </div>
+                    <div>
+                        <div class="fw-bold fs-4">{{ muraja_count }}</div>
+                        <small class="opacity-90">{{ _("Muraja'a") }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filters -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body">
+            <form method="get" class="row g-2 align-items-end">
+                <div class="col-12 col-md-5">
+                    <label class="form-label small fw-semibold text-muted mb-1">{{ _('Search Student') }}</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light border-0"><i class="fa-solid fa-search text-muted"></i></span>
+                        <input type="text" name="search" class="form-control border-0 bg-light" placeholder="{{ _('Student name...') }}" value="{{ search }}">
+                    </div>
+                </div>
+                <div class="col-6 col-md-3">
+                    <label class="form-label small fw-semibold text-muted mb-1">{{ _('Mode') }}</label>
+                    <select name="mode" class="form-select border-0 bg-light">
+                        <option value="">{{ _('All Modes') }}</option>
+                        <option value="Nazira" {{ 'selected' if mode_filter == 'Nazira' }}>Nazira</option>
+                        <option value="Hifz" {{ 'selected' if mode_filter == 'Hifz' }}>Hifz</option>
+                        <option value="Muraja'a" {{ "selected" if mode_filter == "Muraja'a" }}>Muraja'a</option>
+                    </select>
+                </div>
+                <div class="col-6 col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">{{ _('Filter') }}</button>
+                </div>
+                <div class="col-12 col-md-2">
+                    <a href="{{ url_for('quran.index') }}" class="btn btn-outline-secondary w-100">{{ _('Reset') }}</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Records Table -->
+    <div class="card border-0 shadow-sm rounded-4">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4 py-3 text-muted small fw-semibold">#</th>
+                            <th class="py-3 text-muted small fw-semibold">{{ _('Student') }}</th>
+                            <th class="py-3 text-muted small fw-semibold d-none d-md-table-cell">{{ _('Mode') }}</th>
+                            <th class="py-3 text-muted small fw-semibold d-none d-md-table-cell">{{ _('Current Position') }}</th>
+                            <th class="py-3 text-muted small fw-semibold d-none d-lg-table-cell">{{ _('Juz Completed') }}</th>
+                            <th class="py-3 text-muted small fw-semibold d-none d-lg-table-cell">{{ _('Teacher') }}</th>
+                            <th class="py-3 text-muted small fw-semibold">{{ _('Actions') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for r in records %}
+                        <tr>
+                            <td class="ps-4 text-muted small">{{ loop.index }}</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="rounded-circle d-flex align-items-center justify-content-center fw-bold text-white shadow-sm"
+                                        style="width:38px;height:38px;font-size:0.9rem;background:linear-gradient(135deg,#0f9d58,#34a853);">
+                                        {{ r.student.full_name[:1].upper() }}
+                                    </div>
+                                    <div>
+                                        <div class="fw-semibold">{{ r.student.full_name }}</div>
+                                        <small class="text-muted">{{ r.student.enrollment_number }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                {% if r.mode == 'Hifz' %}
+                                <span class="badge rounded-pill px-3" style="background:#1a73e8;">Hifz</span>
+                                {% elif r.mode == 'Nazira' %}
+                                <span class="badge rounded-pill px-3" style="background:#f9ab00;color:#000;">Nazira</span>
+                                {% else %}
+                                <span class="badge rounded-pill px-3" style="background:#7c4dff;">Muraja'a</span>
+                                {% endif %}
+                            </td>
+                            <td class="d-none d-md-table-cell">
+                                <div class="fw-semibold small">{{ r.current_surah }}</div>
+                                <div class="text-muted" style="font-size:0.75rem;">Juz {{ r.current_juz }} · Aya {{ r.current_aya }}</div>
+                            </td>
+                            <td class="d-none d-lg-table-cell">
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="progress flex-grow-1" style="height:6px;border-radius:99px;max-width:100px;">
+                                        <div class="progress-bar bg-success" style="width:{{ ((r.total_juz_completed or 0) / 30 * 100)|int }}%;"></div>
+                                    </div>
+                                    <small class="text-muted">{{ r.total_juz_completed or 0 }}/30</small>
+                                </div>
+                            </td>
+                            <td class="d-none d-lg-table-cell">
+                                <small class="text-muted">{{ r.teacher.full_name if r.teacher else '—' }}</small>
+                            </td>
+                            <td>
+                                <div class="d-flex gap-1">
+                                    <a href="{{ url_for('quran.student_progress', progress_id=r.id) }}"
+                                        class="btn btn-sm btn-light rounded-3" title="{{ _('View') }}">
+                                        <i class="fa-solid fa-eye text-primary"></i>
+                                    </a>
+                                    {% if current_user.role in ['A', 'T'] %}
+                                    <a href="{{ url_for('quran.edit_progress', progress_id=r.id) }}"
+                                        class="btn btn-sm btn-light rounded-3" title="{{ _('Edit') }}">
+                                        <i class="fa-solid fa-pen text-warning"></i>
+                                    </a>
+                                    {% endif %}
+                                    {% if current_user.role == 'A' %}
+                                    <form method="post" action="{{ url_for('quran.delete_progress', progress_id=r.id) }}"
+                                        onsubmit="return confirm('{{ _('Delete this record?') }}')">
+                                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                        <button type="submit" class="btn btn-sm btn-light rounded-3" title="{{ _('Delete') }}">
+                                            <i class="fa-solid fa-trash text-danger"></i>
+                                        </button>
+                                    </form>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td colspan="7" class="text-center py-5 text-muted">
+                                <i class="fa-solid fa-book-quran fa-3x mb-3 opacity-25"></i>
+                                <p class="mb-0">{{ _('No Quran progress records found.') }}</p>
+                                {% if current_user.role in ['A', 'T'] %}
+                                <a href="{{ url_for('quran.add_progress') }}" class="btn btn-sm btn-success mt-3">
+                                    <i class="fa-solid fa-plus me-1"></i>{{ _('Add First Record') }}
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

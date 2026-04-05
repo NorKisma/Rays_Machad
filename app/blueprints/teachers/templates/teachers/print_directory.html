@@ -1,0 +1,187 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 no-print">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Teacher Directory') }}</h3>
+        <p class="text-muted small mb-0">{{ _('Official roster of all Madrasah staff and teachers.') }}</p>
+    </div>
+    <div class="d-flex gap-2">
+        <button onclick="window.print()"
+            class="btn btn-primary d-flex align-items-center gap-2 px-4 rounded-3 shadow-sm">
+            <i class="fa-solid fa-print"></i> {{ _('Print Now') }}
+        </button>
+        <a href="{{ url_for('teachers.manage_teachers') }}"
+            class="btn btn-premium d-flex align-items-center gap-2 px-4 rounded-3 shadow-sm">
+            <i class="fa-solid fa-arrow-left"></i> {{ _('Back') }}
+        </a>
+    </div>
+</div>
+
+<!-- Official Print Header -->
+<div id="customPrintHeader" class="d-print-block mb-4 p-4 border shadow-sm rounded-4 bg-light">
+    <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex align-items-center gap-3">
+            <div class="logo-icon bg-primary p-3 rounded-4 shadow-sm">
+                <i class="fa-solid fa-mosque fa-2xl text-white"></i>
+            </div>
+            <div>
+                <h2 class="fw-bold mb-0 text-primary">{{ madrasah_name }}</h2>
+                <p class="text-muted small mb-0">{{ madrasah_address }}</p>
+                <p class="text-muted small mb-0">{{ madrasah_phone }}</p>
+            </div>
+        </div>
+        <div class="text-end">
+            <h4 class="text-uppercase text-muted letter-spacing-2 mb-1">{{ _('Teacher Directory') }}</h4>
+            <div class="badge bg-primary px-3 rounded-pill">{{ _('Official Roster') }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4 printable-card">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-bordered align-middle mb-0" id="printTable"
+                style="font-size: 0.85rem; border: 1px solid #000; border-radius: 15px; border-collapse: separate; border-spacing: 0; overflow: hidden;">
+                <thead style="background: white;">
+                    <tr>
+                        <th class="ps-3 text-uppercase fw-bold text-dark border-bottom-2"
+                            style="border-bottom: 2px solid #000 !important; width: 60px;">{{ _('ID') }}</th>
+                        <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
+                            {{ _('Teacher Name') }}</th>
+                        <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
+                            {{ _('Contact Info') }}</th>
+                        <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
+                            {{ _('Specialization') }}</th>
+                        <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
+                            {{ _('Qualification') }}</th>
+                        <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
+                            {{ _('Joined Date') }}</th>
+                        <th class="pe-3 text-uppercase fw-bold text-dark text-center"
+                            style="border-bottom: 2px solid #000 !important;">{{ _('Status') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for teacher in teachers %}
+                    <tr>
+                        <td class="ps-3 fw-bold text-primary">{{ teacher.employee_number }}</td>
+                        <td>
+                            <div class="fw-bold">{{ teacher.full_name }}</div>
+                            <div class="text-muted" style="font-size: 0.75rem;">{{ teacher.email }}</div>
+                        </td>
+                        <td class="fw-bold">{{ teacher.phone }}</td>
+                        <td class="text-muted">{{ teacher.specialization or '' }}</td>
+                        <td class="text-muted">{{ teacher.qualification or 'N/A' }}</td>
+                        <td class="text-muted">{{ teacher.joining_date.strftime('%Y-%m-%d') if teacher.joining_date else
+                            'N/A' }}</td>
+                        <td class="pe-3 text-center">
+                            <span class="badge border bg-light text-dark px-3 py-2 fw-bold"
+                                style="font-size: 0.75rem; border-radius: 8px; border-color: #dee2e6 !important;">
+                                {{ teacher.status }}
+                            </span>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Official Print Footer -->
+<div id="customPrintFooter" class="d-print-block mt-5 pt-4 border-top">
+    <div class="d-flex justify-content-between align-items-end">
+        <div>
+            <p class="small text-muted mb-0">{{ _('Printed on:') }} {{ now.strftime('%d %b %Y, %H:02') }}</p>
+            <p class="small text-muted mb-0">{{ _('System Generated Document') }}</p>
+            <p class="small text-muted mb-0" style="font-size: 0.55rem; opacity: 0.8;">&copy; 2026 RaysTech Center.
+                Designed & Developed. All Rights Reserved.</p>
+        </div>
+        <div class="text-center" style="width: 250px;">
+            <div class="mb-2" style="border-bottom: 2px solid #334155; height: 40px;"></div>
+            <p class="fw-bold text-uppercase small mb-0">{{ _('AUTHORIZED SIGNATURE') }}</p>
+            <small class="text-muted">{{ _('Madrasah Administration') }}</small>
+        </div>
+    </div>
+</div>
+
+<style>
+    @media print {
+        @page {
+            size: landscape;
+            margin: 0.5cm;
+        }
+
+        .main-header,
+        .sidebar,
+        .no-print,
+        .btn-premium {
+            display: none !important;
+        }
+
+        .main-content {
+            padding: 0 !important;
+            margin: 0 !important;
+            width: 100% !important;
+        }
+
+        /* Hide layout's generic print header but keep ours */
+        .main-content>.d-print-block:not(#customPrintHeader):not(#customPrintFooter) {
+            display: none !important;
+        }
+
+        .card {
+            box-shadow: none !important;
+            border: none !important;
+        }
+
+        .table td,
+        .table th {
+            padding: 0.75rem !important;
+            border: 1px solid #eee !important;
+        }
+
+        .table thead th {
+            background-color: white !important;
+            color: #000 !important;
+            border-bottom: 2px solid #000 !important;
+        }
+
+        body {
+            background-color: white !important;
+        }
+
+        #printTable {
+            border: 1px solid #000 !important;
+            border-radius: 15px !important;
+            overflow: hidden !important;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const table = $('#printTable').DataTable({
+            "paging": false,
+            "info": false,
+            "language": {
+                "search": "{{ _('Filter Roster:') }}"
+            },
+            "dom": '<"d-flex justify-content-between align-items-center mb-4 shadow-sm p-3 bg-light rounded-4 no-print"f>rt'
+        });
+
+        // Link the global search bar in the header to DataTables
+        $('#headerSearchInput').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+
+        // Handle initial search
+        const initialSearch = $('#headerSearchInput').val();
+        if (initialSearch) {
+            table.search(initialSearch).draw();
+        }
+    });
+</script>
+{% endblock %}

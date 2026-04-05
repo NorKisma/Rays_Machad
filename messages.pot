@@ -1,0 +1,5287 @@
+# Translations template for PROJECT.
+# Copyright (C) 2026 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2026-02-28 13:19+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.8.0\n"
+
+#: app/blueprints/announcements/forms.py:7
+#: app/blueprints/financials/forms.py:40
+#: app/blueprints/financials/templates/financials/expenses.html:20
+#: app/blueprints/financials/templates/financials/payables.html:34
+#: app/blueprints/teachers/templates/teachers/view_profile.html:92
+msgid "Title"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:8
+msgid "Content"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:9
+msgid "Target Audience"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:10
+msgid "Everyone"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:11
+msgid "Teachers Only"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:12
+msgid "Students Only"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:13
+msgid "Parents Only"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:15
+#: app/blueprints/announcements/templates/announcements/manage.html:22
+msgid "Priority"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:16
+#: app/blueprints/announcements/templates/announcements/manage.html:45
+msgid "Normal"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:17
+#: app/blueprints/announcements/templates/announcements/manage.html:43
+msgid "High"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:18
+#: app/blueprints/announcements/templates/announcements/manage.html:41
+msgid "Critical"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:20
+msgid "Expiry Date (Optional)"
+msgstr ""
+
+#: app/blueprints/announcements/forms.py:21
+msgid "Post Announcement"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:55
+msgid "Announcement posted successfully!"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:61
+msgid "Add Announcement"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:78
+msgid "Announcement updated successfully!"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:84
+msgid "Edit Announcement"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:119
+msgid "OGAYSIIS MUHIIM AH"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:121
+msgid "OGAYSIIS MACALIMIINTA"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:123
+msgid "OGAYSIIS WAALIDIINTA"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:136
+#, python-format
+msgid ""
+"Successfully broadcasted announcement to %(count)s recipients via "
+"WhatsApp."
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:138
+#, python-format
+msgid "Failed to send to %(count)s numbers. Details: %(error)s"
+msgstr ""
+
+#: app/blueprints/announcements/routes.py:149
+msgid "Announcement deleted!"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/form.html:9
+msgid "Fill in the details for the news/broadcast."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/form.html:17
+msgid ""
+"e.g. Eid Holidays\n"
+"                        Announcement"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/form.html:25
+msgid ""
+"Type the\n"
+"                        announcement body here..."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/form.html:47
+msgid "Announcement will not show on dashboard after this date."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/form.html:56
+#: app/blueprints/auth/templates/change_password.html:52
+#: app/blueprints/auth/templates/edit_user.html:54
+#: app/blueprints/auth/templates/user.html:77
+#: app/blueprints/classes/templates/classes/add_class.html:53
+#: app/blueprints/classes/templates/classes/subject_form.html:46
+#: app/blueprints/exams/templates/exams/add_exam.html:170
+#: app/blueprints/exams/templates/exams/enter_result.html:138
+#: app/blueprints/financials/templates/financials/expense_form.html:89
+#: app/blueprints/financials/templates/financials/fee_form.html:55
+#: app/blueprints/financials/templates/financials/payment_form.html:63
+#: app/blueprints/settings/templates/settings/category_form.html:44
+#: app/blueprints/students/templates/students/add_student.html:118
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:94
+msgid "Cancel"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/index.html:7
+#: app/blueprints/auth/templates/teacher_dashboard.html:141
+#: app/templates/layout.html:354
+msgid "Announcements"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/index.html:8
+msgid "Stay updated with the latest news from the Madrasah."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/index.html:29
+msgid "Important Update"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/index.html:40
+msgid "No active announcements found."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/index.html:41
+msgid "Check back later for new updates."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:6
+msgid "Central Announcements"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:7
+msgid "Manage communication with students, parents, and staff."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:10
+msgid "Create New"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:20
+#: app/blueprints/auth/templates/dashboard.html:353
+msgid "Announcement"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:21
+msgid "Target"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:23
+msgid "Posted On"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:24
+#: app/blueprints/auth/templates/manage_users.html:150
+#: app/blueprints/classes/templates/classes/manage_subjects.html:42
+#: app/blueprints/classes/templates/classes/view_schedule.html:78
+#: app/blueprints/exams/templates/exams/student_report.html:58
+#: app/blueprints/exams/templates/exams/view_results.html:76
+#: app/blueprints/financials/templates/financials/expenses.html:24
+#: app/blueprints/financials/templates/financials/fees.html:42
+#: app/blueprints/financials/templates/financials/payables.html:38
+#: app/blueprints/financials/templates/financials/structures.html:30
+#: app/blueprints/settings/templates/settings/categories.html:26
+#: app/blueprints/students/templates/students/manage_students.html:121
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:96
+msgid "Actions"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:52
+msgid "Send this announcement to all parents via WhatsApp?"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:56
+msgid "Broadcast via WhatsApp"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:64
+msgid "Are you sure you want to delete this announcement?"
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:82
+#: app/blueprints/announcements/templates/announcements/manage.html:97
+msgid "No announcements found."
+msgstr ""
+
+#: app/blueprints/announcements/templates/announcements/manage.html:96
+msgid "Search Announcements..."
+msgstr ""
+
+#: app/blueprints/attendance/routes.py:70
+#, python-format
+msgid "Attendance for %(class_name)s on %(date)s saved successfully."
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/index.html:6
+msgid "Attendance Management"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/index.html:7
+msgid "Track and record daily student attendance"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/index.html:15
+msgid "Select Date"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/index.html:38
+#: app/blueprints/classes/templates/classes/manage_classes.html:54
+msgid ""
+"No teacher\n"
+"                            assigned"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/index.html:43
+msgid "Mark Attendance"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/index.html:52
+msgid "No classes found. Please create classes first."
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/index.html:53
+#: app/blueprints/classes/templates/classes/manage_classes.html:78
+#: app/blueprints/financials/templates/financials/structures.html:115
+msgid "Create Class"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:11
+#: app/blueprints/settings/routes.py:66
+#: app/blueprints/students/templates/students/view_profile.html:87
+#: app/templates/layout.html:234
+msgid "Attendance"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:15
+msgid "Attendance Roll Call"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:19
+#: app/blueprints/students/templates/students/print_directory.html:16
+#: app/blueprints/students/templates/students/view_profile.html:35
+#: app/blueprints/teachers/templates/teachers/print_directory.html:16
+#: app/blueprints/teachers/templates/teachers/view_profile.html:23
+msgid "Back"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:26
+msgid "Student List"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:28
+#: app/blueprints/auth/templates/dashboard.html:639
+#: app/blueprints/auth/templates/manage_users.html:131
+#: app/blueprints/exams/templates/exams/view_results.html:37
+#: app/blueprints/settings/routes.py:63
+#: app/blueprints/students/templates/students/view_profile.html:12
+#: app/templates/layout.html:190
+msgid "Students"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:39
+#: app/blueprints/auth/forms.py:20 app/blueprints/auth/forms.py:48
+#: app/blueprints/auth/templates/manage_users.html:179
+#: app/blueprints/auth/templates/my_payments.html:29
+#: app/blueprints/exams/templates/exams/view_results.html:65
+#: app/blueprints/financials/forms.py:7
+#: app/blueprints/students/templates/students/manage_students.html:115
+#: app/templates/layout.html:111 app/templates/layout.html:155
+#: app/templates/layout.html:549
+msgid "Student"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:40
+#: app/blueprints/auth/templates/login_logs.html:78
+#: app/blueprints/auth/templates/manage_users.html:149
+#: app/blueprints/auth/templates/my_payments.html:33
+#: app/blueprints/auth/templates/staff_dashboard.html:78
+#: app/blueprints/exams/forms.py:22 app/blueprints/exams/forms.py:39
+#: app/blueprints/exams/templates/exams/enter_result.html:120
+#: app/blueprints/exams/templates/exams/student_report.html:57
+#: app/blueprints/exams/templates/exams/view_results.html:75
+#: app/blueprints/financials/forms.py:56
+#: app/blueprints/financials/templates/financials/expenses.html:23
+#: app/blueprints/financials/templates/financials/fees.html:41
+#: app/blueprints/financials/templates/financials/index.html:160
+#: app/blueprints/settings/templates/settings/logs.html:21
+#: app/blueprints/students/forms.py:30
+#: app/blueprints/students/templates/students/add_student.html:110
+#: app/blueprints/students/templates/students/manage_students.html:120
+#: app/blueprints/students/templates/students/view_profile.html:225
+#: app/blueprints/students/templates/students/view_profile.html:375
+#: app/blueprints/teachers/forms.py:25
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:71
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:95
+#: app/blueprints/teachers/templates/teachers/print_directory.html:61
+msgid "Status"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:41
+#: app/blueprints/exams/forms.py:49 app/blueprints/financials/forms.py:23
+#: app/blueprints/financials/forms.py:36
+#: app/blueprints/students/templates/students/view_profile.html:227
+msgid "Remarks"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:68
+#: app/blueprints/students/routes.py:147
+#: app/blueprints/students/templates/students/view_profile.html:237
+msgid "Present"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:74
+#: app/blueprints/students/routes.py:147
+#: app/blueprints/students/templates/students/view_profile.html:242
+msgid "Late"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:80
+#: app/blueprints/exams/forms.py:45 app/blueprints/students/routes.py:147
+#: app/blueprints/students/templates/students/view_profile.html:240
+msgid "Absent"
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:86
+msgid "Optional note..."
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:93
+msgid "No students enrolled in this class."
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:101
+msgid ""
+"Unmarked students\n"
+"                            will default to Absent."
+msgstr ""
+
+#: app/blueprints/attendance/templates/attendance/mark.html:104
+msgid "Save Attendance"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:10 app/blueprints/auth/forms.py:17
+#: app/blueprints/auth/forms.py:43 app/blueprints/auth/forms.py:65
+#: app/blueprints/auth/templates/manage_users.html:147
+#: app/blueprints/landing/templates/landing/index.html:933
+#: app/blueprints/settings/forms.py:10
+msgid "Email"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:11 app/blueprints/auth/forms.py:23
+#: app/blueprints/auth/templates/login.html:410
+#: app/blueprints/auth/templates/user.html:54
+msgid "Password"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:12
+msgid "Remember me"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:13
+msgid "Sign in"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:16 app/blueprints/auth/forms.py:39
+#: app/blueprints/auth/templates/edit_user.html:24
+#: app/blueprints/auth/templates/manage_users.html:146
+#: app/blueprints/auth/templates/user.html:31
+#: app/blueprints/students/forms.py:7
+#: app/blueprints/students/templates/students/add_student.html:35
+#: app/blueprints/teachers/forms.py:7
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:36
+msgid "Full Name"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:19 app/blueprints/auth/forms.py:47
+#: app/blueprints/auth/templates/manage_users.html:148
+msgid "Role"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:20 app/blueprints/auth/forms.py:48
+#: app/blueprints/auth/templates/manage_users.html:169
+msgid "Admin"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:20 app/blueprints/auth/forms.py:48
+#: app/blueprints/auth/templates/manage_users.html:171
+#: app/blueprints/settings/routes.py:56
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:90
+#: app/templates/layout.html:108 app/templates/layout.html:153
+#: app/templates/layout.html:545
+msgid "Teacher"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:20 app/blueprints/auth/forms.py:48
+#: app/blueprints/auth/templates/manage_users.html:173
+#: app/blueprints/settings/routes.py:57 app/templates/layout.html:109
+#: app/templates/layout.html:153 app/templates/layout.html:546
+msgid "Staff"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:20 app/blueprints/auth/forms.py:48
+#: app/blueprints/auth/templates/manage_users.html:105
+#: app/blueprints/auth/templates/manage_users.html:175
+#: app/blueprints/settings/routes.py:58 app/templates/layout.html:110
+#: app/templates/layout.html:154 app/templates/layout.html:547
+msgid "Finance"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:20 app/blueprints/auth/forms.py:48
+#: app/blueprints/auth/templates/manage_users.html:177
+#: app/blueprints/financials/routes.py:500 app/blueprints/settings/routes.py:59
+#: app/templates/layout.html:110 app/templates/layout.html:154
+#: app/templates/layout.html:548
+msgid "Parent"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:25 app/blueprints/auth/forms.py:71
+#: app/blueprints/auth/forms.py:83 app/blueprints/auth/forms.py:103
+msgid "Password must be at least 8 characters."
+msgstr ""
+
+#: app/blueprints/auth/forms.py:27
+#: app/blueprints/auth/templates/reset_password_otp.html:211
+#: app/blueprints/auth/templates/user.html:62
+msgid "Confirm Password"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:29 app/blueprints/auth/forms.py:75
+#: app/blueprints/auth/forms.py:87 app/blueprints/auth/forms.py:107
+msgid "Passwords must match."
+msgstr ""
+
+#: app/blueprints/auth/forms.py:31
+msgid "Create User"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:35
+msgid "Email already exists."
+msgstr ""
+
+#: app/blueprints/auth/forms.py:51
+msgid "Update Changes"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:62
+msgid "Email is already in use by another user."
+msgstr ""
+
+#: app/blueprints/auth/forms.py:66
+msgid "Request Password Reset"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:69 app/blueprints/auth/forms.py:81
+#: app/blueprints/auth/forms.py:101
+#: app/blueprints/auth/templates/change_password.html:30
+#: app/blueprints/auth/templates/reset_password.html:158
+#: app/blueprints/auth/templates/reset_password_otp.html:203
+msgid "New Password"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:73 app/blueprints/auth/forms.py:85
+#: app/blueprints/auth/forms.py:105
+#: app/blueprints/auth/templates/change_password.html:39
+#: app/blueprints/auth/templates/reset_password.html:163
+msgid "Confirm New Password"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:77 app/blueprints/auth/forms.py:109
+#: app/blueprints/auth/templates/reset_password_otp.html:7
+msgid "Reset Password"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:80
+#: app/blueprints/auth/templates/change_password.html:21
+msgid "Current Password"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:89
+#: app/blueprints/auth/templates/change_password.html:49
+msgid "Update Password"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:93
+msgid "OTP Code"
+msgstr ""
+
+#: app/blueprints/auth/forms.py:95
+msgid "OTP must be 6 digits."
+msgstr ""
+
+#: app/blueprints/auth/forms.py:97
+#: app/blueprints/auth/templates/verify_otp.html:7
+#: app/blueprints/auth/templates/verify_otp.html:165
+msgid "Verify OTP"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:25
+msgid "Password Reset Request"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:36
+msgid "Password Reset OTP"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:123
+msgid "This account has been removed."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:127
+msgid "Your account has been deactivated."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:137
+msgid "You do not have access to this school's portal."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:142
+msgid ""
+"Please log in through your school's specific portal (e.g., "
+"myschool.raystechcenter.online)"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:163
+msgid "Welcome back!"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:183 app/blueprints/auth/routes.py:196
+msgid "Invalid email or password."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:209
+msgid "You have been logged out."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:249
+#, python-format
+msgid ""
+"<strong>Auto-Billing:</strong> Generated %(count)s tuition records for "
+"%(month)s."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:456
+msgid "System setup completed. Welcome Admin!"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:459
+msgid "User registered successfully"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:497
+msgid "You cannot modify your own status."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:504 app/blueprints/auth/routes.py:689
+msgid "Primary admin account is protected."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:508 app/blueprints/auth/routes.py:600
+#: app/blueprints/auth/routes.py:661 app/blueprints/auth/routes.py:693
+msgid "Only the super admin can perform this action."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:518
+#, python-format
+msgid "User %(name)s has been activated."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:522
+#, python-format
+msgid "User %(name)s has been deactivated."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:526
+#, python-format
+msgid "User %(name)s has been soft-deleted."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:530
+#, python-format
+msgid "User %(name)s has been restored."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:574
+#, python-format
+msgid "User %(name)s has been permanently deleted."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:578
+#, python-format
+msgid "Error: Permanent deletion failed. Database reason: %(err)s"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:583
+#, python-format
+msgid "Invalid action: %(action)s"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:589
+msgid ""
+"Error: This user cannot be deleted. They might be linked to records in "
+"another school or system files."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:653
+#, python-format
+msgid "Successfully wiped %(count)d users forever."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:666
+msgid "No deleted users found to restore."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:675
+#, python-format
+msgid "Successfully restored %(count)s users."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:703
+msgid "User updated successfully."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:731
+msgid "An OTP code has been sent to your email address."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:741
+msgid ""
+"System: Email sending failed (Check .env). Since you are in Debug Mode, "
+"here is your OTP:"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:745
+msgid ""
+"There was an error sending the email. Please contact support or check "
+"server logs."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:747
+msgid "If that account exists, an OTP code has been sent."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:759
+msgid "Please request a password reset first."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:775
+msgid "OTP verified successfully! Please enter your new password."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:780 app/blueprints/auth/routes.py:812
+msgid "Invalid session. Please try again."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:793
+msgid "Please verify your OTP first."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:809 app/blueprints/auth/routes.py:832
+msgid "Your password has been updated! You can now log in"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:825
+msgid "That is an invalid or expired token"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:845
+msgid "Your password has been updated!"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:848
+msgid "Current password is incorrect."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:863
+msgid "<strong>Backup Successful!</strong> File saved locally."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:872
+#, python-format
+msgid "<strong>Backup Failed!</strong> Error: %(error)s"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:908
+msgid "No file part"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:913
+msgid "No selected file"
+msgstr ""
+
+#: app/blueprints/auth/routes.py:932
+msgid "<strong>Restore Successful!</strong> System data has been updated."
+msgstr ""
+
+#: app/blueprints/auth/routes.py:934
+#, python-format
+msgid "<strong>Restore Failed!</strong> Error: %(error)s"
+msgstr ""
+
+#: app/blueprints/auth/templates/change_password.html:13
+#: app/templates/layout.html:582
+msgid "Change Password"
+msgstr ""
+
+#: app/blueprints/auth/templates/change_password.html:14
+msgid "Secure your account by updating your password regularly"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:180
+msgid "Welcome back"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:181
+msgid "First Term 2026"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:185
+msgid ""
+"Here's a real-time overview of your\n"
+"                institution's performance and upcoming activities."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:190
+#: app/blueprints/auth/templates/dashboard.html:283
+#: app/blueprints/students/templates/students/manage_students.html:48
+msgid "Add Student"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:194
+msgid "New Announcement"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:211
+msgid ""
+"Total\n"
+"                Students"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:221
+msgid ""
+"Total\n"
+"                Teachers"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:231
+msgid ""
+"Total\n"
+"                Classes"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:241
+msgid ""
+"System\n"
+"                Health"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:243
+msgid "Optimal"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:256
+msgid "School Overview"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:257
+msgid "Real-time"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:271
+msgid ""
+"Quick\n"
+"                    Operations"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:284
+msgid "New registration."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:297
+#: app/blueprints/settings/routes.py:70 app/templates/layout.html:325
+msgid "Manage Users"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:298
+msgid "Staff & Roles."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:311
+#: app/blueprints/settings/routes.py:68 app/templates/layout.html:254
+msgid "Financials"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:312
+msgid "Fees & expenses."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:325
+#: app/blueprints/reports/templates/reports/profit_loss.html:196
+msgid "Profit & Loss"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:326
+msgid "Financial health."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:339
+#: app/blueprints/settings/routes.py:67 app/templates/layout.html:242
+msgid "Exams"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:340
+msgid "Manage assessments."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:354
+msgid "Notify everyone."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:377
+msgid "System Overview"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:378
+msgid ""
+"Live\n"
+"                            Environment Status"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:387
+msgid "Facility"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:392
+msgid "Session"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:395
+msgid "Spring 2026"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:400
+msgid "Database"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:404
+msgid "Synced"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:410
+msgid "Version"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:420
+msgid "Backup"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:428
+#: app/blueprints/auth/templates/manage_users.html:226
+msgid "Restore"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:439
+msgid "Top Students"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:442
+#: app/blueprints/auth/templates/dashboard.html:490
+msgid "View All"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:460
+msgid "pts"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:468
+msgid "No exam results yet."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:485
+msgid "Institutional Announcements"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:486
+msgid "Stay updated with latest news"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:517
+msgid "No active announcements at the moment."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:519
+msgid "Create First Announcement"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:533
+msgid "Hagaha Soo Celinta (Restore Guide)"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:540
+msgid ""
+"Sidii aad u soo celin lahayd xogta madrasada\n"
+"                        haddii ay kaa lunto."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:545
+msgid ""
+"Faylka\n"
+"                        halkan ka soo geli (Direct Upload)"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:557
+msgid ""
+"Riix halkan si aad u dooratid\n"
+"                                faylka"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:559
+msgid "ama halkan soo jiid (Drag & Drop)"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:561
+msgid "Browse File"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:569
+msgid ""
+"Xogta ayaa hadda la soo celinayaa... Fadlan\n"
+"                                sug."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:576
+msgid "Marka hore faylka dooro..."
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:579
+msgid "Waan iska dhaafay"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:610
+msgid "Restore Now"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:639
+#: app/blueprints/auth/templates/manage_users.html:118
+#: app/blueprints/settings/routes.py:64
+#: app/blueprints/teachers/templates/teachers/view_profile.html:12
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:12
+#: app/templates/layout.html:199
+msgid "Teachers"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:639
+#: app/blueprints/classes/templates/classes/view_schedule.html:12
+#: app/blueprints/settings/routes.py:65
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:121
+#: app/templates/layout.html:209
+msgid "Classes"
+msgstr ""
+
+#: app/blueprints/auth/templates/dashboard.html:641
+msgid "Count"
+msgstr ""
+
+#: app/blueprints/auth/templates/edit_user.html:13
+msgid "Edit User Profile"
+msgstr ""
+
+#: app/blueprints/auth/templates/edit_user.html:26
+#: app/blueprints/auth/templates/user.html:33
+msgid "Enter full name"
+msgstr ""
+
+#: app/blueprints/auth/templates/edit_user.html:33
+#: app/blueprints/auth/templates/forgot_password.html:159
+#: app/blueprints/auth/templates/login.html:404
+#: app/blueprints/auth/templates/user.html:39
+#: app/blueprints/landing/templates/landing/index.html:953
+#: app/blueprints/landing/templates/landing/index.html:954
+#: app/blueprints/landing/templates/landing/index.html:1011
+#: app/blueprints/settings/templates/settings/index.html:48
+#: app/blueprints/teachers/forms.py:9
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:44
+#: app/blueprints/teachers/templates/teachers/view_profile.html:53
+msgid "Email Address"
+msgstr ""
+
+#: app/blueprints/auth/templates/edit_user.html:42
+#: app/blueprints/auth/templates/user.html:48
+msgid "System Role"
+msgstr ""
+
+#: app/blueprints/auth/templates/edit_user.html:51
+#: app/blueprints/students/templates/students/add_student.html:120
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:97
+msgid "Save Changes"
+msgstr ""
+
+#: app/blueprints/auth/templates/forgot_password.html:7
+#: app/blueprints/auth/templates/forgot_password.html:140
+msgid "Forgot Password"
+msgstr ""
+
+#: app/blueprints/auth/templates/forgot_password.html:7
+#: app/blueprints/auth/templates/reset_password.html:7
+#: app/blueprints/auth/templates/reset_password_otp.html:7
+#: app/blueprints/auth/templates/verify_otp.html:7 app/templates/base.html:13
+msgid "Madrasah System"
+msgstr ""
+
+#: app/blueprints/auth/templates/forgot_password.html:141
+msgid "Enter your email to receive a 6-digit OTP code"
+msgstr ""
+
+#: app/blueprints/auth/templates/forgot_password.html:166
+#: app/blueprints/auth/templates/reset_password_otp.html:222
+#: app/blueprints/auth/templates/verify_otp.html:198
+msgid "Back to Login"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:329
+msgid "Securing Connection..."
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:339
+#: app/blueprints/landing/templates/landing/index.html:643
+msgid "RAYS MADRASAH"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:341
+msgid "Professional Excellence in Islamic Education"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:343
+msgid ""
+"Welcome to the next generation of Madrasah management. Our secure "
+"platform ensures your institutional data is protected while providing "
+"seamless administrative control."
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:349
+msgid "Data Isolation"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:350
+msgid "Your tenant data is strictly protected."
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:356
+msgid "Lightning Fast"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:357
+msgid "Optimized for high-speed performance."
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:362
+msgid "Powering Innovation."
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:385
+msgid "Welcome Back"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:386
+msgid "Please enter your credentials to access your portal."
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:412
+msgid "Forgot?"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:420
+msgid "Keep me logged in"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:425
+msgid "Login to Portal"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:430
+msgid "Don't have a portal yet?"
+msgstr ""
+
+#: app/blueprints/auth/templates/login.html:431
+msgid "Contact Sales"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:52
+msgid "Security & Login Logs"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:53
+msgid "Review authentication attempts and system security events"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:58
+#: app/blueprints/auth/templates/login_logs.html:164
+#: app/blueprints/auth/templates/manage_users.html:57
+#: app/blueprints/auth/templates/manage_users.html:315
+msgid "Show Deleted"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:61
+msgid "Back to Users"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:72
+msgid "Timestamp"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:73
+#: app/blueprints/settings/templates/settings/index.html:30
+msgid "Identity"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:75
+msgid "School"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:77
+msgid "IP Address"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:79
+msgid "User Agent"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:104
+msgid "Non-existent user"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:123
+msgid "Success"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:125
+#: app/blueprints/settings/templates/settings/logs.html:56
+msgid "Failed"
+msgstr ""
+
+#: app/blueprints/auth/templates/login_logs.html:164
+#: app/blueprints/auth/templates/manage_users.html:314
+msgid "Hide Deleted"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:23
+msgid "Account Management"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:24
+msgid "Manage student, staff and administrative access"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:30
+msgid "Security Logs"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:37
+msgid "Are you sure you want to restore all deleted users?"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:41
+msgid "Restore All"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:45
+msgid ""
+"Are you sure you want to PERMANENTLY wipe ALL deleted users? This cannot "
+"be undone!"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:49
+msgid "Wipe All"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:66
+msgid "Add Account"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:79
+msgid "Total Users"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:92
+msgid "Admins"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:184
+#: app/blueprints/auth/templates/manage_users.html:215
+msgid "Protected"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:187
+#: app/blueprints/auth/templates/manage_users.html:205
+msgid "Deleted"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:207
+#: app/blueprints/auth/templates/staff_dashboard.html:92
+#: app/blueprints/auth/templates/staff_dashboard.html:105
+#: app/blueprints/students/forms.py:31
+#: app/blueprints/students/templates/students/manage_students.html:74
+#: app/blueprints/students/templates/students/manage_students.html:158
+#: app/blueprints/students/templates/students/view_profile.html:53
+#: app/blueprints/teachers/forms.py:26
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:46
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:127
+#: app/blueprints/teachers/templates/teachers/view_profile.html:41
+msgid "Active"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:209
+msgid "Disabled"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:231
+msgid ""
+"Are you sure you want to PERMANENTLY delete this user? This cannot be "
+"undone."
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:236
+msgid "Permanent"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:254
+msgid "Edit Account"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:263
+msgid "Are you sure you want to delete this user?"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:269
+msgid "Delete User"
+msgstr ""
+
+#: app/blueprints/auth/templates/manage_users.html:288
+msgid "No users found in the system."
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:6
+#: app/templates/layout.html:365
+msgid "My Children"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:7
+msgid "View and manage your children's academic records"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:27
+#: app/blueprints/students/forms.py:22
+#: app/blueprints/students/templates/students/add_student.html:98
+#: app/blueprints/students/templates/students/manage_students.html:117
+#: app/blueprints/students/templates/students/view_profile.html:182
+msgid "Assigned Class"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:29
+#: app/blueprints/auth/templates/student_dashboard.html:39
+#: app/blueprints/students/templates/students/manage_students.html:142
+#: app/blueprints/students/templates/students/view_profile.html:184
+msgid "Not Assigned"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:32
+#: app/blueprints/students/forms.py:23
+#: app/blueprints/students/templates/students/add_student.html:102
+#: app/blueprints/students/templates/students/id_card.html:232
+#: app/blueprints/students/templates/students/manage_students.html:118
+#: app/blueprints/students/templates/students/view_profile.html:62
+msgid "Hifz Status"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:36
+#: app/blueprints/students/forms.py:28
+#: app/blueprints/students/templates/students/add_student.html:106
+#: app/blueprints/students/templates/students/view_profile.html:68
+msgid "Current Juz"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:37
+#: app/blueprints/auth/templates/parent_dashboard.html:77
+#: app/blueprints/auth/templates/student_dashboard.html:56
+#: app/blueprints/exams/templates/exams/manage_exams.html:60
+#: app/blueprints/exams/templates/exams/view_results.html:46
+#: app/blueprints/students/templates/students/manage_students.html:119
+#: app/blueprints/students/templates/students/manage_students.html:154
+#: app/blueprints/students/templates/students/print_directory.html:96
+msgid "Juz"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:43
+#: app/blueprints/auth/templates/student_dashboard.html:196
+msgid "View Full Profile"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:56
+msgid "No Children Linked"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:57
+msgid "There are currently no students linked to your parent account."
+msgstr ""
+
+#: app/blueprints/auth/templates/my_children.html:59
+msgid "Please contact the Madrasah administration to link your children."
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:7
+msgid "Payment Management"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:8
+msgid "Track your children's tuition and fee status"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:11
+msgid ""
+"Total\n"
+"                Unpaid"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:20
+msgid ""
+"Consolidated Transaction\n"
+"            History"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:30
+msgid "Fee Details"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:31
+#: app/blueprints/financials/forms.py:8 app/blueprints/financials/forms.py:49
+#: app/blueprints/financials/templates/financials/expenses.html:22
+#: app/blueprints/financials/templates/financials/fees.html:37
+#: app/blueprints/financials/templates/financials/index.html:159
+#: app/blueprints/financials/templates/financials/payables.html:36
+#: app/blueprints/financials/templates/financials/voucher.html:162
+#: app/blueprints/students/templates/students/view_profile.html:372
+#: app/blueprints/teachers/templates/teachers/view_profile.html:93
+msgid "Amount"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:32
+#: app/blueprints/financials/forms.py:22
+#: app/blueprints/financials/templates/financials/fees.html:40
+#: app/blueprints/students/templates/students/view_profile.html:373
+msgid "Due Date"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:62
+#: app/blueprints/financials/forms.py:57
+#: app/blueprints/financials/templates/financials/expenses.html:38
+#: app/blueprints/financials/templates/financials/fees.html:18
+#: app/blueprints/financials/templates/financials/fees.html:38
+#: app/blueprints/financials/templates/financials/fees.html:58
+#: app/blueprints/financials/templates/financials/index.html:184
+#: app/blueprints/students/templates/students/view_profile.html:391
+msgid "Paid"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:66
+#: app/blueprints/financials/templates/financials/fees.html:20
+#: app/blueprints/financials/templates/financials/fees.html:62
+#: app/blueprints/students/templates/students/view_profile.html:394
+msgid "Unpaid"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:81
+msgid "No billing records found."
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:82
+msgid "Your children have no recorded fee transactions at this time."
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:95
+msgid "How to Pay?"
+msgstr ""
+
+#: app/blueprints/auth/templates/my_payments.html:96
+msgid ""
+"Currently, we accept payments via Cash or Bank Transfer at the Madrasah "
+"office.\n"
+"                Online payment integration is coming soon."
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:15
+msgid "Registered Children"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:30
+msgid "Avg. Attendance"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:45
+msgid "Total Outstanding"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:57
+msgid ""
+"Children's Academic\n"
+"                Progress"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:72
+msgid "Unassigned"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:100
+msgid "No exam results available for this student yet."
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:114
+msgid "No children linked to your account."
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:115
+msgid "Please contact administration to link your children to this portal."
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:125
+msgid "Financial Actions"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:128
+msgid "Pending Balance"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:135
+msgid "Online Payment"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:137
+msgid "Online payments coming soon"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:142
+msgid "Recent Notifications"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:149
+msgid "Madrasah Update"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:151
+msgid "Welcome to the new Madrasah Bilaal Parent Portal!"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:160
+msgid "Attendance System"
+msgstr ""
+
+#: app/blueprints/auth/templates/parent_dashboard.html:162
+msgid "You can now track your children's attendance in real-time."
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password.html:7
+#: app/blueprints/auth/templates/reset_password.html:140
+msgid "Setup New Password"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password.html:141
+msgid "Create a secure password for your account"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password.html:170
+msgid "Cancel and Login"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password_otp.html:176
+msgid "Set New Password"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password_otp.html:177
+msgid "Create a strong password for your account"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password_otp.html:191
+msgid "Password Requirements:"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password_otp.html:193
+msgid "At least 8 characters long"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password_otp.html:194
+msgid "Mix of letters and numbers recommended"
+msgstr ""
+
+#: app/blueprints/auth/templates/reset_password_otp.html:195
+msgid "Avoid common words or patterns"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:13
+#: app/blueprints/auth/templates/teacher_dashboard.html:29
+#: app/blueprints/students/templates/students/manage_students.html:61
+msgid "Total Students"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:28
+msgid "Fees Collected"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:43
+msgid "New Enrolments"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:59
+#: app/blueprints/financials/templates/financials/index.html:65
+msgid "Pending Fees"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:70
+msgid "Recent Student Registrations"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:75
+#: app/blueprints/financials/templates/financials/fees.html:34
+#: app/blueprints/financials/templates/financials/receipt.html:342
+msgid "Student Name"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:76
+#: app/blueprints/exams/forms.py:10
+#: app/blueprints/exams/templates/exams/add_exam.html:56
+#: app/blueprints/students/templates/students/id_card.html:228
+msgid "Class"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:77
+#: app/blueprints/exams/templates/exams/student_report.html:52
+#: app/blueprints/financials/templates/financials/expenses.html:19
+#: app/blueprints/financials/templates/financials/index.html:156
+#: app/blueprints/financials/templates/financials/payables.html:33
+#: app/blueprints/reports/templates/reports/profit_loss.html:344
+#: app/blueprints/students/templates/students/view_profile.html:224
+#: app/blueprints/teachers/templates/teachers/view_profile.html:91
+msgid "Date"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:118
+#: app/blueprints/exams/forms.py:46
+#: app/blueprints/exams/templates/exams/view_results.html:139
+#: app/blueprints/financials/templates/financials/index.html:188
+#: app/blueprints/students/forms.py:32
+#: app/blueprints/students/templates/students/manage_students.html:87
+#: app/blueprints/students/templates/students/manage_students.html:160
+msgid "Pending"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:126
+msgid "Register New Student"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:134
+#: app/blueprints/auth/templates/student_dashboard.html:175
+msgid "Recent Announcements"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:150
+#: app/blueprints/auth/templates/student_dashboard.html:189
+msgid "No active announcements."
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:158
+msgid "Manage All Announcements"
+msgstr ""
+
+#: app/blueprints/auth/templates/staff_dashboard.html:175
+msgid "No recent registrations found."
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:22
+msgid "My Attendance"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:37
+msgid "My Class"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:40
+msgid "N/A"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:55
+msgid "Hifz Progress"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:71
+msgid "Academic ID"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:83
+msgid ""
+"My Learning\n"
+"                Progress"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:88
+msgid "Quran Memorization"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:101
+#, python-format
+msgid "Currently at Juz %(juz)s of 30"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:108
+msgid "Arabic Grammar & Vocabulary"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:119
+msgid "Islamic History & Akhlaq"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:130
+msgid "Recent Exam Results"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:137
+#: app/blueprints/exams/templates/exams/student_report.html:53
+#: app/blueprints/students/templates/students/view_profile.html:275
+msgid "Exam"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:138
+#: app/blueprints/exams/templates/exams/student_report.html:54
+#: app/blueprints/settings/templates/settings/categories.html:24
+#: app/blueprints/settings/templates/settings/logs.html:19
+msgid "Type"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:139
+#: app/blueprints/exams/templates/exams/view_results.html:66
+#: app/blueprints/students/templates/students/view_profile.html:276
+msgid "Marks"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:140
+#: app/blueprints/exams/templates/exams/student_report.html:56
+#: app/blueprints/exams/templates/exams/view_results.html:74
+#: app/blueprints/students/templates/students/view_profile.html:278
+msgid "Grade"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:163
+msgid "No exam results recorded yet."
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:207
+msgid "No Student Profile Linked"
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:208
+msgid "Your user account is not yet connected to a student record."
+msgstr ""
+
+#: app/blueprints/auth/templates/student_dashboard.html:210
+msgid "Please contact the administration to link your login to your student ID."
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:14
+msgid "My Assigned Classes"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:44
+msgid "ID Number"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:60
+msgid "Faculty Status"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:73
+msgid "Teaching Schedule"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:75
+msgid "Manage Sessions"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:82
+#: app/blueprints/classes/forms.py:7
+#: app/blueprints/classes/templates/classes/add_class.html:27
+#: app/blueprints/financials/templates/financials/structures.html:16
+#: app/blueprints/teachers/templates/teachers/view_profile.html:159
+msgid "Class Name"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:83
+#: app/blueprints/settings/templates/settings/categories.html:39
+#: app/blueprints/teachers/templates/teachers/view_profile.html:160
+msgid "Subject"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:84
+#: app/blueprints/financials/templates/financials/fees.html:33
+msgid "Enrollment"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:85
+#: app/blueprints/financials/templates/financials/index.html:161
+msgid "Action"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:101
+msgid "students"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:106
+msgid "Take Attendance"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:115
+msgid "You have no classes assigned yet."
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:130
+msgid "No Teacher Profile Linked"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:131
+msgid "Your user account is not yet connected to a teacher professional record."
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:133
+msgid "Please contact the administration to link your login to your staff ID."
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:150
+msgid "Staff Meeting"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:151
+msgid "Monthly staff meeting in the main hall."
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:163
+msgid "Exam Results Due"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:164
+msgid "Please submit all midterm results by end of day."
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:176
+msgid "Term Break"
+msgstr ""
+
+#: app/blueprints/auth/templates/teacher_dashboard.html:177
+msgid "School will be closed for term break."
+msgstr ""
+
+#: app/blueprints/auth/templates/user.html:14
+msgid "Initial System Setup"
+msgstr ""
+
+#: app/blueprints/auth/templates/user.html:14
+msgid "Register New Account"
+msgstr ""
+
+#: app/blueprints/auth/templates/user.html:18
+msgid "Create the first administrator account to begin"
+msgstr ""
+
+#: app/blueprints/auth/templates/user.html:19
+msgid "Add a new student, staff member or administrator"
+msgstr ""
+
+#: app/blueprints/auth/templates/user.html:73
+msgid "Complete Setup"
+msgstr ""
+
+#: app/blueprints/auth/templates/user.html:73
+msgid "Create Account"
+msgstr ""
+
+#: app/blueprints/auth/templates/verify_otp.html:166
+msgid "Enter the 6-digit code sent to"
+msgstr ""
+
+#: app/blueprints/auth/templates/verify_otp.html:194
+msgid "Resend OTP"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:8 app/blueprints/classes/forms.py:32
+#: app/blueprints/classes/templates/classes/add_class.html:34
+#: app/blueprints/classes/templates/classes/manage_subjects.html:40
+#: app/blueprints/exams/forms.py:21 app/blueprints/financials/forms.py:61
+#: app/blueprints/financials/templates/financials/index.html:157
+#: app/blueprints/financials/templates/financials/voucher.html:161
+#: app/blueprints/reports/templates/reports/profit_loss.html:346
+#: app/blueprints/settings/forms.py:27
+#: app/blueprints/settings/templates/settings/categories.html:25
+msgid "Description"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:9
+#: app/blueprints/classes/templates/classes/add_class.html:41
+msgid "Main Teacher"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:11
+#: app/blueprints/classes/templates/classes/add_class.html:49
+msgid "Save Class"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:13
+msgid "Day of Week"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:14
+msgid "Monday"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:14
+msgid "Tuesday"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:14
+msgid "Wednesday"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:15
+msgid "Thursday"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:15
+msgid "Friday"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:15
+msgid "Saturday"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:15
+msgid "Sunday"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:17
+msgid "Start Time (HH:MM)"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:18
+msgid "End Time (HH:MM)"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:19
+msgid "Room/Location"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:20
+msgid "Add Session"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:23
+#: app/blueprints/classes/templates/classes/manage_subjects.html:37
+msgid "Subject Name"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:24
+msgid "Subject Code"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:25
+#: app/blueprints/classes/templates/classes/manage_subjects.html:39
+#: app/blueprints/financials/forms.py:41
+#: app/blueprints/financials/templates/financials/expenses.html:21
+#: app/blueprints/financials/templates/financials/index.html:158
+#: app/blueprints/financials/templates/financials/payables.html:35
+#: app/blueprints/reports/templates/reports/profit_loss.html:347
+msgid "Category"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:26
+msgid "Quranic"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:27 app/blueprints/teachers/forms.py:14
+msgid "Arabic"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:28 app/blueprints/teachers/forms.py:15
+msgid "Islamic Studies"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:29
+msgid "General Literacy"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:30 app/blueprints/classes/routes.py:135
+#: app/blueprints/classes/routes.py:162 app/blueprints/financials/forms.py:19
+#: app/blueprints/financials/forms.py:47
+#: app/blueprints/financials/routes.py:266
+#: app/blueprints/financials/templates/financials/structures.html:25
+msgid "Other"
+msgstr ""
+
+#: app/blueprints/classes/forms.py:33
+msgid "Save Subject"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:34 app/blueprints/classes/routes.py:56
+msgid "Select Teacher"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:45
+msgid "Class created successfully!"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:64
+msgid "Class updated successfully!"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:100
+msgid "New session added to schedule!"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:104
+msgid "Error adding session. Ensure time format is HH:MM"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:117
+msgid "Session removed from schedule."
+msgstr ""
+
+#: app/blueprints/classes/routes.py:146
+msgid "Subject created successfully!"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:150
+msgid "Error creating subject. Code/Name might already exist."
+msgstr ""
+
+#: app/blueprints/classes/routes.py:172
+msgid "Subject updated successfully!"
+msgstr ""
+
+#: app/blueprints/classes/routes.py:176
+msgid "Error updating subject."
+msgstr ""
+
+#: app/blueprints/classes/routes.py:186
+msgid "Subject deleted successfully."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/add_class.html:14
+msgid "Edit Class"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/add_class.html:14
+#: app/blueprints/classes/templates/classes/manage_classes.html:13
+msgid "Create New Class"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/add_class.html:16
+msgid ""
+"Specify the name, teacher and description for the\n"
+"                            class."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/add_class.html:29
+msgid ""
+"e.g. Level 1 -\n"
+"                        Foundation"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/add_class.html:36
+msgid ""
+"Briefly describe the purpose or\n"
+"                        level of this class."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:6
+msgid "Class Management"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:7
+msgid "Manage academic levels and classrooms"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:34
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:145
+msgid "View Schedule"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:36
+#: app/blueprints/classes/templates/classes/manage_subjects.html:99
+#: app/blueprints/exams/templates/exams/view_results.html:145
+#: app/blueprints/settings/templates/settings/categories.html:52
+#: app/blueprints/students/templates/students/manage_students.html:173
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:141
+msgid "Edit"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:41
+#: app/blueprints/classes/templates/classes/manage_subjects.html:108
+#: app/blueprints/classes/templates/classes/view_schedule.html:106
+#: app/blueprints/financials/templates/financials/expenses.html:60
+#: app/blueprints/financials/templates/financials/fees.html:85
+#: app/blueprints/settings/templates/settings/categories.html:61
+#: app/blueprints/students/templates/students/manage_students.html:187
+#: app/blueprints/students/templates/students/view_profile.html:30
+msgid "Delete"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:46
+msgid "No description available."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:56
+msgid ""
+"Students\n"
+"                            Enrolled"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:64
+msgid "View Students"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:75
+msgid "No Classes Created"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_classes.html:76
+msgid "Start by creating your first academic class."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:7
+msgid "Subjects Management"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:8
+msgid "Manage the curriculum and available subjects."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:14
+msgid "Add Category"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:17
+#: app/blueprints/classes/templates/classes/subject_form.html:12
+msgid "Add New Subject"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:25
+#: app/blueprints/classes/templates/classes/manage_subjects.html:62
+msgid "Quranic Sciences"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:26
+#: app/blueprints/classes/templates/classes/manage_subjects.html:66
+msgid "Islamic Jurisprudence"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:27
+#: app/blueprints/classes/templates/classes/manage_subjects.html:70
+msgid "Theology & Creed"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:28
+#: app/blueprints/classes/templates/classes/manage_subjects.html:74
+msgid "Prophetic Traditions"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:29
+#: app/blueprints/classes/templates/classes/manage_subjects.html:79
+msgid "Languages"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:30
+#: app/blueprints/classes/templates/classes/manage_subjects.html:83
+msgid "Ethics & Manners"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:38
+msgid "Code"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:92
+msgid "No description"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/manage_subjects.html:104
+msgid "Are you sure?"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/subject_form.html:12
+msgid "Edit Subject"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/subject_form.html:13
+msgid "Define a new curriculum focal point."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/subject_form.html:23
+msgid "e.g. Tawheed Basics"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/subject_form.html:28
+msgid "e.g. TWH01"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/subject_form.html:38
+msgid ""
+"Briefly describe\n"
+"                        what this subject covers..."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:16
+msgid "Class Schedule"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:18
+msgid "No Teacher"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:21
+msgid "Back to Classes"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:30
+msgid ""
+"Add Weekly\n"
+"                            Session"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:38
+#: app/blueprints/classes/templates/classes/view_schedule.html:74
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:39
+msgid "Day"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:44
+msgid "Start Time"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:48
+msgid "End Time"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:54
+msgid "Room / Location"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:55
+msgid "e.g. Room 101"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:59
+msgid "Add to Schedule"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:75
+msgid "Time Window"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:76
+msgid "Location"
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:116
+#: app/blueprints/classes/templates/classes/view_schedule.html:140
+msgid "No sessions scheduled for this class yet."
+msgstr ""
+
+#: app/blueprints/classes/templates/classes/view_schedule.html:139
+msgid "Filter Sessions:"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:8
+#: app/blueprints/exams/templates/exams/add_exam.html:39
+msgid "Exam Name"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:9
+#: app/blueprints/exams/templates/exams/add_exam.html:48
+#: app/blueprints/exams/templates/exams/enter_result.html:23
+msgid "Exam Type"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:11
+#: app/blueprints/exams/templates/exams/add_exam.html:64
+msgid "Examiner/Teacher"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:12
+#: app/blueprints/exams/templates/exams/add_exam.html:72
+msgid "Exam Date"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:13
+#: app/blueprints/exams/templates/exams/add_exam.html:91
+#: app/blueprints/exams/templates/exams/enter_result.html:29
+#: app/blueprints/exams/templates/exams/view_results.html:25
+msgid "Total Marks"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:14
+#: app/blueprints/exams/templates/exams/add_exam.html:99
+#: app/blueprints/exams/templates/exams/enter_result.html:35
+#: app/blueprints/exams/templates/exams/view_results.html:29
+msgid "Passing Marks"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:17
+#: app/blueprints/exams/templates/exams/add_exam.html:130
+msgid "Surah From"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:18
+#: app/blueprints/exams/templates/exams/add_exam.html:139
+msgid "Surah To"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:19
+#: app/blueprints/exams/templates/exams/add_exam.html:148
+msgid "Juz Number"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:23
+msgid "Scheduled"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:24
+msgid "Ongoing"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:25
+msgid "Completed"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:26
+msgid "Cancelled"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:28
+#: app/blueprints/exams/templates/exams/add_exam.html:178
+#: app/blueprints/exams/templates/exams/manage_exams.html:95
+msgid "Create Exam"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:32
+msgid "Marks Obtained"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:35
+msgid "Memorization Accuracy (%)"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:36
+msgid "Tajweed Score (%)"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:37
+msgid "Fluency Score (%)"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:40
+msgid "Excellent"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:41
+msgid "Very Good"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:42
+msgid "Good"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:43
+msgid "Pass"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:44
+msgid "Fail"
+msgstr ""
+
+#: app/blueprints/exams/forms.py:50
+#: app/blueprints/exams/templates/exams/enter_result.html:142
+msgid "Save Result"
+msgstr ""
+
+#: app/blueprints/exams/routes.py:45 app/blueprints/exams/routes.py:94
+#: app/blueprints/teachers/forms.py:20
+msgid "General"
+msgstr ""
+
+#: app/blueprints/exams/routes.py:50
+msgid "All My Classes"
+msgstr ""
+
+#: app/blueprints/exams/routes.py:54 app/blueprints/exams/routes.py:97
+msgid "All Classes"
+msgstr ""
+
+#: app/blueprints/exams/routes.py:75
+#, python-format
+msgid "Exam \"%(name)s\" created successfully!"
+msgstr ""
+
+#: app/blueprints/exams/routes.py:118
+msgid "Exam updated successfully!"
+msgstr ""
+
+#: app/blueprints/exams/routes.py:185
+#, python-format
+msgid "Result saved for %(student)s"
+msgstr ""
+
+#: app/blueprints/exams/routes.py:199
+#, python-format
+msgid "Exam \"%(name)s\" deleted successfully!"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:15
+msgid "Edit Exam"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:17
+#: app/blueprints/exams/templates/exams/manage_exams.html:14
+msgid "Create New Exam"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:20
+msgid "Set up exam details and evaluation criteria"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:33
+msgid "Basic Information"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:43
+msgid ""
+"e.g. Juz 1\n"
+"                                Memorization Test"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:85
+msgid "Evaluation & Status"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:107
+msgid "Exam Status"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:122
+msgid "Hifz / Quran Details"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:123
+msgid "Optional"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:134
+msgid ""
+"e.g.\n"
+"                                    Al-Fatiha"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:143
+msgid ""
+"e.g.\n"
+"                                    Al-Baqarah"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:159
+msgid "Description / Notes"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:163
+msgid "Additional notes about the exam objectives or instructions..."
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/add_exam.html:176
+msgid "Update Exam"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:13
+msgid "Enter Result"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:50
+msgid "Breakdown Scores"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:58
+msgid "Memorization Accuracy"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:60
+msgid "Vocabulary / Writing"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:72
+msgid "Tajweed Score"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:74
+msgid "Grammar / Rules"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:86
+msgid "Fluency Score"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:88
+msgid "Speaking / Fluency"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:104
+msgid "Final Result"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:110
+msgid "Final Marks Obtained"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:117
+msgid "Max marks"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:130
+msgid "Feedback / Remarks"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/enter_result.html:131
+msgid ""
+"Provide constructive feedback for\n"
+"                        the student..."
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/manage_exams.html:6
+msgid "Exam Management"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/manage_exams.html:7
+msgid "Create and manage Hifz, Tajweed, Arabic, Somali, and English exams"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/manage_exams.html:68
+msgid "Results"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/manage_exams.html:75
+msgid "Are you sure you want to delete this exam?"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/manage_exams.html:92
+msgid "No Exams Created Yet"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/manage_exams.html:93
+msgid "Start by creating your first exam and managing student performance."
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:7
+msgid "Back to Students"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:23
+#: app/blueprints/students/templates/students/print_directory.html:88
+msgid "No Class"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:35
+msgid "Exam History"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:40
+#: app/blueprints/students/templates/students/view_profile.html:128
+msgid "Total Exams"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:55
+msgid "Score"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:84
+#: app/blueprints/exams/templates/exams/view_results.html:69
+msgid "Memorization"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:84
+#: app/blueprints/exams/templates/exams/view_results.html:69
+msgid "Vocabulary"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:85
+msgid "Mem:"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:86
+msgid "Voc:"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:91
+#: app/blueprints/exams/templates/exams/view_results.html:71
+msgid "Tajweed"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:91
+#: app/blueprints/exams/templates/exams/view_results.html:71
+msgid "Grammar"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:92
+msgid "Taj:"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:93
+msgid "Gra:"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:117
+msgid "View Details"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:131
+#: app/blueprints/exams/templates/exams/student_report.html:160
+msgid "No exam results found"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:132
+msgid ""
+"This student has not taken any exams\n"
+"                                            yet."
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:151
+#: app/templates/base.html:80
+msgid "Search:"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:152
+#: app/templates/base.html:81
+msgid "Show _MENU_ entries"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:153
+msgid "Showing _START_ to _END_ of _TOTAL_ entries"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:155
+#: app/templates/base.html:88
+msgid "First"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:156
+#: app/templates/base.html:89
+msgid "Last"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:157
+#: app/blueprints/financials/templates/financials/index.html:426
+#: app/templates/base.html:90
+msgid "Next"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/student_report.html:158
+#: app/blueprints/financials/templates/financials/index.html:427
+#: app/templates/base.html:91
+msgid "Previous"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/view_results.html:6
+msgid "Back to Exams"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/view_results.html:33
+msgid "Examiner"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/view_results.html:43
+msgid "Quran Coverage"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/view_results.html:72
+msgid "Fluency"
+msgstr ""
+
+#: app/blueprints/exams/templates/exams/view_results.html:146
+msgid "Enter"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:9
+#: app/blueprints/financials/templates/financials/fees.html:35
+msgid "Fee Type"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:10
+msgid "Tuition Fee"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:11
+msgid "Admission Fee"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:12
+#: app/blueprints/financials/templates/financials/structures.html:19
+#: app/blueprints/students/templates/students/view_profile.html:349
+msgid "Exam Fee"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:13
+msgid "Uniform Fee"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:14
+msgid "Books Fee"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:15
+msgid "Transport / Bus"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:16
+msgid "Extra Activity"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:17
+msgid "Library Fee"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:21
+msgid "Fee Month"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:24
+msgid "Save Fee"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:27
+msgid "Amount Paid"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:28
+#: app/blueprints/financials/templates/financials/receipt.html:353
+msgid "Payment Date"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:29 app/blueprints/financials/forms.py:51
+msgid "Payment Method"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:30 app/blueprints/financials/forms.py:52
+msgid "Cash"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:31 app/blueprints/financials/forms.py:53
+msgid "Bank Transfer"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:32
+msgid "E-paisa"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:33 app/blueprints/financials/forms.py:54
+msgid "Check"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:35
+msgid "Transaction ID"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:37
+#: app/blueprints/financials/templates/financials/payment_form.html:7
+msgid "Record Payment"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:42
+msgid "Salary"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:43
+msgid "Rent"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:44
+msgid "Utilities"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:45
+msgid "Maintenance"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:46
+msgid "Supplies"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:50
+msgid "Expense Date"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:58
+msgid "Payable (Pending)"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:60
+msgid "Payee (Staff/Teacher)"
+msgstr ""
+
+#: app/blueprints/financials/forms.py:62
+#: app/blueprints/financials/templates/financials/expenses.html:11
+msgid "Record Expense"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:190
+msgid "Fee record added successfully!"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:193
+msgid "Add New Fee"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:200
+msgid "This fee is already paid."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:208
+msgid "Payment amount must be greater than zero."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:212
+msgid "Payment amount cannot exceed the remaining balance."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:232
+msgid "Payment recorded successfully!"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:263
+msgid "N/A (General Expense)"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:281
+msgid "Expense recorded successfully!"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:310
+#, python-format
+msgid "Fee structure for %(name)s updated successfully!"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:313
+#, python-format
+msgid "Error updating fee structure: %(error)s"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:359
+#, python-format
+msgid "Automatically generated for %(month)s"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:382
+#, python-format
+msgid ""
+"<strong>Success!</strong> Generated %(count)s tuition records for "
+"%(month)s."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:387
+msgid ""
+"<strong>Notice:</strong> There are no active students in the system. "
+"Registration is required first."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:389
+#, python-format
+msgid ""
+"<strong>All Set!</strong> Fees for %(month)s have already been generated "
+"for all active students."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:391
+msgid "<strong>No new fees generated.</strong> Check these suitable options:<br>"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:411
+msgid "Fee record deleted successfully!"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:420
+msgid "Expense record deleted successfully!"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:431
+msgid "Expense marked as Paid successfully"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:513
+#, python-format
+msgid "Successfully sent %(count)s monthly reports to parents via AI Messaging."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:515
+#, python-format
+msgid "Skipped %(count)s students because no parent phone number was set."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:517
+#, python-format
+msgid "Failed to send %(count)s reports. Error: %(error)s"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:521
+#, python-format
+msgid "An unexpected error occurred while sending monthly reports: %(error)s"
+msgstr ""
+
+#: app/blueprints/financials/routes.py:574
+#, python-format
+msgid "Successfully generated %(count)s salary records for %(month)s."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:577
+#, python-format
+msgid "All teacher salaries for %(month)s have already been generated."
+msgstr ""
+
+#: app/blueprints/financials/routes.py:579
+msgid "No new salaries generated. Check if teachers have salaries set."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expense_form.html:12
+msgid "Record New Expense"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expense_form.html:13
+msgid "Track outgoing payments and operational costs."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expense_form.html:23
+msgid "e.g. Electric Bill January"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expense_form.html:58
+msgid "Select staff member if this is a salary payment."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expense_form.html:63
+msgid ""
+"Detailed\n"
+"                        description..."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expenses.html:7
+msgid "Expenses Management"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expenses.html:8
+msgid "Track all outgoing payments and operational costs."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expenses.html:36
+msgid "Payable"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expenses.html:44
+#: app/blueprints/financials/templates/financials/payables.html:69
+msgid "View Voucher"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/expenses.html:52
+#: app/blueprints/financials/templates/financials/payables.html:64
+msgid "Mark as Paid"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fee_form.html:12
+msgid "Fee Record"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fee_form.html:13
+msgid "Fill the details to record a student fee."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fee_form.html:48
+msgid "Optional notes..."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:7
+msgid "Manage Fees"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:8
+msgid "View and track student fee payments."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:13
+msgid "All Status"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:16
+msgid "All"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:24
+msgid "Add Record"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:36
+#: app/blueprints/reports/templates/reports/profit_loss.html:261
+msgid "Month"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:39
+msgid "Balance"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:60
+#: app/blueprints/financials/templates/financials/index.html:186
+msgid "Partial"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:70
+msgid "Pay Now"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:70
+msgid ""
+"Pay\n"
+"                                Balance"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/fees.html:78
+msgid "Receipt"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:6
+msgid "Financial Overview"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:7
+msgid "Track income, expenses, and fee collection status."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:11
+msgid "Are you sure you want to send AI-generated monthly reports to all parents?"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:15
+msgid "AI Monthly Reports"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:19
+msgid "Generate salaries for all active teachers based on their monthly pay?"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:23
+msgid "Generate Salaries"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:29
+msgid "Generate Monthly Fees"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:34
+msgid "Expense Categories"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:48
+msgid ""
+"Total\n"
+"                        Collected"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:81
+msgid "Actual Expenses"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:98
+msgid "Payable Account"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:115
+msgid "Monthly Income Trend"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:129
+msgid "Monthly Expense Breakdown"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:142
+msgid ""
+"Recent Financial\n"
+"                    Activity"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:146
+msgid "Fees"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:148
+msgid "Expenses"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:212
+msgid "No recent transactions found."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:245
+msgid "Jan"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:245
+msgid "Feb"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:245
+msgid "Mar"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:246
+msgid "Apr"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:246
+msgid "May"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:246
+msgid "Jun"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:247
+msgid "Jul"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:247
+msgid "Aug"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:247
+msgid "Sep"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:248
+msgid "Oct"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:248
+msgid "Nov"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:248
+msgid "Dec"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:343
+msgid "Total Income"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:380
+msgid "Total Expenses"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:422
+msgid "Search Transaction..."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/index.html:424
+#: app/templates/base.html:82
+msgid "Showing <b>_START_</b> to <b>_END_</b> of <b>_TOTAL_</b> entries"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:7
+msgid "Payable Account (Liabilities)"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:8
+msgid "Review and settle outstanding institutional obligations."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:12
+msgid "Back to Overview"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:23
+msgid "Pending Settlements"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:24
+msgid ""
+"These items are registered as institutional costs but have not been\n"
+"                paid out yet."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:37
+msgid "Payee"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:59
+msgid "Confirm that this amount has been paid out?"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payables.html:65
+msgid "Settle Payment"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:11
+msgid "Student:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:15
+msgid "Fee Type:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:19
+msgid "Total Amount:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:23
+msgid "Paid So Far:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:27
+msgid "Balance Due:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:36
+msgid "Amount to Pay"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:38
+msgid "Enter the specific amount received today."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/payment_form.html:53
+msgid "e.g. TRX123456"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:3
+#: app/blueprints/financials/templates/financials/receipt.html:333
+msgid "Official Receipt"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:310
+msgid "Return to Finance"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:313
+msgid "Print Receipt"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:329
+msgid "Contact:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:335
+msgid "Generated on:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:344
+msgid "ID:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:347
+msgid "Academic Class"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:350
+msgid "Parent:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:356
+#: app/blueprints/financials/templates/financials/voucher.html:154
+msgid "Method:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:364
+msgid "Description of Fees"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:365
+msgid "Billing Period"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:366
+msgid "Subtotal"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:373
+msgid ""
+"Official payment for tuition and\n"
+"                            educational services."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:376
+msgid "One-time Payment"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:395
+msgid "Terms & Conditions:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:397
+msgid ""
+"This is a computer-generated document and acts as a valid proof of "
+"payment."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:399
+msgid "Fees once paid are non-refundable and non-transferable."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:400
+msgid "Please keep this receipt for future academic reference."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:409
+msgid "Transaction ID:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:419
+msgid "Total Invoiced:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:423
+msgid "Total Paid:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:427
+msgid "Current Balance:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:432
+msgid "Latest Payment"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:436
+msgid "STATUS: FULLY PAID"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:438
+msgid "STATUS: PARTIAL PAYMENT"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:448
+#: app/blueprints/financials/templates/financials/voucher.html:182
+msgid "Accountant Signature"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:452
+msgid "Director / Office Seal"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:456
+msgid "Student / Parent Signature"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:462
+msgid "Financial Department"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/receipt.html:463
+msgid ""
+"This receipt is valid only with the official institution stamp and "
+"digital\n"
+"                signature."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:6
+msgid "Fee Structures"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:7
+msgid "Define standard fees for each class level."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:17
+#: app/blueprints/students/templates/students/view_profile.html:339
+msgid "Tuition"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:18
+#: app/blueprints/students/templates/students/view_profile.html:344
+msgid "Admission"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:20
+msgid "Uniform"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:21
+msgid "Books"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:22
+msgid "Bus"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:23
+msgid "Activity"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:24
+msgid "Library"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:26
+msgid "Total"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:97
+msgid "Update"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/structures.html:113
+msgid "No classes found. Create classes first to define their fee structures."
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:3
+#: app/blueprints/financials/templates/financials/voucher.html:137
+msgid "Payment Voucher"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:117
+msgid "Back to Expenses"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:120
+msgid "Print Voucher"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:140
+msgid "Disbursed"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:147
+msgid "Paid To / Description"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:149
+msgid "Category:"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:152
+msgid "Voucher Info"
+msgstr ""
+
+#: app/blueprints/financials/templates/financials/voucher.html:178
+msgid "Receiver Signature"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:615
+msgid "Kismayo, Somalia"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:653
+msgid "Features"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:655
+#: app/blueprints/landing/templates/landing/index.html:1002
+msgid "Pricing"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:656
+#: app/templates/includes/footer.html:13
+msgid "Support"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:663
+msgid "Login"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:665
+#: app/blueprints/landing/templates/landing/index.html:870
+msgid "Get Started"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:677
+msgid "NEW"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:678
+msgid "The first all-in-one Madrasah OS is here."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:681
+msgid "Institutional Mastery."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:681
+msgid "Digitally Perfected."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:684
+msgid ""
+"A world-class Madrasah engine designed to power Islamic institutions. "
+"From automated finance to\n"
+"                real-time student tracking, RAYS is the standard for "
+"modern Madrasah management."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:689
+msgid "Launch Your Portal"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:692
+msgid "View Enterprise Plans"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:706
+msgid "DASHBOARD - Rays MADRASAH"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:723
+msgid "Total Ardayda"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:730
+msgid "Quran Progress"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:740
+msgid "Today Income"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:747
+msgid "Active Teachers"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:750
+msgid "ONLINE"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:761
+msgid "Hafidiinta (Quran Memorization)"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:763
+msgid "Last 6 Months"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:782
+msgid "Recent Alerts"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:788
+msgid "WhatsApp Sent"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:789
+msgid "Attendance alert for Ahmed Ali."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:797
+msgid "Fee Received"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:798
+msgid "$15 received via eDahab."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:816
+msgid "Engineered for Excellence"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:817
+msgid "Everything you need to scale your educational reach."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:823
+msgid "Multi-Tenant Vault"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:824
+msgid ""
+"Architectural isolation for every madrasah. Your data is encrypted,\n"
+"                            isolated, and accessible only by you."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:832
+msgid "Financial Intelligence"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:833
+msgid ""
+"Automated EVC/eDahab integrations, professional invoicing, and\n"
+"                            real-time expense oversight."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:841
+msgid "Secure Onboarding"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:842
+msgid ""
+"Deploy your entire institutional infrastructure in less than 5\n"
+"                            minutes with our automated provisioning."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:854
+msgid "Simple Scaling Plans"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:855
+msgid "No hidden fees. Pay as you grow."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:860
+msgid "BASIC"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:861
+msgid "Launchpad"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:862
+#: app/blueprints/landing/templates/landing/index.html:877
+msgid "mo"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:864
+msgid "Up to 200 Students"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:865
+msgid "Attendance Engine"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:866
+msgid "Basic Finance"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:867
+msgid "Standard Support"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:875
+msgid "MOST POPULAR"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:876
+msgid "Enterprise"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:879
+msgid "Unlimited Students"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:880
+msgid "Full Finance Intelligence"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:882
+msgid "WhatsApp Alerts Meta API"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:884
+msgid "24/7 Priority Support"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:888
+msgid "Go Premium"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:895
+msgid "Seamless Global & Local Payments"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:915
+msgid "Free Consultation"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:916
+msgid "Let's Build"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:917
+msgid "Something Great"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:924
+msgid "Office"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:925
+msgid "Kismayo, Lower Juba, Somalia"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:946
+#: app/blueprints/landing/templates/landing/index.html:947
+msgid "Your Name"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:960
+#: app/blueprints/settings/templates/settings/logs.html:20
+msgid "Message"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:962
+msgid "Project Details"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:968
+msgid "Send Inquiry Now"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:985
+msgid "RAYS TECH"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:986
+msgid ""
+"Kismayo's leading technology hub. We specialize in transforming\n"
+"                        businesses through high-quality software "
+"engineering and digital innovation."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:998
+msgid "Quick Links"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1000
+msgid "Home"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1001
+msgid "Systems"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1003
+msgid "Contact"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1007
+msgid "Newsletter"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1008
+msgid ""
+"Stay updated with our latest tech releases and Islamic\n"
+"                        education insights."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1014
+msgid "Join"
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1020
+msgid "Rays Tech Center. All rights reserved. Precision in Software Engineering."
+msgstr ""
+
+#: app/blueprints/landing/templates/landing/index.html:1029
+msgid "Chat with Us"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:7
+msgid "Complete Your Subscription"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:298
+msgid "Fadlan Gali PIN-ka EVC ee Telkaaga"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:301
+msgid ""
+"Waxaa telkaaga ku soo dhacay codsi lacag bixin ah. Fadlan geli PIN-kaaga "
+"EVC si aad u\n"
+"                dhamaystirto."
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:308
+msgid "Fadlan gali PIN-ka EVC"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:318
+msgid "Sugaya Jawaabtaada..."
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:339
+msgid "SELECT PLAN"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:344
+msgid "Activating portal for"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:350
+msgid "Choose Payment Method"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:365
+msgid "Lambarka EVC Plus / Waafi"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:370
+msgid "Gali telkaaga si aad PIN-ka EVC uga gasho."
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:375
+msgid "Lacag Bixi"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:381
+msgid "Cancel and Return Home"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/payment.html:406
+msgid "Sugaya..."
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:7
+msgid "Payment Pending"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:65
+msgid "Registration Received!"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:66
+msgid "Thank you! Your application for"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:67
+msgid "has been recorded. To activate your system, please complete the payment."
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:97
+msgid ""
+"Activation\n"
+"                Pending"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:100
+msgid "Your portal is currently"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:100
+msgid "Pending Activation"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:101
+msgid ""
+"Once payment is verified, our team will activate your system within 5 "
+"minutes."
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:107
+msgid "Send Payment Receipt"
+msgstr ""
+
+#: app/blueprints/onboarding/templates/onboarding/success.html:110
+msgid "Back to Home"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:48
+msgid "Attendance Analytics"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:49
+msgid "Daily and monthly attendance trends for all classes."
+msgstr ""
+
+#: app/blueprints/reports/routes.py:56
+msgid "Examination Results"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:57
+msgid "Academic performance reports and merit lists."
+msgstr ""
+
+#: app/blueprints/reports/routes.py:64
+msgid "Student Directory Roster"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:65
+msgid ""
+"Official printable list of all registered students with full academic and"
+" personal details."
+msgstr ""
+
+#: app/blueprints/reports/routes.py:72
+msgid "Staff & Teacher Directory"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:73
+msgid ""
+"Professional roster of all Madrasah staff members with qualifications and"
+" contact info."
+msgstr ""
+
+#: app/blueprints/reports/routes.py:80
+msgid "Fee Collection Report"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:81
+msgid "Detailed report of all paid and unpaid fees across the system."
+msgstr ""
+
+#: app/blueprints/reports/routes.py:88
+msgid "Expense Tracking Report"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:89
+msgid "Full breakdown of all operational expenses recorded."
+msgstr ""
+
+#: app/blueprints/reports/routes.py:96
+#: app/blueprints/reports/templates/reports/profit_loss.html:3
+msgid "Profit & Loss Report"
+msgstr ""
+
+#: app/blueprints/reports/routes.py:97
+msgid "Monthly and yearly financial performance breakdown for the institution."
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:6
+msgid "Reports & Analytics"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:7
+msgid "Generate and export professional reports for your madrasah"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:16
+msgid "Active Students"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:32
+msgid "Total Fees Due"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:36
+msgid "Pending collection"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:42
+msgid "Total Collected"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:46
+msgid "Confirmed revenue"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:52
+msgid "Net Balance"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:56
+msgid "After expenses"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:61
+msgid "Available Reports"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:74
+msgid "Exportable"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:81
+msgid "Open & Generate"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:93
+msgid "Pro Tip: Instant Reporting"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/index.html:94
+msgid ""
+"You can generate instant Excel, PDF, or Print reports directly from\n"
+"                any management table across the system by clicking the "
+"Export buttons above each table."
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:195
+#: app/blueprints/settings/routes.py:69 app/templates/layout.html:301
+msgid "Reports"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:207
+msgid "Annual Report"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:217
+msgid "Print Summary"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:220
+msgid "Print Details"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:242
+msgid "Financial Report"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:243
+msgid "Official Profit & Loss Statement"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:253
+msgid ""
+"Monthly Comparative\n"
+"                    Performance"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:255
+msgid "Annual Overview"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:262
+msgid "Revenue (Credit)"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:263
+msgid "Expenses (Debit)"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:264
+msgid "Net Result"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:284
+msgid "Total Liabilities (Payable)"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:290
+msgid "TOTAL FOR YEAR"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:309
+#: app/blueprints/students/templates/students/print_directory.html:122
+#: app/blueprints/teachers/templates/teachers/print_directory.html:95
+#: app/templates/includes/footer.html:25
+msgid "Printed on:"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:311
+#: app/blueprints/students/templates/students/print_directory.html:123
+#: app/blueprints/teachers/templates/teachers/print_directory.html:96
+msgid "System Generated Document"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:317
+#: app/blueprints/students/templates/students/print_directory.html:129
+msgid "Authorized Signature"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:318
+#: app/blueprints/students/templates/students/print_directory.html:130
+#: app/blueprints/teachers/templates/teachers/print_directory.html:103
+msgid "Madrasah Administration"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:329
+msgid "Section II: Detailed Transaction Schedule"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:331
+msgid "Supporting documentation for the period ending"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:337
+msgid ""
+"Detailed Statement\n"
+"                    of Transactions"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:345
+msgid "Reference"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:348
+msgid "Credit"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:349
+msgid "Debit"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:364
+msgid "PAYABLE"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:381
+#: app/blueprints/reports/templates/reports/profit_loss.html:442
+msgid "No financial records found for this period."
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:388
+msgid "Schedule Totals"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:405
+msgid "Statement Notes"
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:407
+msgid ""
+"Revenue consists of student fee payments. Expenses include staff "
+"salaries, bills, and\n"
+"                    procurement. Click print to generate an official "
+"document for administrative review."
+msgstr ""
+
+#: app/blueprints/reports/templates/reports/profit_loss.html:441
+msgid "Search Transactions:"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:7
+#: app/blueprints/settings/templates/settings/index.html:36
+msgid "Madrasah Name"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:8 app/blueprints/students/forms.py:19
+msgid "Address"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:9
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:92
+msgid "Phone"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:11
+#: app/blueprints/settings/templates/settings/index.html:68
+msgid "Active Academic Term"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:12
+#: app/blueprints/settings/templates/settings/index.html:72
+msgid "System Currency"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:15
+#: app/blueprints/settings/templates/settings/index.html:84
+msgid "WhatsApp Access Token (Meta)"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:16
+#: app/blueprints/settings/templates/settings/index.html:91
+msgid "WhatsApp Phone Number ID"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:17
+#: app/blueprints/settings/templates/settings/index.html:96
+msgid "Messaging Mode"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:17
+msgid "Live (Sends real messages)"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:17
+msgid "Mock (Development only)"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:19
+#: app/blueprints/settings/templates/settings/index.html:103
+msgid "Save Settings"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:22
+#: app/blueprints/settings/templates/settings/categories.html:23
+msgid "Category Name"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:23
+msgid "Category Type"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:24
+msgid "Curriculum / Subject"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:25
+msgid "Financial / Expense"
+msgstr ""
+
+#: app/blueprints/settings/forms.py:28
+msgid "Save Category"
+msgstr ""
+
+#: app/blueprints/settings/routes.py:14 app/blueprints/settings/routes.py:50
+#: app/blueprints/settings/routes.py:93 app/blueprints/settings/routes.py:108
+#: app/blueprints/settings/routes.py:138 app/blueprints/settings/routes.py:162
+#: app/blueprints/settings/routes.py:176
+msgid "You do not have permission to access this page."
+msgstr ""
+
+#: app/blueprints/settings/routes.py:30
+msgid "System settings updated successfully."
+msgstr ""
+
+#: app/blueprints/settings/routes.py:80
+msgid "Permissions updated successfully."
+msgstr ""
+
+#: app/blueprints/settings/routes.py:126
+msgid "Category added successfully."
+msgstr ""
+
+#: app/blueprints/settings/routes.py:130
+msgid "Error: Category already exists for this type."
+msgstr ""
+
+#: app/blueprints/settings/routes.py:150
+msgid "Category updated successfully."
+msgstr ""
+
+#: app/blueprints/settings/routes.py:154
+msgid "Error updating category."
+msgstr ""
+
+#: app/blueprints/settings/routes.py:169
+msgid "Category deleted successfully."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:8
+msgid "Curriculum Categories"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:9
+msgid "Financial Categories"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:10
+msgid "System Categories"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:12
+msgid "Manage labels for Subjects and Expenses across the system."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:15
+#: app/blueprints/settings/templates/settings/category_form.html:12
+msgid "Add New Category"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:44
+msgid "Expense"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:57
+msgid "Are you sure you want to delete this category?"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:74
+msgid "No categories found"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/categories.html:75
+msgid "Start by defining your institutional categories."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/category_form.html:12
+msgid "Edit Category"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/category_form.html:14
+msgid "Define a new label for subjects or expenses."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/category_form.html:24
+msgid ""
+"e.g. Science, Science\n"
+"                        Equipment..."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/category_form.html:31
+msgid "Where will this category be used?"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/category_form.html:36
+msgid ""
+"Optional\n"
+"                        description..."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:8
+#: app/templates/layout.html:314
+msgid "General Settings"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:9
+msgid "Configure your madrasah system information"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:20
+msgid "System Configuration"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:37
+msgid "e.g. Darul Arqam Academy"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:42
+msgid "Contact Details"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:52
+#: app/blueprints/teachers/forms.py:10
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:48
+#: app/blueprints/teachers/templates/teachers/view_profile.html:57
+msgid "Phone Number"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:56
+msgid "Physical Address"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:57
+msgid "Main Street, Mogadishu"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:62
+msgid "Academic & Localization"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:78
+msgid "Messaging & WhatsApp API"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/index.html:87
+msgid "Permanent token from your Meta for Developers app."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:6
+msgid "Messaging Logs"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:7
+msgid "View history of all sent WhatsApp messages."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:17
+msgid "Date/Time"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:18
+msgid "Recipient"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:22
+msgid "Details"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:51
+msgid "Sent"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:71
+msgid "Message Detail"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:76
+msgid "Sent To"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:81
+msgid "Message Content"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:88
+msgid "Error Detail"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/logs.html:104
+msgid "No messaging logs found."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:8
+#: app/templates/layout.html:342
+msgid "Role Permissions"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:9
+msgid "Manage which roles can access specific system modules"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:12
+msgid "Back to Settings"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:23
+msgid "Access Control Matrix"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:24
+msgid "Configure permissions for each user role"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:37
+msgid "Module / Section"
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:89
+msgid "Note: Administrators (Admin) always have full access to all modules."
+msgstr ""
+
+#: app/blueprints/settings/templates/settings/permissions.html:92
+msgid "Save Permissions"
+msgstr ""
+
+#: app/blueprints/students/forms.py:9
+#: app/blueprints/students/templates/students/add_student.html:39
+msgid "Enrollment Number"
+msgstr ""
+
+#: app/blueprints/students/forms.py:10
+#: app/blueprints/students/templates/students/add_student.html:43
+#: app/blueprints/students/templates/students/view_profile.html:177
+msgid "Date of Birth"
+msgstr ""
+
+#: app/blueprints/students/forms.py:11
+#: app/blueprints/students/templates/students/add_student.html:47
+#: app/blueprints/students/templates/students/view_profile.html:173
+msgid "Gender"
+msgstr ""
+
+#: app/blueprints/students/forms.py:11
+msgid "Male"
+msgstr ""
+
+#: app/blueprints/students/forms.py:11
+msgid "Female"
+msgstr ""
+
+#: app/blueprints/students/forms.py:14
+#: app/blueprints/students/templates/students/add_student.html:62
+#: app/blueprints/students/templates/students/add_student.html:63
+#: app/blueprints/students/templates/students/view_profile.html:194
+msgid "Father's Name"
+msgstr ""
+
+#: app/blueprints/students/forms.py:15
+#: app/blueprints/students/templates/students/add_student.html:66
+#: app/blueprints/students/templates/students/add_student.html:67
+#: app/blueprints/students/templates/students/view_profile.html:199
+msgid "Mother's Name"
+msgstr ""
+
+#: app/blueprints/students/forms.py:16
+#: app/blueprints/students/templates/students/add_student.html:70
+#: app/blueprints/students/templates/students/id_card.html:236
+#: app/blueprints/students/templates/students/view_profile.html:204
+msgid "Parent Contact"
+msgstr ""
+
+#: app/blueprints/students/forms.py:17
+#: app/blueprints/students/templates/students/add_student.html:74
+msgid "Link to Parent Account"
+msgstr ""
+
+#: app/blueprints/students/forms.py:18
+#: app/blueprints/students/templates/students/add_student.html:78
+msgid "Link to Student's User Account"
+msgstr ""
+
+#: app/blueprints/students/forms.py:24
+msgid "Nazira (Reading)"
+msgstr ""
+
+#: app/blueprints/students/forms.py:25
+msgid "Hifz (Memorization)"
+msgstr ""
+
+#: app/blueprints/students/forms.py:26
+msgid "Revision (Daur)"
+msgstr ""
+
+#: app/blueprints/students/forms.py:28
+#, python-format
+msgid "Juz %(num)s"
+msgstr ""
+
+#: app/blueprints/students/forms.py:33
+#: app/blueprints/students/templates/students/manage_students.html:100
+#: app/blueprints/students/templates/students/manage_students.html:162
+msgid "Inactive"
+msgstr ""
+
+#: app/blueprints/students/forms.py:36
+#: app/blueprints/students/templates/students/add_student.html:121
+msgid "Process Registration"
+msgstr ""
+
+#: app/blueprints/students/forms.py:50
+msgid "This enrollment number is already in use. Please use a unique ID."
+msgstr ""
+
+#: app/blueprints/students/routes.py:72 app/blueprints/students/routes.py:75
+#: app/blueprints/students/routes.py:168 app/blueprints/students/routes.py:171
+#: app/blueprints/teachers/routes.py:30 app/blueprints/teachers/routes.py:64
+msgid "None"
+msgstr ""
+
+#: app/blueprints/students/routes.py:101
+#, python-format
+msgid "Student %(name)s registered successfully!"
+msgstr ""
+
+#: app/blueprints/students/routes.py:195
+#, python-format
+msgid "Student %(name)s updated successfully!"
+msgstr ""
+
+#: app/blueprints/students/routes.py:207
+#, python-format
+msgid "Student %(name)s deleted successfully!"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:13
+msgid "Edit Student"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:14
+msgid "Student Registration"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:15
+msgid "Update student profile information"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:16
+msgid "Enroll a new student into the madrasah"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:29
+#: app/blueprints/students/templates/students/view_profile.html:170
+msgid "Personal Information"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:36
+msgid "Student's Full Name"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:56
+msgid "Family & Contact Details"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:83
+#: app/blueprints/students/templates/students/view_profile.html:209
+msgid "Residential Address"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:84
+msgid "Current City / District"
+msgstr ""
+
+#: app/blueprints/students/templates/students/add_student.html:92
+msgid "Academic Information"
+msgstr ""
+
+#: app/blueprints/students/templates/students/id_card.html:3
+msgid "Student ID Card"
+msgstr ""
+
+#: app/blueprints/students/templates/students/id_card.html:199
+msgid "Back to Profile"
+msgstr ""
+
+#: app/blueprints/students/templates/students/id_card.html:202
+msgid "Print ID Card"
+msgstr ""
+
+#: app/blueprints/students/templates/students/id_card.html:224
+msgid "STUDENT"
+msgstr ""
+
+#: app/blueprints/students/templates/students/id_card.html:240
+msgid "Admission Date"
+msgstr ""
+
+#: app/blueprints/students/templates/students/id_card.html:260
+msgid ""
+"This ID card is designed for standard PVC card printing. For best "
+"results, use a dedicated ID card\n"
+"        printer."
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:27
+msgid "Students in"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:29
+msgid "Student Management"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:34
+msgid "Viewing students enrolled in"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:36
+msgid "View and manage enrolled students"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:44
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:16
+msgid "Print Directory"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:116
+#: app/blueprints/students/templates/students/print_directory.html:47
+#: app/blueprints/teachers/templates/teachers/print_directory.html:49
+msgid "ID"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:146
+msgid "Nazira"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:148
+#: app/blueprints/teachers/forms.py:12
+msgid "Hifz"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:150
+msgid "Revision"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:169
+msgid "Add Fee"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:178
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:137
+msgid "View Profile"
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:205
+msgid "No students found in the system."
+msgstr ""
+
+#: app/blueprints/students/templates/students/manage_students.html:207
+msgid "Enroll Your First Student"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:6
+#: app/blueprints/students/templates/students/print_directory.html:35
+msgid "Student Directory"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:7
+msgid "Official list of all registered students."
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:12
+#: app/blueprints/teachers/templates/teachers/print_directory.html:12
+msgid "Print Now"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:36
+msgid "Official Enrollment Roster"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:48
+msgid "Student Info"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:49
+msgid "Parents"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:50
+msgid "Contact/Address"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:51
+msgid "Academic"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:52
+msgid "Hifz Detail"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:53
+msgid "Status/Reg"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:73
+msgid "F:"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:75
+msgid "M:"
+msgstr ""
+
+#: app/blueprints/students/templates/students/print_directory.html:189
+msgid "Filter Directory:"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:16
+msgid "Student Profile"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:21
+msgid "Generate ID Card"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:24
+#: app/blueprints/teachers/templates/teachers/view_profile.html:20
+msgid "Edit Profile"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:83
+msgid "Information"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:91
+msgid "Exam Results"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:96
+msgid "Fees & Financials"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:101
+msgid "Analytics"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:112
+msgid ""
+"Attendance\n"
+"                                                Distribution"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:118
+msgid "Based on all recorded sessions."
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:125
+msgid "Performance Summary"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:133
+msgid "Avg. Marks"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:144
+msgid "Attendance Rate"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:158
+msgid ""
+"This data provides a suitable overview of student engagement\n"
+"                                                    and academic standing."
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:191
+msgid "Family & Contact"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:261
+msgid "No Attendance Data"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:262
+msgid ""
+"There are no attendance records for this\n"
+"                                        student yet."
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:277
+msgid "Result"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:321
+msgid "No Exam Results"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:322
+msgid ""
+"This student has no recorded exam results\n"
+"                                        yet."
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:334
+msgid "Standard Fee Structure"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:354
+msgid "Bus Fee"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:364
+msgid "Payment History"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:370
+msgid "Month/Type"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:409
+msgid "No Payment Records"
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:410
+msgid ""
+"There are no fee records for this student\n"
+"                                        yet."
+msgstr ""
+
+#: app/blueprints/students/templates/students/view_profile.html:418
+msgid "Add Fee/Record Payment"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:8
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:40
+msgid "Employee ID"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:11
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:63
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:93
+#: app/blueprints/teachers/templates/teachers/print_directory.html:55
+#: app/blueprints/teachers/templates/teachers/view_profile.html:49
+msgid "Specialization"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:13
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:74
+msgid "Tajwid"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:16
+msgid "Sharia"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:17
+msgid "Fiqh"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:18
+msgid "Hadith"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:19
+msgid "Sira"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:22
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:67
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:94
+#: app/blueprints/teachers/templates/teachers/print_directory.html:57
+#: app/blueprints/teachers/templates/teachers/view_profile.html:119
+msgid "Qualification"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:23
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:79
+msgid "Monthly Salary"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:24
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:75
+#: app/blueprints/teachers/templates/teachers/view_profile.html:123
+msgid "Joining Date"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:27
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:129
+msgid "Resigned"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:28
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:131
+msgid "Terminated"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:30
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:86
+msgid "Link to User Account"
+msgstr ""
+
+#: app/blueprints/teachers/forms.py:31
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:97
+msgid "Register Teacher"
+msgstr ""
+
+#: app/blueprints/teachers/routes.py:48
+msgid "Teacher registered successfully!"
+msgstr ""
+
+#: app/blueprints/teachers/routes.py:52
+msgid "Error: Employee ID or Email already exists."
+msgstr ""
+
+#: app/blueprints/teachers/routes.py:83
+msgid "Teacher updated successfully!"
+msgstr ""
+
+#: app/blueprints/teachers/routes.py:87
+msgid "Error updating teacher. Details might already exist."
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:14
+msgid "Edit Teacher Details"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:14
+msgid "Teacher Registration"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:17
+msgid "Register a new faculty member into the system"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:30
+msgid "Professional Profile"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:37
+msgid "e.g. Sheikh Ali Mohamed"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:57
+msgid "Work Information"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/add_teacher.html:68
+msgid "e.g. Islamic Law Degree"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:9
+msgid "Teacher Management"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:10
+msgid "View and manage madrasah staff members"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:20
+msgid "Add Teacher"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:33
+msgid "Total Staff"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:60
+msgid "Hifz Teachers"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:91
+msgid "ID No."
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:161
+msgid "No teachers found in the system."
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/manage_teachers.html:163
+msgid "Register Your First Teacher"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:6
+#: app/blueprints/teachers/templates/teachers/print_directory.html:35
+msgid "Teacher Directory"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:7
+msgid "Official roster of all Madrasah staff and teachers."
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:36
+msgid "Official Roster"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:51
+msgid "Teacher Name"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:53
+msgid "Contact Info"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:59
+msgid "Joined Date"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:102
+msgid "AUTHORIZED SIGNATURE"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/print_directory.html:170
+msgid "Filter Roster:"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:16
+msgid "Teacher Profile"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:71
+msgid "Professional Info"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:75
+msgid "Assigned Classes"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:79
+#: app/templates/layout.html:371
+msgid "Payments"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:111
+msgid "No payment records found."
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:128
+msgid "Digital Profile Status"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:137
+msgid "Linked to User Account"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:145
+msgid "No digital login account linked yet."
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_profile.html:176
+msgid "No classes assigned to this teacher yet."
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:16
+msgid "Teacher Schedule"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:20
+msgid "Back to Teachers"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:29
+msgid "Weekly Timetable"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:40
+msgid "Scheduled Classes"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:84
+msgid "No Room Assigned"
+msgstr ""
+
+#: app/blueprints/teachers/templates/teachers/view_schedule.html:92
+msgid "No classes scheduled"
+msgstr ""
+
+#: app/templates/429.html:11
+msgid "Too Many Requests"
+msgstr ""
+
+#: app/templates/429.html:13
+msgid ""
+"You have made too many requests in a short period. Please slow down and "
+"try again in a few\n"
+"                minutes."
+msgstr ""
+
+#: app/templates/429.html:17
+msgid "Reason"
+msgstr ""
+
+#: app/templates/429.html:18
+msgid "Rate Limit Exceeded"
+msgstr ""
+
+#: app/templates/429.html:21
+msgid "Return to Dashboard"
+msgstr ""
+
+#: app/templates/base.html:83
+msgid "Showing <b>0</b> to <b>0</b> of <b>0</b> entries"
+msgstr ""
+
+#: app/templates/base.html:84
+msgid "(filtered from <b>_MAX_</b> total entries)"
+msgstr ""
+
+#: app/templates/base.html:85
+msgid "No matching records found"
+msgstr ""
+
+#: app/templates/base.html:86
+msgid "No data available in table"
+msgstr ""
+
+#: app/templates/base.html:94
+msgid "Copy"
+msgstr ""
+
+#: app/templates/base.html:95
+msgid "Print"
+msgstr ""
+
+#: app/templates/base.html:96
+msgid "Column Visibility"
+msgstr ""
+
+#: app/templates/layout.html:21 app/templates/layout.html:167
+msgid "Madrasah"
+msgstr ""
+
+#: app/templates/layout.html:43
+msgid "Select Language"
+msgstr ""
+
+#: app/templates/layout.html:108 app/templates/layout.html:152
+#: app/templates/layout.html:544
+msgid "Administrator"
+msgstr ""
+
+#: app/templates/layout.html:123
+msgid "Security"
+msgstr ""
+
+#: app/templates/layout.html:130 app/templates/layout.html:592
+msgid "Logout"
+msgstr ""
+
+#: app/templates/layout.html:172
+msgid "System"
+msgstr ""
+
+#: app/templates/layout.html:182 app/templates/layout.html:446
+msgid "Dashboard"
+msgstr ""
+
+#: app/templates/layout.html:217
+msgid "Class Schedules"
+msgstr ""
+
+#: app/templates/layout.html:223
+msgid "Curriculum Subjects"
+msgstr ""
+
+#: app/templates/layout.html:263
+msgid "Overview"
+msgstr ""
+
+#: app/templates/layout.html:269
+msgid "Student Fees"
+msgstr ""
+
+#: app/templates/layout.html:275
+msgid ""
+"Institutional\n"
+"                                Expenses"
+msgstr ""
+
+#: app/templates/layout.html:282
+msgid ""
+"Payable\n"
+"                                Account"
+msgstr ""
+
+#: app/templates/layout.html:336
+msgid "Settings Madrasah"
+msgstr ""
+
+#: app/templates/layout.html:380 app/templates/layout.html:394
+#: app/templates/layout.html:564 app/templates/layout.html:573
+msgid "My Profile"
+msgstr ""
+
+#: app/templates/layout.html:386
+msgid "My Schedule"
+msgstr ""
+
+#: app/templates/layout.html:403
+msgid "SaaS Master Admin"
+msgstr ""
+
+#: app/templates/layout.html:424
+msgid "Official Record"
+msgstr ""
+
+#: app/templates/layout.html:436
+msgid "Madrasah Management"
+msgstr ""
+
+#: app/templates/layout.html:440
+msgid "Admin Dashboard"
+msgstr ""
+
+#: app/templates/layout.html:441
+msgid "Teacher Dashboard"
+msgstr ""
+
+#: app/templates/layout.html:442
+msgid "Staff Dashboard"
+msgstr ""
+
+#: app/templates/layout.html:443
+msgid "Finance Dashboard"
+msgstr ""
+
+#: app/templates/layout.html:444
+msgid "Parent Dashboard"
+msgstr ""
+
+#: app/templates/layout.html:445
+msgid "Student Dashboard"
+msgstr ""
+
+#: app/templates/layout.html:474
+msgid "Select"
+msgstr ""
+
+#: app/templates/layout.html:474
+msgid "Language"
+msgstr ""
+
+#: app/templates/includes/footer.html:8
+msgid "Rays Tech Center"
+msgstr ""
+
+#: app/templates/includes/footer.html:10
+msgid "Designed & Developed. All Rights Reserved."
+msgstr ""
+
+#: app/templates/includes/footer.html:14
+msgid "Privacy Policy"
+msgstr ""
+
+#: app/templates/includes/footer.html:28
+msgid "Official Report"
+msgstr ""
+
+#: app/templates/includes/footer.html:31
+msgid "Page"
+msgstr ""
+
+#: app/utils/decorators.py:19
+msgid "You do not have permission to access this section."
+msgstr ""
+
+#: app/utils/decorators.py:29
+msgid "Administrative privileges required."
+msgstr ""
+
+#: app/utils/decorators.py:38
+msgid "Management privileges required."
+msgstr ""
+
+#: app/utils/decorators.py:47
+msgid "Teacher or staff access required."
+msgstr ""
+
+#: app/utils/decorators.py:56
+msgid "Parent or staff access required."
+msgstr ""
+
+#: app/utils/message_templates.py:13
+msgid ""
+"Assalamu Alaykum {parent_name}, your child {student_name} was marked "
+"ABSENT today ({date}). Please contact us if this is an error."
+msgstr ""
+
+#: app/utils/message_templates.py:15
+msgid ""
+"Assalamu Alaykum {parent_name}, your child {student_name} arrived LATE to"
+" class today at {time}."
+msgstr ""
+
+#: app/utils/message_templates.py:17
+msgid ""
+"Reminder: School fees for {student_name} ({amount}) are due by "
+"{due_date}. Please clear the balance to avoid interruption."
+msgstr ""
+
+#: app/utils/message_templates.py:19
+msgid ""
+"Jazak'Allah Khair. We have received payment of {amount} for "
+"{student_name}. Remaining balance: {balance}."
+msgstr ""
+
+#: app/utils/message_templates.py:21
+#, python-format
+msgid "Exam Alert: {student_name} scored {score}% in {subject}. Grade: {grade}."
+msgstr ""
+
+#: app/utils/message_templates.py:23
+msgid ""
+"Monthly Report for {month}: {student_name} has {attendance}% attendance "
+"and is currently on {current_lesson}. See details: {link}"
+msgstr ""
+
+#: app/utils/message_templates.py:25
+msgid ""
+"Announcement: The Madrasah will be closed from {start_date} to {end_date}"
+" for {occasion}. Classes resume on {resume_date}."
+msgstr ""
+
+#: app/utils/message_templates.py:27
+msgid ""
+"Invitation: Dear Parents, please join us for a parent-teacher meeting on "
+"{date} at {time} to discuss student progress."
+msgstr ""
+
+#: app/utils/message_templates.py:34
+msgid ""
+"Ustadh {teacher_name}, you have a class: {subject} with {class_name} at "
+"{time} in Room {room}."
+msgstr ""
+
+#: app/utils/message_templates.py:36
+msgid ""
+"Update: Your class schedule for {date} has changed. Please check the "
+"dashboard for details."
+msgstr ""
+
+#: app/utils/message_templates.py:38
+msgid ""
+"Your salary for the month of {month} has been processed and sent to your "
+"account."
+msgstr ""
+
+#: app/utils/message_templates.py:40
+msgid ""
+"Staff Meeting Alert: Please attend the mandatory staff meeting on {date} "
+"at {time} in the main hall."
+msgstr ""
+
+#: app/utils/message_templates.py:42
+msgid "Your leave request for {dates} has been APPROVED."
+msgstr ""
+
+#: app/utils/message_templates.py:44
+msgid ""
+"Your leave request for {dates} has been DENIED. Please contact "
+"administration."
+msgstr ""
+

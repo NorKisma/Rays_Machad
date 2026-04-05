@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Messaging Logs') }}</h3>
+        <p class="text-muted small mb-0">{{ _('View history of all sent WhatsApp messages.') }}</p>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 text-uppercase small fw-bold text-muted">{{ _('Date/Time') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Recipient') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Type') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Message') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Status') }}</th>
+                        <th class="pe-4 py-3 text-uppercase small fw-bold text-muted text-end">{{ _('Details') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr>
+                        <td class="ps-4">
+                            <span class="d-block small fw-bold">{{ log.sent_at.strftime('%Y-%m-%d') }}</span>
+                            <span class="text-muted small">{{ log.sent_at.strftime('%H:%M:%S') }}</span>
+                        </td>
+                        <td>
+                            <i class="fa-brands fa-whatsapp text-success me-1"></i>
+                            <span class="small fw-semibold">+{{ log.recipient }}</span>
+                        </td>
+                        <td>
+                            <span
+                                class="badge rounded-pill bg-opacity-10 
+                                {{ 'bg-info text-info' if log.message_type == 'announcement' else 'bg-indigo text-indigo' }}">
+                                {{ log.message_type|capitalize }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="text-truncate" style="max-width: 250px;" title="{{ log.message_body }}">
+                                <span class="small text-muted">{{ log.message_body }}</span>
+                            </div>
+                        </td>
+                        <td>
+                            {% if log.status == 'sent' or log.status == 'sent (mock)' %}
+                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">
+                                <i class="fa-solid fa-check-circle me-1 small"></i> {{ _('Sent') }}
+                            </span>
+                            {% else %}
+                            <span class="badge bg-danger bg-opacity-10 text-danger rounded-pill px-3"
+                                title="{{ log.error_message }}">
+                                <i class="fa-solid fa-times-circle me-1 small"></i> {{ _('Failed') }}
+                            </span>
+                            {% endif %}
+                        </td>
+                        <td class="pe-4 text-end">
+                            <button class="btn btn-sm btn-light rounded-circle" data-bs-toggle="modal"
+                                data-bs-target="#logModal{{ log.id }}">
+                                <i class="fa-solid fa-eye small"></i>
+                            </button>
+
+                            <!-- Modal for detailed view -->
+                            <div class="modal fade" id="logModal{{ log.id }}" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered text-start">
+                                    <div class="modal-content border-0 shadow-lg rounded-4">
+                                        <div class="modal-header border-0 pb-0">
+                                            <h5 class="fw-bold mb-0">{{ _('Message Detail') }}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                        </div>
+                                        <div class="modal-body p-4 text-start">
+                                            <div class="mb-3">
+                                                <label class="small text-muted fw-bold d-block">{{ _('Sent To')
+                                                    }}</label>
+                                                <span class="fw-bold">+{{ log.recipient }}</span>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="small text-muted fw-bold d-block">{{ _('Message Content')
+                                                    }}</label>
+                                                <div class="p-3 bg-light rounded-3 small mt-1"
+                                                    style="white-space: pre-wrap;">{{ log.message_body }}</div>
+                                            </div>
+                                            {% if log.error_message %}
+                                            <div class="mb-3">
+                                                <label class="small text-danger fw-bold d-block">{{ _('Error Detail')
+                                                    }}</label>
+                                                <code
+                                                    class="p-2 bg-danger bg-opacity-10 text-danger rounded d-block small mt-1">{{ log.error_message }}</code>
+                                            </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-comment-slash fa-3x mb-3 opacity-25"></i>
+                            <p class="mb-0">{{ _('No messaging logs found.') }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

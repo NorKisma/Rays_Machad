@@ -1,0 +1,451 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Financial Overview') }}</h3>
+        <p class="text-muted small mb-0">{{ _('Track income, expenses, and fee collection status.') }}</p>
+    </div>
+    <div class="d-flex flex-wrap gap-2 ms-auto">
+        <form action="{{ url_for('financials.send_monthly_reports') }}" method="POST"
+            data-confirm-msg="{{ _('Are you sure you want to send AI-generated monthly reports to all parents?') }}"
+            onsubmit="return confirm(this.getAttribute('data-confirm-msg'))">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-soft-success d-flex align-items-center gap-2 rounded-3">
+                <i class="fa-solid fa-robot"></i> {{ _('AI Monthly Reports') }}
+            </button>
+        </form>
+        <form action="{{ url_for('financials.generate_salaries') }}" method="POST"
+            data-confirm-msg="{{ _('Generate salaries for all active teachers based on their monthly pay?') }}"
+            onsubmit="return confirm(this.getAttribute('data-confirm-msg'))">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-soft-danger d-flex align-items-center gap-2 rounded-3">
+                <i class="fa-solid fa-hand-holding-dollar"></i> {{ _('Generate Salaries') }}
+            </button>
+        </form>
+        <form action="{{ url_for('financials.generate_monthly_fees') }}" method="POST">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button type="submit" class="btn btn-soft-indigo d-flex align-items-center gap-2 rounded-3">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> {{ _('Generate Monthly Fees') }}
+            </button>
+        </form>
+        <a href="{{ url_for('settings.manage_categories', type='Expense') }}"
+            class="btn btn-soft-warning d-flex align-items-center gap-2 rounded-3">
+            <i class="fa-solid fa-tags"></i> {{ _('Expense Categories') }}
+        </a>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="card border-0 p-3 h-100 bg-success text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-hand-holding-dollar fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{ _('Total
+                        Collected') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">{{ total_fees_collected|round(2) }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 p-3 h-100 bg-warning text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-clock-rotate-left fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{
+                        _('Pending Fees') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">{{ total_fees_pending|round(2) }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="card border-0 p-3 h-100 bg-danger text-white shadow-sm rounded-4">
+            <div class="d-flex align-items-center gap-3">
+                <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                    style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                    <i class="fa-solid fa-money-bill-transfer fa-2x"></i>
+                </div>
+                <div>
+                    <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{
+                        _('Actual Expenses') }}</span>
+                    <h3 class="fw-bold mb-0 text-white">{{ total_expenses|round(2) }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <a href="{{ url_for('financials.manage_payables') }}" class="text-decoration-none">
+            <div class="card border-0 p-3 h-100 bg-primary text-white shadow-sm rounded-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="rounded-4 p-3 d-flex align-items-center justify-content-center"
+                        style="width: 60px; height: 60px; background-color: rgba(255,255,255,0.2);">
+                        <i class="fa-solid fa-file-invoice-dollar fa-2x"></i>
+                    </div>
+                    <div>
+                        <span class="text-white small fw-bold text-uppercase d-block mb-1" style="opacity: 0.9;">{{
+                            _('Payable Account') }}</span>
+                        <h3 class="fw-bold mb-0 text-white">{{ total_payables|round(2) }}</h3>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+            <div class="d-flex align-items-center gap-2 mb-4">
+                <div class="icon-box bg-success bg-opacity-10 text-success rounded-3 p-1"
+                    style="width: 32px; height: 32px;">
+                    <i class="fa-solid fa-chart-line"></i>
+                </div>
+                <h5 class="fw-bold mb-0">{{ _('Monthly Income Trend') }}</h5>
+            </div>
+            <div style="height: 300px;">
+                <canvas id="incomeChart"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+            <div class="d-flex align-items-center gap-2 mb-4">
+                <div class="icon-box bg-danger bg-opacity-10 text-danger rounded-3 p-1"
+                    style="width: 32px; height: 32px;">
+                    <i class="fa-solid fa-chart-column"></i>
+                </div>
+                <h5 class="fw-bold mb-0">{{ _('Monthly Expense Breakdown') }}</h5>
+            </div>
+            <div style="height: 300px;">
+                <canvas id="expenseChart"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-12">
+        <div class="card border-0 shadow-sm rounded-4 p-4">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold mb-0"><i class="fa-solid fa-list-check me-2 text-primary"></i> {{ _('Recent Financial
+                    Activity') }}</h5>
+                <div>
+                    <a href="{{ url_for('financials.manage_fees') }}" class="btn btn-sm btn-outline-success me-2">{{
+                        _('Fees') }}</a>
+                    <a href="{{ url_for('financials.manage_expenses') }}" class="btn btn-sm btn-outline-danger">{{
+                        _('Expenses') }}</a>
+                </div>
+            </div>
+            {% if transactions %}
+            <div class="table-responsive">
+                <table id="transactionTable" class="table table-hover align-middle no-datatable">
+                    <thead>
+                        <tr>
+                            <th>{{ _('Date') }}</th>
+                            <th>{{ _('Description') }}</th>
+                            <th>{{ _('Category') }}</th>
+                            <th>{{ _('Amount') }}</th>
+                            <th>{{ _('Status') }}</th>
+                            <th class="text-end">{{ _('Action') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for tx in transactions %}
+                        <tr>
+                            <td class="small">{{ tx.date.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>
+                                <div class="d-flex align-items-center gap-2">
+                                    <div class="icon-box {{ 'bg-success' if tx.type == 'Inflow' else 'bg-danger' }} bg-opacity-10 {{ 'text-success' if tx.type == 'Inflow' else 'text-danger' }} rounded-circle d-flex align-items-center justify-content-center"
+                                        style="width: 32px; height: 32px;">
+                                        <i
+                                            class="fa-solid {{ 'fa-arrow-down' if tx.type == 'Inflow' else 'fa-arrow-up' }} small"></i>
+                                    </div>
+                                    <span class="fw-semibold text-dark">{{ tx.title }}</span>
+                                </div>
+                            </td>
+                            <td><span class="badge bg-light text-muted">{{ tx.category }}</span></td>
+                            <td class="fw-bold {{ 'text-success' if tx.type == 'Inflow' else 'text-danger' }}">
+                                {{ '+' if tx.type == 'Inflow' else '-' }}{{ tx.amount }}
+                            </td>
+                            <td>
+                                {% if tx.status == 'Paid' %}
+                                <span class="badge badge-soft-success">{{ _('Paid') }}</span>
+                                {% elif tx.status == 'Partial' %}
+                                <span class="badge badge-soft-info">{{ _('Partial') }}</span>
+                                {% else %}
+                                <span class="badge badge-soft-warning">{{ _('Pending') }}</span>
+                                {% endif %}
+                            </td>
+                            <td class="text-end">
+                                {% if tx.type == 'Inflow' %}
+                                <a href="{{ url_for('financials.view_receipt', fee_id=tx.raw_obj.id) }}"
+                                    class="btn btn-sm btn-link text-primary p-0">
+                                    <i class="fa-solid fa-file-invoice"></i>
+                                </a>
+                                {% else %}
+                                <a href="{{ url_for('financials.view_voucher', expense_id=tx.raw_obj.id) }}"
+                                    class="btn btn-sm btn-link text-primary p-0">
+                                    <i class="fa-solid fa-receipt"></i>
+                                </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center text-muted py-5 border border-dashed rounded-4">
+                <i class="fa-solid fa-folder-open d-block mb-3 fs-1 opacity-25"></i>
+                {{ _('No recent transactions found.') }}
+            </div>
+            {% endif %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    $(document).ready(function () {
+        const isDarkMode = () => document.documentElement.getAttribute('data-theme') === 'dark';
+        const getStyle = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+        // Define brand colors directly for reliability, or fetch from CSS if preferred
+        const colors = {
+            success: '#10b981', // Emerald 500
+            successLight: '#34d399', // Emerald 400
+            danger: '#ef4444', // Red 500
+            dangerLight: '#f87171', // Red 400
+            gridLight: 'rgba(148, 163, 184, 0.1)',
+            gridDark: 'rgba(255, 255, 255, 0.05)',
+            textLight: '#64748b', // Slate 500
+            textDark: '#94a3b8'   // Slate 400
+        };
+
+        // Data & Labels safely rendered from Flask
+        const incomeData = JSON.parse('{{ income_list|tojson|safe }}');
+        const expenseData = JSON.parse('{{ expense_list|tojson|safe }}');
+
+        const months = [
+            '{{ _("Jan") }}', '{{ _("Feb") }}', '{{ _("Mar") }}',
+            '{{ _("Apr") }}', '{{ _("May") }}', '{{ _("Jun") }}',
+            '{{ _("Jul") }}', '{{ _("Aug") }}', '{{ _("Sep") }}',
+            '{{ _("Oct") }}', '{{ _("Nov") }}', '{{ _("Dec") }}'
+        ];
+
+        // Shared Options for a Consistent Look
+        const commonOptions = () => {
+            const dark = isDarkMode();
+            return {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutQuart'
+                },
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        enabled: true,
+                        backgroundColor: dark ? 'rgba(15, 23, 42, 0.95)' : 'rgba(255, 255, 255, 0.95)',
+                        titleColor: dark ? '#f1f5f9' : '#0f172a',
+                        bodyColor: dark ? '#cbd5e1' : '#334155',
+                        borderColor: dark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)',
+                        borderWidth: 1,
+                        padding: 14,
+                        cornerRadius: 12,
+                        displayColors: true,
+                        boxPadding: 6,
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(context.parsed.y);
+                                }
+                                return label;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        border: { display: false },
+                        grid: {
+                            color: dark ? colors.gridDark : colors.gridLight,
+                            drawBorder: false,
+                            borderDash: [5, 5]
+                        },
+                        ticks: {
+                            font: { family: "'Inter', sans-serif", size: 11 },
+                            color: dark ? colors.textDark : colors.textLight,
+                            padding: 10,
+                            callback: function (value) {
+                                if (value >= 1000) {
+                                    return '$' + (value / 1000) + 'k';
+                                }
+                                return '$' + value;
+                            }
+                        }
+                    },
+                    x: {
+                        border: { display: false },
+                        grid: { display: false },
+                        ticks: {
+                            font: { family: "'Inter', sans-serif", size: 11 },
+                            color: dark ? colors.textDark : colors.textLight,
+                            padding: 10
+                        }
+                    }
+                }
+            };
+        };
+
+        // --- Income Chart (Gradient Area) ---
+        const incCtx = document.getElementById('incomeChart');
+        let incChart;
+
+        if (incCtx) {
+            const ctx = incCtx.getContext('2d');
+
+            // Create Gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+            gradient.addColorStop(0, 'rgba(16, 185, 129, 0.4)'); // Vibrant Green
+            gradient.addColorStop(1, 'rgba(16, 185, 129, 0.0)'); // Transparent
+
+            incChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: '{{ _("Total Income") }}',
+                        data: incomeData,
+                        borderColor: colors.success,
+                        borderWidth: 3,
+                        backgroundColor: gradient,
+                        fill: true,
+                        tension: 0.4,
+                        pointBackgroundColor: '#ffffff',
+                        pointBorderColor: colors.success,
+                        pointBorderWidth: 2,
+                        pointRadius: 0, // Hidden until hover
+                        pointHoverRadius: 6,
+                        pointHoverBorderWidth: 3,
+                        pointHoverBackgroundColor: '#ffffff'
+                    }]
+                },
+                options: commonOptions()
+            });
+        }
+
+        // --- Expense Chart (Modern Bar) ---
+        const expCtx = document.getElementById('expenseChart');
+        let expChart;
+
+        if (expCtx) {
+            const ctx = expCtx.getContext('2d');
+
+            // Bar Gradient
+            const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+            gradient.addColorStop(0, colors.dangerLight);
+            gradient.addColorStop(1, colors.danger);
+
+            expChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: months,
+                    datasets: [{
+                        label: '{{ _("Total Expenses") }}',
+                        data: expenseData,
+                        backgroundColor: gradient,
+                        borderRadius: 6,
+                        borderSkipped: false, // Rounded on all sides looks softer
+                        barThickness: 24,     // Fixed width for cleaner look on wide screens
+                        maxBarThickness: 32
+                    }]
+                },
+                options: commonOptions()
+            });
+        }
+
+        // --- Theme Switch Listener ---
+        const themeObserver = new MutationObserver(() => {
+            const newOptions = commonOptions();
+            if (incChart) {
+                incChart.options = newOptions;
+                incChart.update('none'); // 'none' for performance, or 'active' for animation
+            }
+            if (expChart) {
+                expChart.options = newOptions;
+                expChart.update('none');
+            }
+        });
+
+        // master Financial transaction log table
+        const transactionTable = $('#transactionTable').DataTable({
+            "destroy": true, // Prevent initialization conflicts
+            "paging": true,
+            "pageLength": 5,
+            "ordering": true,
+            "info": true,
+            "responsive": true,
+            "dom": '<"d-flex justify-content-between align-items-center mb-3"<"d-flex align-items-center gap-2"l><"dt-buttons-container border rounded"B>f>t<"d-flex justify-content-between align-items-center mt-3 pt-3 border-top"ip>',
+            "buttons": [
+                { extend: 'copy', text: 'Copy', className: 'btn btn-sm btn-light px-3 fw-bold' },
+                { extend: 'excel', text: 'Excel', className: 'btn btn-sm btn-light px-3 fw-bold text-success' },
+                { extend: 'print', text: 'Print', className: 'btn btn-sm btn-light px-3 fw-bold text-primary' }
+            ],
+            "language": window.datatables_translations || {
+                "search": "",
+                "searchPlaceholder": "{{ _('Search Transaction...') }}",
+                "lengthMenu": "_MENU_",
+                "info": "{{ _('Showing <b>_START_</b> to <b>_END_</b> of <b>_TOTAL_</b> entries') }}",
+                "paginate": {
+                    "next": "{{ _('Next') }}",
+                    "previous": "{{ _('Previous') }}"
+                }
+            },
+            "order": [[0, "desc"]]
+        });
+
+
+        // Link the global search bar in the header to the transaction table
+        $('#headerSearchInput').on('keyup', function () {
+            transactionTable.search(this.value).draw();
+        });
+
+        // Handle initial search
+        const initialSearch = $('#headerSearchInput').val();
+        if (initialSearch) {
+            transactionTable.search(initialSearch).draw();
+        }
+
+        themeObserver.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ['data-theme']
+        });
+    });
+</script>
+{% endblock %}

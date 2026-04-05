@@ -1,0 +1,178 @@
+{% extends "layout.html" %}
+
+{% block styles %}
+<style>
+    .log-success {
+        border-left: 4px solid #10b981;
+    }
+
+    .log-failed {
+        border-left: 4px solid #ef4444;
+    }
+
+    .log-suspicious {
+        border-left: 4px solid #f59e0b;
+    }
+
+    .badge-soft-success {
+        background: #dcfce7;
+        color: #16a34a;
+    }
+
+    .badge-soft-danger {
+        background: #fee2e2;
+        color: #dc2626;
+    }
+
+    .badge-soft-warning {
+        background: #fef3c7;
+        color: #d97706;
+    }
+
+    .deleted-row {
+        background-color: rgba(220, 53, 69, 0.03) !important;
+        opacity: 0.75;
+    }
+
+    .deleted-row:hover {
+        background-color: rgba(220, 53, 69, 0.06) !important;
+    }
+
+    .deleted-row .fw-semibold,
+    .deleted-row .small.fw-bold {
+        text-decoration: line-through;
+        opacity: 0.5;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h3 class="fw-bold mb-0 text-dark">{{ _('Security & Login Logs') }}</h3>
+        <p class="text-muted small mb-0">{{ _('Review authentication attempts and system security events') }}</p>
+    </div>
+    <div class="d-flex gap-2">
+        <button class="btn btn-soft-primary d-flex align-items-center gap-2 position-relative" id="toggleDeleted">
+            <i class="fa-solid fa-eye-slash"></i>
+            <span>{{ _('Show Deleted') }}</span>
+        </button>
+        <a href="{{ url_for('auth.manage_users') }}" class="btn btn-light rounded-3 px-4">
+            <i class="fa-solid fa-arrow-left me-2"></i> {{ _('Back to Users') }}
+        </a>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table id="logTable" class="table table-hover align-middle mb-0 border" data-order='[[0, "desc"]]'>
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4">{{ _('Timestamp') }}</th>
+                        <th>{{ _('Identity') }}</th>
+                        {% if not current_school %}
+                        <th>{{ _('School') }}</th>
+                        {% endif %}
+                        <th>{{ _('IP Address') }}</th>
+                        <th>{{ _('Status') }}</th>
+                        <th class="pe-4">{{ _('User Agent') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for log in logs %}
+                    <tr class="log-{{ log.status|lower }} {% if log.user and log.user.deleted_at %}deleted-row{% endif %}"
+                        data-deleted="{{ 'true' if log.user and log.user.deleted_at else 'false' }}">
+                        <td class="ps-4">
+                            <span class="text-dark fw-semibold d-block">{{ log.timestamp.strftime('%d %b %Y') }}</span>
+                            <small class="text-muted">{{ log.timestamp.strftime('%H:%M:%S') }}</small>
+                        </td>
+                        <td>
+                            {% if log.user %}
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="avatar-xs bg-gradient-premium text-white rounded-circle d-flex align-items-center justify-content-center shadow-sm"
+                                    style="width: 32px; height: 32px; font-size: 0.85rem; font-weight: 700;">
+                                    {{ log.user.name[0]|upper }}
+                                </div>
+                                <div>
+                                    <span class="text-dark d-block small fw-bold">{{ log.user.name }}</span>
+                                    <small class="text-muted">{{ log.email }}</small>
+                                </div>
+                            </div>
+                            {% else %}
+                            <span class="text-muted">{{ log.email }}</span>
+                            <small class="d-block text-danger" style="font-size: 0.7rem;">{{ _('Non-existent user')
+                                }}</small>
+                            {% endif %}
+                        </td>
+                        {% if not current_school %}
+                        <td>
+                            {% if log.school %}
+                            <span class="badge bg-secondary opacity-75">{{ log.school.name }}</span>
+                            {% else %}
+                            <span class="badge bg-light text-dark border"><i class="fa-solid fa-cloud me-1"></i>
+                                Master</span>
+                            {% endif %}
+                        </td>
+                        {% endif %}
+                        <td>
+                            <code class="text-primary bg-light px-2 py-1 rounded">{{ log.ip_address }}</code>
+                        </td>
+                        <td>
+                            {% if log.status == 'Success' %}
+                            <span class="badge badge-soft-success rounded-pill px-3">{{ _('Success') }}</span>
+                            {% elif log.status == 'Failed' %}
+                            <span class="badge badge-soft-danger rounded-pill px-3">{{ _('Failed') }}</span>
+                            {% else %}
+                            <span class="badge badge-soft-warning rounded-pill px-3">{{ _(log.status) }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="pe-4">
+                            <div class="text-muted small text-truncate" style="max-width: 200px;"
+                                title="{{ log.user_agent }}">
+                                {{ log.user_agent }}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        let showDeleted = false;
+        const table = $('#logTable').DataTable(); // Gets instance from js.js
+
+        // Custom filter for DataTables to handle deleted rows - Table Specific
+        $.fn.dataTable.ext.search.push(
+            function (settings, data, dataIndex) {
+                if (settings.nTable.id !== 'logTable') return true;
+                if (showDeleted) return true;
+                return $(settings.aoData[dataIndex].nTr).data('deleted') !== true;
+            }
+        );
+
+        $('#toggleDeleted').on('click', function () {
+            showDeleted = !showDeleted;
+            table.draw();
+
+            let text = showDeleted ? "{{ _('Hide Deleted') }}" : "{{ _('Show Deleted') }}";
+            let icon = showDeleted ? 'fa-eye' : 'fa-eye-slash';
+            $(this).find('span').text(text);
+            $(this).find('i').attr('class', 'fa-solid ' + icon);
+            $(this).toggleClass('btn-soft-primary btn-primary');
+        });
+
+        // Apply tooltips
+        const tooltipTriggerList = [].slice.call(document.querySelectorAll('[title]'))
+        tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,464 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ _('Profit & Loss Report') }}{% endblock %}
+
+{% block styles %}
+<style>
+    :root {
+        --print-primary: #1e1b4b;
+        --print-border: #e2e8f0;
+    }
+
+    @media print {
+        @page {
+            size: A4 portrait;
+            margin: 0;
+            /* Zero margins for paper edge */
+        }
+
+        body {
+            background: white !important;
+            font-size: 10pt !important;
+            color: black !important;
+            margin: 0;
+            padding: 0 !important;
+        }
+
+        /* Hide the global layout print header to remove top space */
+        .main-content>.d-print-block {
+            display: none !important;
+        }
+
+        .main-content {
+            padding: 5mm !important;
+            /* Minimal internal breathing room */
+            margin: 0 !important;
+            width: 100% !important;
+        }
+
+        .no-print,
+        .main-header,
+        .sidebar,
+        .breadcrumb,
+        footer {
+            display: none !important;
+        }
+
+        .card {
+            border: none !important;
+            box-shadow: none !important;
+            margin-bottom: 1mm !important;
+            padding: 0 !important;
+            background: transparent !important;
+        }
+
+        .table {
+            border-collapse: collapse !important;
+            width: 100% !important;
+            margin-bottom: 0 !important;
+        }
+
+        .table th,
+        .table td {
+            border: 1px solid var(--print-border) !important;
+            padding: 3px 5px !important;
+            line-height: 1.1 !important;
+        }
+
+        .print-header {
+            display: block !important;
+            text-align: center;
+            border-bottom: 1px solid var(--print-primary);
+            margin-bottom: 2mm !important;
+            padding-top: 0 !important;
+            padding-bottom: 1mm !important;
+        }
+
+        .print-header h1 {
+            font-size: 14pt !important;
+            margin: 0 !important;
+        }
+
+        .print-header h2 {
+            font-size: 12pt !important;
+            margin: 0 !important;
+        }
+
+        .print-header h5 {
+            font-size: 10pt !important;
+            margin: 0 !important;
+        }
+
+        .printable-section {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        .signature-line {
+            border-top: 1px solid #000;
+            width: 160px;
+            margin-top: 10mm !important;
+            text-align: center;
+            font-size: 0.75rem;
+        }
+
+        .print-footer {
+            display: block !important;
+            margin-top: 2mm !important;
+        }
+
+        /* Print Visibility Logic */
+        body.print-summary-only .detailed-statement-section {
+            display: none !important;
+        }
+
+        body.print-details-only .summary-statement-section {
+            display: none !important;
+        }
+
+        body.print-summary-only .summary-statement-section,
+        body.print-details-only .detailed-statement-section {
+            display: block !important;
+            margin-top: 0 !important;
+            padding-top: 0 !important;
+        }
+
+        /* When printing details only, hide the high-level header */
+        body.print-details-only .print-header {
+            display: none !important;
+        }
+
+        .financial-table tr {
+            page-break-inside: avoid;
+        }
+    }
+
+    /* Web Styles */
+    .print-header,
+    .print-footer {
+        display: block;
+    }
+
+    .financial-table th {
+        background-color: var(--primary);
+        color: white;
+    }
+
+    .signature-line {
+        border-top: 1px solid #000;
+        width: 200px;
+        margin-top: 50px;
+        text-align: center;
+        font-size: 0.8rem;
+    }
+
+    /* Print Visibility Logic */
+    @media print {
+        body.print-summary-only .detailed-statement-section {
+            display: none !important;
+        }
+
+        body.print-details-only .summary-statement-section {
+            display: none !important;
+        }
+
+        /* Ensure summary stays on one page */
+        body.print-summary-only .summary-statement-section {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /* When printing details only, ensure the header still shows if needed, or hide it */
+        body.print-details-only .print-header {
+            display: none !important;
+        }
+
+        /* General table optimization for print */
+        .financial-table {
+            page-break-inside: auto;
+        }
+
+        .financial-table tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <!-- Web Action Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4 no-print">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="{{ url_for('reports.index') }}">{{ _('Reports') }}</a></li>
+                <li class="breadcrumb-item active">{{ _('Profit & Loss') }}</li>
+            </ol>
+        </nav>
+        <div class="d-flex gap-2">
+            <form action="{{ url_for('reports.profit_loss') }}" method="GET" class="d-flex gap-2">
+                <select name="year" class="form-select form-select-sm rounded-pill px-3" onchange="this.form.submit()">
+                    {% for year in available_years %}
+                    <option value="{{ year }}" {% if year==selected_year %}selected{% endif %}>{{ year }}</option>
+                    {% endfor %}
+                </select>
+                <select name="month" class="form-select form-select-sm rounded-pill px-3" onchange="this.form.submit()">
+                    <option value="">{{ _('Annual Report') }}</option>
+                    {% for m in range(1, 13) %}
+                    <option value="{{ m }}" {% if m==selected_month %}selected{% endif %}>
+                        {{ _(datetime(2026, m, 1).strftime('%B')) }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </form>
+            <div class="btn-group">
+                <button onclick="printSection('summary')" class="btn btn-primary rounded-start-pill px-4">
+                    <i class="fa-solid fa-chart-pie me-2"></i> {{ _('Print Summary') }}
+                </button>
+                <button onclick="printSection('details')" class="btn btn-dark rounded-end-pill px-4">
+                    <i class="fa-solid fa-list-ul me-2"></i> {{ _('Print Details') }}
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PART 1: SUMMARY PAGE -->
+    <div class="printable-section summary-statement-section" style="page-break-after: always;">
+        <!-- Premium Institutional Header -->
+        <div class="d-print-block mb-4 p-4 border shadow-sm rounded-4 bg-light">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="logo-icon bg-primary p-3 rounded-4 shadow-sm text-center" style="width: 60px;">
+                        <i class="fa-solid fa-mosque fa-2xl text-white"></i>
+                    </div>
+                    <div>
+                        <h2 class="fw-bold mb-0 text-primary">{{ madrasah_name }}</h2>
+                        <p class="text-muted small mb-0">{{ madrasah_address }}</p>
+                        <p class="text-muted small mb-0">{{ madrasah_phone }}</p>
+                    </div>
+                </div>
+                <div class="text-end">
+                    <h4 class="text-uppercase text-muted letter-spacing-2 mb-1">{{ _('Financial Report') }}</h4>
+                    <div class="badge bg-primary px-3 rounded-pill">{{ _('Official Profit & Loss Statement') }}</div>
+                </div>
+            </div>
+        </div>
+
+
+        {% if not selected_month %}
+        <!-- Annual Comparative Summary (Monthly Breakdown) -->
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-5 printable-card">
+            <div class="card-header bg-dark py-3 d-flex justify-content-between align-items-center">
+                <h6 class="fw-bold mb-0 text-white"><i class="fa-solid fa-chart-line me-2"></i>{{ _('Monthly Comparative
+                    Performance') }}</h6>
+                <span class="badge bg-light text-dark no-print">{{ _('Annual Overview') }}</span>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 financial-table no-datatable">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">{{ _('Month') }}</th>
+                            <th class="text-center">{{ _('Revenue (Credit)') }}</th>
+                            <th class="text-center">{{ _('Expenses (Debit)') }}</th>
+                            <th class="text-end pe-4">{{ _('Net Result') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for month_key, data in months %}
+                        <tr>
+                            <td class="ps-4 fw-bold">{{ data.month_name }}</td>
+                            <td class="text-center text-success fw-bold">${{ "{:,.2f}".format(data.income) }}</td>
+                            <td class="text-center text-danger fw-bold">${{ "{:,.2f}".format(data.expense) }}</td>
+                            <td class="text-end pe-4">
+                                <span
+                                    class="badge {{ 'bg-soft-success' if data.profit >= 0 else 'bg-soft-danger' }} {{ 'text-success' if data.profit >= 0 else 'text-danger' }}">
+                                    {{ '+' if data.profit >= 0 else '' }}${{ "{:,.2f}".format(data.profit) }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot class="bg-light fw-bold border-top border-dark">
+                        <tr>
+                            <td class="ps-4 text-uppercase">{{ _('Total Liabilities (Payable)') }}</td>
+                            <td class="text-center">-</td>
+                            <td class="text-center text-warning">${{ "{:,.2f}".format(total_payable) }}</td>
+                            <td class="text-end pe-4"></td>
+                        </tr>
+                        <tr class="border-top">
+                            <td class="ps-4 text-uppercase">{{ _('TOTAL FOR YEAR') }}</td>
+                            <td class="text-center text-success">${{ "{:,.2f}".format(total_income) }}</td>
+                            <td class="text-center text-danger">${{ "{:,.2f}".format(total_expense) }}</td>
+                            <td class="text-end pe-4">
+                                <span class="fs-6 {{ 'text-success' if net_profit >= 0 else 'text-danger' }}">
+                                    ${{ "{:,.2f}".format(net_profit) }}
+                                </span>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Official Print Footer -->
+        <div class="d-print-block mt-5 pt-4 border-top">
+            <div class="d-flex justify-content-between align-items-end">
+                <div>
+                    <p class="small text-muted mb-0">{{ _('Printed on:') }} {{ datetime.utcnow().strftime('%d %b %Y,
+                        %H:%M') }}</p>
+                    <p class="small text-muted mb-0">{{ _('System Generated Document') }}</p>
+                    <p class="small text-muted mb-0" style="font-size: 0.55rem; opacity: 0.8;">&copy; 2026 RaysTech
+                        Center. Designed & Developed. All Rights Reserved.</p>
+                </div>
+                <div class="text-center" style="width: 250px;">
+                    <div class="mb-2" style="border-bottom: 2px solid #334155; height: 40px;"></div>
+                    <p class="fw-bold text-uppercase small mb-0">{{ _('Authorized Signature') }}</p>
+                    <small class="text-muted">{{ _('Madrasah Administration') }}</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- PART 2: DETAILED STATEMENT PAGE -->
+    <div class="printable-section detailed-statement-section mt-0">
+        <div class="d-print-block d-none mb-1">
+            <h4 class="fw-bold text-uppercase border-bottom pb-1 mb-1">{{ _('Section II: Detailed Transaction Schedule')
+                }}</h4>
+            <p class="text-muted small mb-1">{{ _('Supporting documentation for the period ending') }} {{
+                datetime.utcnow().strftime('%d %b %Y') }}</p>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-0 overflow-hidden mb-0 printable-card">
+            <div class="card-header bg-dark py-1 no-print">
+                <h6 class="fw-bold mb-0 text-white"><i class="fa-solid fa-list-check me-2"></i>{{ _('Detailed Statement
+                    of Transactions') }}</h6>
+            </div>
+            <div class="p-0">
+                <table class="table mb-0 financial-table no-datatable">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">{{ _('Date') }}</th>
+                            <th>{{ _('Reference') }}</th>
+                            <th>{{ _('Description') }}</th>
+                            <th class="text-center">{{ _('Category') }}</th>
+                            <th class="text-end pe-4">{{ _('Credit') }}</th>
+                            <th class="text-end pe-4">{{ _('Debit') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for t in transactions %}
+                        <tr>
+                            <td class="ps-4">
+                                <span class="fw-bold">{{ t.date.strftime('%d %b %Y') if t.date else '-' }}</span>
+                            </td>
+                            <td><code class="small text-primary">{{ t.ref }}</code></td>
+                            <td>{{ t.description }}</td>
+                            <td class="text-center">
+                                <span class="badge bg-light text-dark fw-normal">{{ t.category }}</span>
+                                {% if t.type == 'Debit' and t.status == 'Payable' %}
+                                <span class="badge bg-soft-warning text-warning ms-1" style="font-size: 0.65rem;">{{
+                                    _('PAYABLE') }}</span>
+                                {% endif %}
+                            </td>
+                            <td
+                                class="text-end pe-4 {{ 'text-success fw-bold' if t.type == 'Credit' else 'text-muted' }}">
+                                {{ "${:,.2f}".format(t.amount) if t.type == 'Credit' else '-' }}
+                            </td>
+                            <td
+                                class="text-end pe-4 {{ 'text-danger fw-bold' if t.type == 'Debit' else 'text-muted' }}">
+                                {{ "${:,.2f}".format(t.amount) if t.type == 'Debit' else '-' }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% if not transactions %}
+                        <tr>
+                            <td colspan="6" class="text-center py-5 text-muted italic">
+                                {{ _('No financial records found for this period.') }}
+                            </td>
+                        </tr>
+                        {% endif %}
+                    </tbody>
+                    <tfoot class="border-top-2 border-dark bg-light fw-bold">
+                        <tr>
+                            <td colspan="4" class="ps-4 text-end text-uppercase">{{ _('Schedule Totals') }}</td>
+                            <td class="text-end pe-4 text-success">${{ "{:,.2f}".format(period_income) }}</td>
+                            <td class="text-end pe-4 text-danger">${{ "{:,.2f}".format(period_expense) }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes (Web only) -->
+    <div class="alert alert-info border-0 rounded-4 p-4 no-print mt-4">
+        <div class="d-flex gap-3 align-items-center">
+            <div class="icon-box bg-info bg-opacity-10 text-info">
+                <i class="fa-solid fa-circle-info fa-xl"></i>
+            </div>
+            <div>
+                <h6 class="fw-bold mb-1">{{ _('Statement Notes') }}</h6>
+                <p class="small mb-0">
+                    {{ _('Revenue consists of student fee payments. Expenses include staff salaries, bills, and
+                    procurement. Click print to generate an official document for administrative review.') }}
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function printSection(section) {
+        // Clear previous print classes
+        $('body').removeClass('print-summary-only print-details-only');
+
+        if (section === 'summary') {
+            $('body').addClass('print-summary-only');
+        } else if (section === 'details') {
+            $('body').addClass('print-details-only');
+        }
+
+        // Small delay to allow CSS to apply
+        setTimeout(() => {
+            window.print();
+        }, 100);
+    }
+
+    $(document).ready(function () {
+        // Reset body classes after print dialog closes
+        window.onafterprint = function () {
+            $('body').removeClass('print-summary-only print-details-only');
+        };
+
+        const langData = JSON.parse(`{{ {
+                "search": _('Search Transactions:'),
+                "emptyTable": _('No financial records found for this period.')
+            } | tojson | safe }}`);
+
+        const table = $('.detailed-statement-section table').DataTable({
+            "pageLength": 10,
+            "ordering": false,
+            "language": langData,
+            "dom": '<"d-flex justify-content-between align-items-center mb-4 no-print"<"d-flex align-items-center gap-3"lf>>t<"d-flex justify-content-between align-items-center mt-4 no-print"ip>'
+        });
+
+        // Link the global search bar in the header to DataTables
+        $('#headerSearchInput').on('keyup', function () {
+            table.search(this.value).draw();
+        });
+
+        // Handle initial search
+        const initialSearch = $('#headerSearchInput').val();
+        if (initialSearch) {
+            table.search(initialSearch).draw();
+        }
+    });
+</script>
+{% endblock %}

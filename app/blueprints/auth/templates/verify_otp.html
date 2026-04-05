@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="{{ get_locale() }}" dir="{{ 'rtl' if get_locale() == 'ar' else 'ltr' }}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Verify OTP') }} - {{ _('Madrasah System') }}</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <script>
+        (function () {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    <style>
+        :root {
+            --font-en: 'Inter', sans-serif;
+            --font-ar: 'Cairo', sans-serif;
+        }
+
+        body {
+            font-family: var(--font-en);
+            background-color: var(--bg-main);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease;
+        }
+
+        [dir="rtl"] body {
+            font-family: var(--font-ar);
+        }
+
+        .login-card {
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem;
+            border-radius: 24px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+
+        .login-logo {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            color: white;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.4);
+        }
+
+        .form-control {
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            transition: all 0.2s;
+            text-align: center;
+            letter-spacing: 0.5em;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .btn-premium-action {
+            padding: 0.75rem;
+            border-radius: 12px;
+            font-weight: 600;
+            background: var(--primary);
+            color: white;
+            border: none;
+            transition: all 0.3s;
+        }
+
+        .btn-premium-action:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.3);
+            color: white;
+        }
+
+        .top-actions {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            display: flex;
+            gap: 0.75rem;
+            z-index: 1000;
+        }
+
+        [dir="rtl"] .top-actions {
+            left: 2rem;
+            right: auto;
+        }
+
+        .email-badge {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+
+        .resend-link {
+            font-size: 0.875rem;
+            cursor: pointer;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .resend-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="top-actions">
+        <button class="btn btn-premium d-flex align-items-center gap-2" id="themeToggle">
+            <i class="fa-solid fa-moon theme-icon-dark"></i>
+            <i class="fa-solid fa-sun theme-icon-light d-none"></i>
+        </button>
+
+        <div class="dropdown language-switcher">
+            <button class="btn btn-premium dropdown-toggle d-flex align-items-center gap-2" type="button"
+                id="langDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-earth-africa"></i>
+                <span>{{ 'English' if get_locale() == 'en' else 'العربية' if get_locale() == 'ar' else 'Soomaali'
+                    }}</span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0" aria-labelledby="langDropdown">
+                <li><a class="dropdown-item" href="{{ url_for('set_language', lang='en') }}">English</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('set_language', lang='ar') }}">العربية</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('set_language', lang='so') }}">Soomaali</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="login-card text-center">
+        <div class="login-logo">
+            <i class="fa-solid fa-shield-halved fa-2xl"></i>
+        </div>
+
+        <h3 class="fw-bold mb-1">{{ _('Verify OTP') }}</h3>
+        <p class="text-muted small mb-3">{{ _('Enter the 6-digit code sent to') }}</p>
+
+        <div class="email-badge">
+            <i class="fa-solid fa-envelope me-2"></i>{{ email }}
+        </div>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ 'danger' if category == 'danger' else 'success' if category == 'success' else 'warning' if category == 'warning' else 'primary' }} border-0 small rounded-3 mb-4"
+            role="alert">
+            {{ message | safe }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form method="POST">
+            {{ form.hidden_tag() }}
+
+            <div class="mb-4">
+                {{ form.otp(class="form-control", placeholder="000000", maxlength="6", autocomplete="off",
+                autofocus=true) }}
+            </div>
+
+            {{ form.submit(class="btn btn-premium-action w-100 mb-3") }}
+
+            <a href="{{ url_for('auth.forgot_password') }}" class="resend-link d-block mb-2">
+                <i class="fa-solid fa-rotate-right me-1"></i> {{ _('Resend OTP') }}
+            </a>
+
+            <a href="{{ url_for('auth.login') }}" class="small text-muted text-decoration-none d-block">
+                <i class="fa-solid fa-arrow-left me-1"></i> {{ _('Back to Login') }}
+            </a>
+        </form>
+    </div>
+
+    <!-- jQuery & JS -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/js.js') }}"></script>
+
+    <script>
+        // Auto-submit when 6 digits are entered
+        document.querySelector('input[name="otp"]').addEventListener('input', function (e) {
+            if (this.value.length === 6) {
+                // Auto-submit form after a short delay
+                setTimeout(() => {
+                    this.form.submit();
+                }, 300);
+            }
+        });
+
+        // Only allow numbers
+        document.querySelector('input[name="otp"]').addEventListener('keypress', function (e) {
+            if (!/[0-9]/.test(e.key)) {
+                e.preventDefault();
+            }
+        });
+    </script>
+</body>
+
+</html>
