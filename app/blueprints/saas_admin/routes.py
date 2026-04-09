@@ -94,7 +94,7 @@ def approve_school(id):
     db.session.commit()
     
     # 2. Physical Database Separation
-    db_name = f"`madrasah_tenant_{school.subdomain}`"
+    db_name = f"`rays_machad_tenant_{school.subdomain}`"
     try:
         # 1. Create the database
         from sqlalchemy import text
@@ -119,7 +119,7 @@ def approve_school(id):
 
         # 3. Initialize default settings for the new school
         from app.models.setting import SystemSetting
-        SystemSetting.set_setting('madrasah_name', school.name, school_id=school.id)
+        SystemSetting.set_setting('rays_machad_name', school.name, school_id=school.id)
         SystemSetting.set_setting('active_term', 'First Term 2026', school_id=school.id)
 
         # 4. Run migrations/schema on the new database
@@ -127,7 +127,7 @@ def approve_school(id):
         import os
         
         # Get DB connection info from environment or config
-        db_user = os.environ.get('DB_USER', 'madrasah_admin')
+        db_user = os.environ.get('DB_USER', 'rays_machad_admin')
         db_pass = os.environ.get('DB_PASS', 'RaysTech2026')
         db_host = os.environ.get('DB_HOST', 'localhost')
         
@@ -136,12 +136,12 @@ def approve_school(id):
         MYSQL = "/usr/bin/mysql"
         
         # Get schema from main db and apply to new db
-        clean_db_name = f"madrasah_tenant_{school.subdomain}"
-        cmd = f"{MYSQLDUMP} -u {db_user} -p'{db_pass}' -h {db_host} --no-data madrasah_db | {MYSQL} -u {db_user} -p'{db_pass}' -h {db_host} {clean_db_name}"
+        clean_db_name = f"rays_machad_tenant_{school.subdomain}"
+        cmd = f"{MYSQLDUMP} -u {db_user} -p'{db_pass}' -h {db_host} --no-data Rays_machda | {MYSQL} -u {db_user} -p'{db_pass}' -h {db_host} {clean_db_name}"
         subprocess.run(cmd, shell=True, check=True)
         
         # Drop FK constraints that reference central 'users' table 
-        # (cross-db FKs cause IntegrityErrors since users live in madrasah_db, not tenant db)
+        # (cross-db FKs cause IntegrityErrors since users live in Rays_machda, not tenant db)
         fk_cleanup_sql = (
             "SET FOREIGN_KEY_CHECKS=0; "
             f"ALTER TABLE `{clean_db_name}`.announcements DROP FOREIGN KEY IF EXISTS announcements_ibfk_1; "
@@ -223,8 +223,8 @@ def permanent_delete_school(id):
     sid = id
     from sqlalchemy import text
     try:
-        # 1. Broad cleanup in Master DB (madrasah_db)
-        db.session.execute(text("USE `madrasah_db`"))
+        # 1. Broad cleanup in Master DB (Rays_machda)
+        db.session.execute(text("USE `Rays_machda`"))
         
         # We need to find all users of this school to clean their logs/otps
         u_res = db.session.execute(text("SELECT id FROM users WHERE school_id = :sid"), {"sid": sid}).fetchall()
@@ -243,7 +243,7 @@ def permanent_delete_school(id):
             db.session.execute(text(f"DELETE FROM {t} WHERE school_id = :sid"), {"sid": sid})
         
         # 2. Drop the tenant database
-        db_name = f"`madrasah_tenant_{school.subdomain}`"
+        db_name = f"`rays_machad_tenant_{school.subdomain}`"
         db.session.execute(text(f"DROP DATABASE IF EXISTS {db_name}"))
         
         # 3. Finally delete the school itself

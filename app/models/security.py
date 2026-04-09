@@ -4,11 +4,11 @@ from datetime import datetime
 
 class LoginLog(db.Model):
     __tablename__ = 'login_logs'
-    __table_args__ = {'schema': 'madrasah_db'}
+    __table_args__ = {'schema': 'Rays_machda'}
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.users.id'), nullable=True)
-    school_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.schools.id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.users.id'), nullable=True)
+    school_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.schools.id'), nullable=True)
     
     user = db.relationship('User', backref=db.backref('login_logs', lazy=True))
     school = db.relationship('School', backref=db.backref('login_logs', lazy=True))

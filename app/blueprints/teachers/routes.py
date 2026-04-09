@@ -35,7 +35,6 @@ def add_teacher():
             employee_number=form.employee_number.data,
             email=form.email.data,
             phone=form.phone.data,
-            specialization=form.specialization.data,
             qualification=form.qualification.data,
             monthly_salary=form.monthly_salary.data or 0,
             joining_date=form.joining_date.data,
@@ -71,7 +70,6 @@ def edit_teacher(teacher_id):
         teacher.employee_number = form.employee_number.data
         teacher.email = form.email.data
         teacher.phone = form.phone.data
-        teacher.specialization = form.specialization.data
         teacher.qualification = form.qualification.data
         teacher.monthly_salary = form.monthly_salary.data or 0
         teacher.joining_date = form.joining_date.data

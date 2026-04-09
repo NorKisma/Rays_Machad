@@ -22,12 +22,13 @@
 
     {# Standard categories for translation #}
     <div class="d-none">
-        {{ _('Quranic Sciences') }}
         {{ _('Islamic Jurisprudence') }}
         {{ _('Theology & Creed') }}
         {{ _('Prophetic Traditions') }}
         {{ _('Languages') }}
         {{ _('Ethics & Manners') }}
+        {{ _('Religious (Dini)') }}
+        {{ _('Academic (Maadiya)') }}
     </div>
 
     <div class="table-responsive">
@@ -56,10 +57,14 @@
                     </td>
                     <td><code class="text-dark bg-light px-2 py-1 rounded small">{{ subject.code or '-' }}</code></td>
                     <td>
-                        {% if subject.category == 'Quranic Sciences' %}
+                        {% if 'Religious' in subject.category or 'Dini' in subject.category %}
                         <span
                             class="badge bg-success bg-opacity-10 text-success border-success border-opacity-10 rounded-pill px-3">{{
-                            _('Quranic Sciences') }}</span>
+                            _(subject.category) }}</span>
+                        {% elif 'Academic' in subject.category or 'Maadiya' in subject.category %}
+                        <span
+                            class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-10 rounded-pill px-3">{{
+                            _(subject.category) }}</span>
                         {% elif subject.category == 'Islamic Jurisprudence' %}
                         <span
                             class="badge bg-primary bg-opacity-10 text-primary border-primary border-opacity-10 rounded-pill px-3">{{

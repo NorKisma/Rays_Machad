@@ -111,7 +111,7 @@ def get_backup_list():
     return backups
 
 def send_backup_to_email(filename):
-    """Sends the specified backup file to the configured madrasah email."""
+    """Sends the specified backup file to the configured rays_machad email."""
     from flask_mail import Message
     from app.extensions import mail
     from app.models.setting import SystemSetting
@@ -122,18 +122,18 @@ def send_backup_to_email(filename):
     if not os.path.exists(file_path):
         return False, "Backup file not found."
         
-    # Get the recipient email from settings (Madrasah Email preferred)
-    recipient_email = SystemSetting.get_setting('madrasah_email')
+    # Get the recipient email from settings (Rays Machad Email preferred)
+    recipient_email = SystemSetting.get_setting('rays_machad_email')
     if not recipient_email:
         recipient_email = SystemSetting.get_setting('admin_email', current_app.config.get('MAIL_USERNAME'))
         
-    madrasah_name = SystemSetting.get_setting('madrasah_name', 'Madrasah System')
+    rays_machad_name = SystemSetting.get_setting('rays_machad_name', 'Rays Machad System')
     
     if not recipient_email:
-        return False, "No administrator or madrasah email configured."
+        return False, "No administrator or rays_machad email configured."
         
     try:
-        subject = f"System Backup: {madrasah_name} ({datetime.now().strftime('%Y-%m-%d')})"
+        subject = f"System Backup: {rays_machad_name} ({datetime.now().strftime('%Y-%m-%d')})"
         sender = current_app.config.get('MAIL_DEFAULT_SENDER') or current_app.config.get('MAIL_USERNAME')
         
         # Construct restore instructions in Somali and English
@@ -147,10 +147,10 @@ Sidee loo soo celiyaa xogtan (How to restore this backup):
 1. HADDII AY TAHAY MySQL (.sql file):
    - Isticmaal amarka printer-ka (terminal):
      mysql -u [username] -p [database_name] < {filename}
-   - Tusaale: mysql -u madrasah_admin -p madrasah_db < {filename}
+   - Tusaale: mysql -u rays_machad_admin -p Rays_machda < {filename}
 
 2. HADDII AY TAHAY SQLite (.db file):
-   - Kaga bedel faylka 'madrasah.db' ee ku dhex jira folder-ka 'instance/' midka cusub ee aad haysato.
+   - Kaga bedel faylka 'rays_machad.db' ee ku dhex jira folder-ka 'instance/' midka cusub ee aad haysato.
 
 FIIRO GAAR AH: Hubi inaad haysato nuqul (backup) ka hor inta aadan samayn restore.
 ----------------------------------------------------------
@@ -161,7 +161,7 @@ FIIRO GAAR AH: Hubi inaad haysato nuqul (backup) ka hor inta aadan samayn restor
             sender=sender,
             recipients=[recipient_email]
         )
-        msg.body = f"Attached is the database backup for {madrasah_name}.\nGenerated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\nFilename: {filename}\n\n{restore_instructions}"
+        msg.body = f"Attached is the database backup for {rays_machad_name}.\nGenerated at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\nFilename: {filename}\n\n{restore_instructions}"
         
         with open(file_path, 'rb') as fp:
             msg.attach(filename, "application/octet-stream", fp.read())

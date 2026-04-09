@@ -178,7 +178,7 @@
                 </div>
                 <div>
                     <h4 class="fw-black mb-0">{{ _('Welcome back') }}, {{ current_user.name }}! 👋</h4>
-                    <small class="opacity-75">{{ madrasah_name }} &mdash; {{ active_term or _('First Term 2026')
+                    <small class="opacity-75">{{ rays_machad_name }} &mdash; {{ active_term or _('First Term 2026')
                         }}</small>
                 </div>
             </div>
@@ -202,45 +202,55 @@
 </div>
 
 {# ===== STATS GRID ===== #}
-<div class="row g-3 mb-4">
-    <div class="col-6 col-md-3">
-        <div class="stat-card shadow-sm text-white"
+<div class="row row-cols-2 row-cols-md-5 g-3 mb-4">
+    <div class="col">
+        <div class="stat-card shadow-sm text-white h-100"
             style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
             <div class="stat-icon"><i class="fa-solid fa-user-graduate"></i></div>
             <div class="bg-blob" style="background: white;"></div>
             <div class="small fw-bold text-uppercase mb-1" style="opacity:0.8; letter-spacing:0.5px;">{{ _('Total
                 Students') }}</div>
-            <h2 class="fw-black mb-0 display-6">{{ total_students or 0 }}</h2>
+            <h2 class="fw-black mb-0">{{ total_students or 0 }}</h2>
         </div>
     </div>
-    <div class="col-6 col-md-3">
-        <div class="stat-card shadow-sm text-white"
+    <div class="col">
+        <div class="stat-card shadow-sm text-white h-100"
             style="background: linear-gradient(135deg, #2563eb 0%, #1745be 100%);">
             <div class="stat-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
             <div class="bg-blob" style="background: white;"></div>
             <div class="small fw-bold text-uppercase mb-1" style="opacity:0.8; letter-spacing:0.5px;">{{ _('Total
                 Teachers') }}</div>
-            <h2 class="fw-black mb-0 display-6">{{ total_teachers or 0 }}</h2>
+            <h2 class="fw-black mb-0">{{ total_teachers or 0 }}</h2>
         </div>
     </div>
-    <div class="col-6 col-md-3">
-        <div class="stat-card shadow-sm text-white"
+    <div class="col">
+        <div class="stat-card shadow-sm text-white h-100"
             style="background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);">
             <div class="stat-icon"><i class="fa-solid fa-book-open"></i></div>
             <div class="bg-blob" style="background: white;"></div>
             <div class="small fw-bold text-uppercase mb-1" style="opacity:0.8; letter-spacing:0.5px;">{{ _('Total
                 Classes') }}</div>
-            <h2 class="fw-black mb-0 display-6">{{ total_classes or 0 }}</h2>
+            <h2 class="fw-black mb-0">{{ total_classes or 0 }}</h2>
         </div>
     </div>
-    <div class="col-6 col-md-3">
-        <div class="stat-card shadow-sm text-white"
+    <div class="col">
+        <div class="stat-card shadow-sm text-white h-100"
             style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
-            <div class="stat-icon"><i class="fa-solid fa-shield-check"></i></div>
+            <div class="stat-icon"><i class="fa-solid fa-book-quran"></i></div>
             <div class="bg-blob" style="background: white;"></div>
-            <div class="small fw-bold text-uppercase mb-1" style="opacity:0.8; letter-spacing:0.5px;">{{ _('System
-                Health') }}</div>
-            <h2 class="fw-black mb-0 fs-3">{{ _('Optimal') }}</h2>
+            <div class="small fw-bold text-uppercase mb-1" style="opacity:0.8; letter-spacing:0.5px;">{{ _('Religious (Dini)') }}</div>
+            {% set dini_count = db.session.query(db.func.count(Subject.id)).filter(Subject.category.like('%Dini%')).scalar() or 0 %}
+            <h2 class="fw-black mb-0">{{ dini_count }}</h2>
+        </div>
+    </div>
+    <div class="col">
+        <div class="stat-card shadow-sm text-white h-100"
+            style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+            <div class="stat-icon"><i class="fa-solid fa-atom"></i></div>
+            <div class="bg-blob" style="background: white;"></div>
+            <div class="small fw-bold text-uppercase mb-1" style="opacity:0.8; letter-spacing:0.5px;">{{ _('Academic (Maadiya)') }}</div>
+            {% set maadiya_count = db.session.query(db.func.count(Subject.id)).filter(Subject.category.like('%Maadiya%')).scalar() or 0 %}
+            <h2 class="fw-black mb-0">{{ maadiya_count }}</h2>
         </div>
     </div>
 </div>
@@ -357,6 +367,20 @@
                             </div>
                         </a>
                     </div>
+                    <!-- AI Specialty -->
+                    <div class="col-md-12">
+                        <div class="action-card h-100" style="border-left: 4px solid #a855f7 !important; background: rgba(168, 85, 247, 0.02);">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="action-icon" style="background: rgba(168, 85, 247, 0.1); color: #a855f7;">
+                                    <i class="fa-solid fa-brain"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-bold small text-dark mb-0">{{ _('AI / Machine Learning Developer') }}</div>
+                                    <small class="text-muted" style="font-size: 0.75rem;">{{ _('Builds smart systems (chatbots, automation). Tools: TensorFlow, PyTorch.') }}</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -385,7 +409,7 @@
                     <div
                         class="list-group-item bg-transparent border-white border-opacity-10 px-0 py-2 d-flex justify-content-between align-items-center">
                         <span class="small text-white-50 fw-bold">{{ _('Facility') }}</span>
-                        <span class="fw-bold text-white small" style="letter-spacing: 0.3px;">{{ madrasah_name }}</span>
+                        <span class="fw-bold text-white small" style="letter-spacing: 0.3px;">{{ rays_machad_name }}</span>
                     </div>
                     <div
                         class="list-group-item bg-transparent border-white border-opacity-10 px-0 py-2 d-flex justify-content-between align-items-center">
@@ -571,9 +595,8 @@
                         </div>
                         <div class="d-grid gap-2">
                             <button type="submit" id="confirmRestoreBtn"
-                                class="btn btn-primary btn-lg text-white fw-bold rounded-4 py-3 shadow-lg opacity-50"
-                                disabled>
-                                <i class="fa-solid fa-check-circle me-2"></i>{{ _('Marka hore faylka dooro...') }}
+                                class="btn btn-primary btn-lg text-white fw-bold rounded-4 py-3 shadow-lg">
+                                <i class="fa-solid fa-check-circle me-2"></i>{{ _('Restore Now') }}
                             </button>
                             <button type="button" class="btn btn-link text-muted btn-sm text-decoration-none py-2"
                                 data-bs-dismiss="modal">{{ _('Waan iska dhaafay') }}</button>
@@ -604,10 +627,6 @@
                 if (this.files && this.files.length > 0) {
                     statusText.innerText = `Faylka la doortay: ${this.files[0].name}`;
                     statusText.classList.add('text-success', 'fw-bold');
-                    confirmBtn.disabled = false;
-                    confirmBtn.classList.remove('opacity-50', 'btn-primary');
-                    confirmBtn.classList.add('btn-success');
-                    confirmBtn.innerHTML = '<i class="fa-solid fa-check-circle me-2"></i>{{ _("Restore Now") }}';
                     dropZone.style.backgroundColor = '#f0fdf4';
                     dropZone.style.borderColor = '#22c55e';
                 }

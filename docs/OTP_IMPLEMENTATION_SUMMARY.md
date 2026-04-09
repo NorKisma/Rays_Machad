@@ -2,7 +2,7 @@
 
 ## 🎉 Status: SUCCESSFULLY IMPLEMENTED AND WORKING
 
-The OTP (One-Time Password) password reset feature has been successfully implemented in the Madrasah Management System. Users can now securely reset their passwords using a 6-digit code sent to their email.
+The OTP (One-Time Password) password reset feature has been successfully implemented in the Rays Machad Management System. Users can now securely reset their passwords using a 6-digit code sent to their email.
 
 ---
 
@@ -206,7 +206,7 @@ else:
 1. ✅ Check spam/junk folder
 2. ✅ Verify `.env` email configuration
 3. ✅ Test SMTP connection
-4. ✅ Check server logs: `sudo journalctl -u madrasah -n 50`
+4. ✅ Check server logs: `sudo journalctl -u rays_machad -n 50`
 5. ✅ In debug mode, OTP appears on screen
 
 ### Issue: "Invalid OTP Code"
@@ -280,7 +280,7 @@ docs/
 ## 📞 Support
 
 ### For Issues:
-1. Check the logs: `sudo journalctl -u madrasah -f`
+1. Check the logs: `sudo journalctl -u rays_machad -f`
 2. Review documentation in `docs/` folder
 3. Test in debug mode first
 4. Verify all configuration in `.env`
@@ -358,7 +358,7 @@ The OTP password reset feature is **fully implemented**, **tested**, and **ready
 
 **Version**: 1.0.0  
 **Implementation Date**: February 7, 2026  
-**Developer**: Madrasah Management System Team  
+**Developer**: Rays Machad Management System Team  
 **Status**: ✅ Working and Tested
 
 ---

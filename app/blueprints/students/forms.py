@@ -7,7 +7,7 @@ class StudentRegistrationForm(FlaskForm):
     full_name = StringField(_('Full Name'), validators=[DataRequired(), Length(min=2, max=100)])
     
     enrollment_number = StringField(_('Enrollment Number'), validators=[DataRequired()])
-    date_of_birth = DateField(_('Date of Birth'), format='%Y-%m-%d', validators=[DataRequired()])
+    age = IntegerField(_('Age'), validators=[DataRequired()])
     gender = SelectField(_('Gender'), choices=[('Male', _('Male')), ('Female', _('Female'))], validators=[DataRequired()])
     
     # Parent/Guardian
@@ -20,15 +20,12 @@ class StudentRegistrationForm(FlaskForm):
 
     # Academic
     student_class = SelectField(_('Assigned Class'), coerce=int, validators=[DataRequired()])
-    hifz_status = SelectField(_('Hifz Status'), choices=[
-        ('Nazira', _('Nazira (Reading)')),
-        ('Hifz', _('Hifz (Memorization)')),
-        ('Revision', _('Revision (Daur)'))
-    ], default='Nazira')
-    current_juz = SelectField(_('Current Juz'), choices=[(i, str(i)) for i in range(1, 31)], coerce=int, default=1)
-    current_surah = StringField(_('Current Surah'), validators=[Optional(), Length(max=100)])
-    current_aya = IntegerField(_('Current Aya'), validators=[Optional()], default=0)
-    
+    shift = SelectField(_('Shift'), choices=[
+        ('Morning', _('Morning')),
+        ('Afternoon', _('Afternoon')),
+        ('Evening', _('Evening'))
+    ], default='Morning')
+    admission_date = DateField(_('Admission Date'), format='%Y-%m-%d', validators=[Optional()])
     # Financials
     monthly_fee = DecimalField(_('Monthly Fee'), places=2, validators=[Optional()], default=0.00)
     

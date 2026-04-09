@@ -11,11 +11,11 @@ A Webhook allows TextBee (or WhatsApp) to "push" data to your server whenever an
 Your application is hosted at a specific domain. The webhook URL follows this format:
 
 ```
-https://<your-domain>/madrasah/webhooks/textbee/sms
+https://<your-domain>/rays_machad/webhooks/textbee/sms
 ```
 
 For example, if your site is `raystechcenter.online`, the URL is:
-`https://raystechcenter.online/madrasah/webhooks/textbee/sms`
+`https://raystechcenter.online/rays_machad/webhooks/textbee/sms`
 
 *(Note: Ensure your server is publicly accessible. If testing locally, use ngrok.)*
 
@@ -36,11 +36,11 @@ Send an SMS to your TextBee-connected phone number.
 
 If you are using the official WhatsApp Business API, you can also set up a webhook.
 
-*   **Webhook URL**: `https://<your-domain>/madrasah/webhooks/whatsapp`
+*   **Webhook URL**: `https://<your-domain>/rays_machad/webhooks/whatsapp`
 *   **Verify Token**: Configure `WHATSAPP_VERIFY_TOKEN` in your `.env`.
 
 ## 4. Troubleshooting
 
-*   **404 Not Found**: Check if the URL is correct (including `/madrasah` prefix).
-*   **400 Bad Request**: The payload format might be different. Check logs: `supo journalctl -u madrasah -n 50`.
+*   **404 Not Found**: Check if the URL is correct (including `/rays_machad` prefix).
+*   **400 Bad Request**: The payload format might be different. Check logs: `supo journalctl -u rays_machad -n 50`.
 *   **CSRF Error**: Webhooks are exempted from CSRF protection, but ensure your server allows POST requests from external IPs.

@@ -31,7 +31,7 @@ def downgrade():
     with op.batch_alter_table('users', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='foreignkey')
         batch_op.create_foreign_key('users_ibfk_1', 'schools', ['school_id'], ['id'])
-        batch_op.drop_index(batch_op.f('ix_madrasah_db_users_school_id'))
+        batch_op.drop_index(batch_op.f('ix_Rays_machda_users_school_id'))
 
     with op.batch_alter_table('teachers', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='foreignkey')
@@ -66,13 +66,13 @@ def downgrade():
 
     with op.batch_alter_table('role_permissions', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='foreignkey')
-        batch_op.drop_index(batch_op.f('ix_madrasah_db_role_permissions_school_id'))
+        batch_op.drop_index(batch_op.f('ix_Rays_machda_role_permissions_school_id'))
 
     with op.batch_alter_table('otps', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='foreignkey')
         batch_op.drop_constraint(None, type_='foreignkey')
         batch_op.create_foreign_key('otps_ibfk_1', 'users', ['user_id'], ['id'])
-        batch_op.drop_index(batch_op.f('ix_madrasah_db_otps_school_id'))
+        batch_op.drop_index(batch_op.f('ix_Rays_machda_otps_school_id'))
         batch_op.create_index('idx_otp_school', ['school_id'], unique=False)
 
     with op.batch_alter_table('message_logs', schema=None) as batch_op:

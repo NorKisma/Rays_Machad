@@ -16,91 +16,146 @@
     </div>
 </div>
 
-<div class="row g-4 justify-content-center">
-    {% if exams %}
-    {% for exam in exams %}
-    <div class="col-md-6 col-lg-4">
-        <div class="card border-0 shadow-sm rounded-4 h-100 stat-card">
-            <div class="card-body p-4">
-                <div class="d-flex justify-content-between align-items-start mb-3">
-                    <div class="icon-box bg-warning bg-opacity-10 text-warning">
-                        {% if exam.exam_type in ['Hifz', 'Tajweed'] %}
-                        <i class="fa-solid fa-book-quran fa-lg"></i>
-                        {% else %}
-                        <i class="fa-solid fa-file-lines fa-lg"></i>
-                        {% endif %}
-                    </div>
-                    <span
-                        class="badge {% if exam.status == 'Completed' %}badge-soft-success{% elif exam.status == 'Ongoing' %}badge-soft-info{% elif exam.status == 'Cancelled' %}badge-soft-danger{% else %}badge-soft-warning{% endif %} px-3">
-                        {{ _(exam.status) }}
-                    </span>
-                </div>
-
-                <h5 class="fw-bold text-dark mb-1">{{ exam.exam_name }}</h5>
-                <p class="text-muted small mb-3">{{ _(exam.exam_type) }}</p>
-
-                <div class="d-flex flex-column gap-2 mb-4">
-                    <div class="d-flex align-items-center text-muted small">
-                        <i class="fa-solid fa-calendar-day me-2 opacity-50"></i>
-                        {{ exam.exam_date.strftime('%d %b %Y') }}
-                    </div>
-                    <div class="d-flex align-items-center text-muted small">
-                        <i class="fa-solid fa-user-tie me-2 opacity-50"></i>
-                        {{ exam.teacher.full_name }}
-                    </div>
-                    {% if exam.class_assigned %}
-                    <div class="d-flex align-items-center text-muted small">
-                        <i class="fa-solid fa-users-rectangle me-2 opacity-50"></i>
-                        {{ exam.class_assigned.class_name }}
-                    </div>
-                    {% endif %}
-                    {% if exam.subject %}
-                    <div class="d-flex align-items-center text-info small fw-bold mt-1">
-                        <i class="fa-solid fa-book me-2"></i>
-                        {{ exam.subject.name }}
-                    </div>
-                    {% endif %}
-                    {% if exam.juz_number %}
-                    <div class="d-flex align-items-center text-primary small fw-bold mt-1">
-                        <i class="fa-solid fa-book-open-reader me-2"></i>
-                        {{ _('Juz') }} {{ exam.juz_number }}
-                    </div>
-                    {% endif %}
-                </div>
-
-                <div class="d-flex gap-2 pt-3 border-top">
-                    <a href="{{ url_for('exams.view_results', exam_id=exam.id) }}"
-                        class="btn btn-sm btn-premium flex-fill d-flex align-items-center justify-content-center gap-2">
-                        <i class="fa-solid fa-chart-simple"></i> {{ _('Results') }}
-                    </a>
-                    <a href="{{ url_for('exams.edit_exam', exam_id=exam.id) }}"
-                        class="btn btn-sm btn-premium py-2 px-3">
-                        <i class="fa-solid fa-pen-to-square"></i>
-                    </a>
-                    <form action="{{ url_for('exams.delete_exam', exam_id=exam.id) }}" method="POST" class="d-inline"
-                        data-confirm-message="{{ _('Are you sure you want to delete this exam?') }}"
-                        onsubmit="return confirm(this.getAttribute('data-confirm-message'));">
-                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-                        <button type="submit" class="btn btn-sm btn-premium text-danger py-2 px-3">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </form>
-                </div>
-            </div>
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table id="manageExamsTable" class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 text-uppercase small fw-bold text-muted">{{ _('Exam') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Date & Class') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center">{{ _('Students') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Subjects') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center">{{ _('Status') }}</th>
+                        <th class="text-end pe-4 py-3 text-uppercase small fw-bold text-muted">{{ _('Actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for group in grouped_exams %}
+                    <tr>
+                        <td class="ps-4">
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="icon-box bg-warning bg-opacity-10 text-warning d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; border-radius: 10px;">
+                                    {% if group.exam_type in ['Hifz', 'Tajweed'] %}
+                                    <i class="fa-solid fa-book-quran"></i>
+                                    {% else %}
+                                    <i class="fa-solid fa-layer-group"></i>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <span class="fw-bold text-dark d-block">{{ group.exam_name }}</span>
+                                    <small class="text-muted d-block">{{ _(group.exam_type) }}</small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <span class="fw-semibold text-dark d-block">{{ group.exam_date.strftime('%b %Y') }}</span>
+                            <small class="text-muted d-block">
+                                {% if group.class_assigned %}
+                                {{ group.class_assigned.class_name }}
+                                {% else %}
+                                {{ _('All Classes') }}
+                                {% endif %}
+                            </small>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge bg-light text-dark border px-2 py-1">{{ group.student_ids|length }}</span>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-wrap gap-1">
+                                {% for exam in group.sub_exams %}
+                                    {% if exam.subject %}
+                                    <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25">{{ exam.subject.name }}</span>
+                                    {% else %}
+                                    <span class="badge bg-info bg-opacity-10 text-info border border-info border-opacity-25">{{ _('General') }}</span>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge {% if group.status == 'Completed' %}badge-soft-success{% elif group.status == 'Ongoing' %}badge-soft-info{% elif group.status == 'Cancelled' %}badge-soft-danger{% else %}badge-soft-warning{% endif %} px-3">
+                                {{ _(group.status) }}
+                            </span>
+                        </td>
+                        <td class="text-end pe-4">
+                            <div class="dropdown">
+                                <button class="btn btn-sm btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-gear me-1 text-primary"></i> {{ _('Manage') }}
+                                </button>
+                                <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="min-width: 220px;">
+                                    {% for exam in group.sub_exams %}
+                                    <li>
+                                        <div class="px-3 py-2 hover-bg-light {% if not loop.last %}border-bottom{% endif %}">
+                                            <span class="small fw-bold text-dark d-block mb-2">{{ exam.subject.name if exam.subject else _('General') }}</span>
+                                            <div class="d-flex gap-1">
+                                                <a href="{{ url_for('exams.view_results', exam_id=exam.id) }}" class="btn btn-sm bg-primary bg-opacity-10 text-primary py-1 px-2 flex-grow-1" title="{{ _('Results') }}"><i class="fa-solid fa-chart-bar d-block"></i></a>
+                                                <a href="{{ url_for('exams.edit_exam', exam_id=exam.id) }}" class="btn btn-sm bg-warning bg-opacity-10 text-warning py-1 px-2 flex-grow-1" title="{{ _('Edit') }}"><i class="fa-solid fa-pen d-block"></i></a>
+                                                <form action="{{ url_for('exams.delete_exam', exam_id=exam.id) }}" method="POST" class="d-inline flex-grow-1" onsubmit="return confirm('{{ _('Are you sure you want to delete this exam?') }}');">
+                                                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                                                    <button type="submit" class="btn btn-sm bg-danger bg-opacity-10 text-danger py-1 px-2 w-100" title="{{ _('Delete') }}"><i class="fa-solid fa-trash d-block"></i></button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="6" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-file-circle-plus fa-3x mb-3 opacity-25"></i>
+                            <p class="mb-0">{{ _('No Exams Created Yet') }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
     </div>
-    {% endfor %}
-    {% else %}
-    <div class="col-12 text-center py-5">
-        <div class="icon-box bg-light text-muted mx-auto mb-4" style="width: 100px; height: 100px; border-radius: 50%;">
-            <i class="fa-solid fa-file-circle-plus fa-3xl"></i>
-        </div>
-        <h4 class="fw-bold">{{ _('No Exams Created Yet') }}</h4>
-        <p class="text-muted mb-4">{{ _('Start by creating your first exam and managing student performance.') }}</p>
-        <a href="{{ url_for('exams.add_exam') }}" class="btn btn-primary btn-lg px-5 rounded-pill shadow-sm">
-            <i class="fa-solid fa-plus me-2"></i> {{ _('Create Exam') }}
-        </a>
-    </div>
-    {% endif %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const langData = JSON.parse(`{{ {
+                "search": _('Search:'),
+                "lengthMenu": _('Show _MENU_ entries'),
+                "info": _('Showing _START_ to _END_ of _TOTAL_ entries'),
+                "paginate": {
+                    "first": _('First'),
+                    "last": _('Last'),
+                    "next": _('Next'),
+                    "previous": _('Previous')
+                },
+                "emptyTable": _('No exams found.')
+            } | tojson | safe }}`);
+
+        if (!$.fn.DataTable.isDataTable('#manageExamsTable')) {
+            const table = $('#manageExamsTable').DataTable({
+                "pageLength": 25,
+                "order": [[1, "desc"]], // Sort by Date
+                "language": langData,
+                "responsive": true,
+                "dom": '<"row align-items-center mb-3 p-3 pb-0"<"col-md-6 d-flex align-items-center gap-3"lB><"col-md-6"f>>t<"row align-items-center mt-3 pt-3 border-top p-3"<"col-md-6"i><"col-md-6"p>>',
+                "buttons": [
+                    { extend: 'copy', className: 'btn btn-sm btn-light border px-3 fw-bold' },
+                    { extend: 'excel', className: 'btn btn-sm btn-light border px-3 fw-bold text-success' },
+                    { extend: 'print', className: 'btn btn-sm btn-light border px-3 fw-bold text-primary' }
+                ]
+            });
+            
+            $('#headerSearchInput').on('keyup', function () {
+                table.search(this.value).draw();
+            });
+            
+            const initialSearch = $('#headerSearchInput').val();
+            if (initialSearch) {
+                table.search(initialSearch).draw();
+            }
+        }
+    });
+</script>
 {% endblock %}

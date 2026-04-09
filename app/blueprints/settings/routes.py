@@ -17,29 +17,47 @@ def settings():
     form = GeneralSettingsForm()
     
     if form.validate_on_submit():
-        SystemSetting.set_setting('madrasah_name', form.madrasah_name.data)
-        SystemSetting.set_setting('madrasah_address', form.madrasah_address.data)
-        SystemSetting.set_setting('madrasah_phone', form.madrasah_phone.data)
-        SystemSetting.set_setting('madrasah_email', form.madrasah_email.data)
+        SystemSetting.set_setting('rays_machad_name', form.rays_machad_name.data)
+        SystemSetting.set_setting('rays_machad_address', form.rays_machad_address.data)
+        SystemSetting.set_setting('rays_machad_phone', form.rays_machad_phone.data)
+        SystemSetting.set_setting('rays_machad_email', form.rays_machad_email.data)
         SystemSetting.set_setting('active_term', form.active_term.data)
         SystemSetting.set_setting('currency', form.currency.data)
         SystemSetting.set_setting('whatsapp_access_token', form.whatsapp_access_token.data)
         SystemSetting.set_setting('whatsapp_phone_number_id', form.whatsapp_phone_number_id.data)
         SystemSetting.set_setting('whatsapp_mode', form.whatsapp_mode.data)
         
+        # Save Grade Thresholds
+        SystemSetting.set_setting('grade_a_plus', form.grade_a_plus.data)
+        SystemSetting.set_setting('grade_a', form.grade_a.data)
+        SystemSetting.set_setting('grade_b_plus', form.grade_b_plus.data)
+        SystemSetting.set_setting('grade_b', form.grade_b.data)
+        SystemSetting.set_setting('grade_c_plus', form.grade_c_plus.data)
+        SystemSetting.set_setting('grade_c', form.grade_c.data)
+        SystemSetting.set_setting('grade_d', form.grade_d.data)
+        
         flash(_('System settings updated successfully.'), 'success')
         return redirect(url_for('settings.settings'))
     
     elif request.method == 'GET':
-        form.madrasah_name.data = SystemSetting.get_setting('madrasah_name', 'Darul Arqam Madrasah')
-        form.madrasah_address.data = SystemSetting.get_setting('madrasah_address', '')
-        form.madrasah_phone.data = SystemSetting.get_setting('madrasah_phone', '')
-        form.madrasah_email.data = SystemSetting.get_setting('madrasah_email', '')
+        form.rays_machad_name.data = SystemSetting.get_setting('rays_machad_name', 'Darul Arqam Rays Machad')
+        form.rays_machad_address.data = SystemSetting.get_setting('rays_machad_address', '')
+        form.rays_machad_phone.data = SystemSetting.get_setting('rays_machad_phone', '')
+        form.rays_machad_email.data = SystemSetting.get_setting('rays_machad_email', '')
         form.active_term.data = SystemSetting.get_setting('active_term', 'Winter 2026')
         form.currency.data = SystemSetting.get_setting('currency', 'USD')
         form.whatsapp_access_token.data = SystemSetting.get_setting('whatsapp_access_token', '')
         form.whatsapp_phone_number_id.data = SystemSetting.get_setting('whatsapp_phone_number_id', '')
         form.whatsapp_mode.data = SystemSetting.get_setting('whatsapp_mode', 'mock')
+        
+        # Load Grade Thresholds (with defaults)
+        form.grade_a_plus.data = int(SystemSetting.get_setting('grade_a_plus', '90'))
+        form.grade_a.data = int(SystemSetting.get_setting('grade_a', '80'))
+        form.grade_b_plus.data = int(SystemSetting.get_setting('grade_b_plus', '70'))
+        form.grade_b.data = int(SystemSetting.get_setting('grade_b', '60'))
+        form.grade_c_plus.data = int(SystemSetting.get_setting('grade_c_plus', '55'))
+        form.grade_c.data = int(SystemSetting.get_setting('grade_c', '50'))
+        form.grade_d.data = int(SystemSetting.get_setting('grade_d', '40'))
         
     return render_template('settings/index.html', form=form)
 

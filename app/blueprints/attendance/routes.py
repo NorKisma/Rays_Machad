@@ -17,22 +17,43 @@ from app.models.subject import Subject
 def index():
     selected_date = request.args.get('date', date.today().strftime('%Y-%m-%d'))
     
-    # Filter classes if user is a teacher
+    # Get all available classes for the dropdown
+    all_classes_query = ClassSchedule.query
     if current_user.role == 'T' and current_user.teacher_profile:
-        classes = ClassSchedule.query.filter_by(teacher_id=current_user.teacher_profile.id).all()
+        all_classes_query = all_classes_query.filter_by(teacher_id=current_user.teacher_profile.id)
     elif current_user.role == 'T':
-        classes = [] # Teacher with no profile
-    else:
-        # Admin or other staff can see all classes
-        classes = ClassSchedule.query.all()
-    subjects = Subject.query.order_by(Subject.name).all()
+        all_classes_query = None
+    
+    all_classes = all_classes_query.all() if all_classes_query else []
+    
+    # Filter classes for the cards/view based on selection
+    class_id = request.args.get('class_id', type=int)
+    subject_id = request.args.get('subject_id', type=int)
     period = request.args.get('period', type=int, default=1)
+    
+    filter_classes = all_classes
+    if class_id:
+        filter_classes = [c for c in filter_classes if c.id == class_id]
+    if subject_id and subject_id != 0:
+        filter_classes = [c for c in filter_classes if c.subject_id == subject_id]
+        
+    subjects = Subject.query.order_by(Subject.name).all()
+    if class_id:
+        selected_class = ClassSchedule.query.get(class_id)
+        if selected_class and selected_class.subject_id:
+            subjects = [s for s in subjects if s.id == selected_class.subject_id]
+            # Automatically set subject_id if not selected but class is
+            if not subject_id:
+                subject_id = selected_class.subject_id
         
     return render_template("attendance/index.html", 
-                           classes=classes, 
+                           all_classes=all_classes,
+                           classes=filter_classes, 
                            subjects=subjects, 
                            selected_date=selected_date,
-                           period=period)
+                           period=period,
+                           selected_class_id=class_id,
+                           selected_subject_id=subject_id)
 
 @attendance_bp.route("/mark/<int:class_id>", methods=["GET", "POST"])
 @teacher_required

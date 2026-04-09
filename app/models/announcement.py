@@ -13,7 +13,7 @@ class Announcement(db.Model, SchoolContextMixin):
     priority = db.Column(db.String(20), default='Normal') # Normal, High, Critical
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     expires_at = db.Column(db.DateTime, nullable=True)
-    created_by_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.users.id'))
+    created_by_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.users.id'))
     
     author = db.relationship('User', backref='announcements')
 

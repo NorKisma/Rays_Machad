@@ -22,7 +22,7 @@ def get_message_templates():
             
             'monthly_report': _("Monthly Report for {month}: {student_name} has {attendance}% attendance and is currently on {current_lesson}. See details: {link}"),
             
-            'holiday_announcement': _("Announcement: The Madrasah will be closed from {start_date} to {end_date} for {occasion}. Classes resume on {resume_date}."),
+            'holiday_announcement': _("Announcement: The Rays Machad will be closed from {start_date} to {end_date} for {occasion}. Classes resume on {resume_date}."),
             
             'general_meeting': _("Invitation: Dear Parents, please join us for a parent-teacher meeting on {date} at {time} to discuss student progress."),
         },

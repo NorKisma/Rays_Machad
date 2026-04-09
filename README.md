@@ -38,8 +38,8 @@ Frontend: HTML, CSS, JavaScript (Bootstrap optional)
 AI Automation: Python AI modules (attendance bot, grading bot, notification bot)
 Extensions: Flask-Migrate, Flask-Login, Flask-WTF
 
-Madrasah Management System – Folder Structure
-madrasah_management/
+Rays Machad Management System – Folder Structure
+rays_machad_management/
 │
 ├── app/
 │   ├── __init__.py                 # Initialize Flask app, DB, and Blueprints
@@ -111,8 +111,8 @@ madrasah_management/
 
 Installation
 Clone the repository
-git clone https://github.com/yourusername/madrasah_management.git
-cd madrasah_management
+git clone https://github.com/yourusername/rays_machad_management.git
+cd rays_machad_management
 Create a virtual environment
 python -m venv venv
 source venv/bin/activate   # Linux / Mac
@@ -123,12 +123,12 @@ Install dependencies
 pip install -r requirements.txt
 
 Set up the database
-CREATE DATABASE madrasah_db;
+CREATE DATABASE Rays_machda;
 
 Configure environment variables
 Create a .env file:
 SECRET_KEY=your_secret_key
-DATABASE_URL=mysql+pymysql://user:password@localhost/madrasah_db
+DATABASE_URL=mysql+pymysql://user:password@localhost/Rays_machda
 AI_API_KEY=your_ai_key
 
 

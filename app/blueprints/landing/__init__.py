@@ -8,11 +8,9 @@ landing_bp = Blueprint('landing', __name__, template_folder='templates')
 def index():
     school = get_current_school()
     
-    # If a school is detected (subdomain/domain), redirect to their portal
-    if school:
-        if current_user.is_authenticated:
-            return redirect(url_for("auth.dashboard"))
-        return redirect(url_for("auth.login"))
+    # Authenticated users should go to dashboard
+    if current_user.is_authenticated:
+        return redirect(url_for("auth.dashboard"))
         
-    # No school (main domain) -> Redirect to Login for now
-    return redirect(url_for('auth.login'))
+    # Render the beautiful landing page for everyone else
+    return render_template('landing/index.html', rays_machad_name=school.name if school else "Rays Tech")

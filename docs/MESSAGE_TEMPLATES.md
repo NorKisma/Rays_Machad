@@ -1,6 +1,6 @@
 # Message Templates
 
-This document lists the available message templates for Parents and Teachers in the Madrasah Management System. These can be used with the `MessagingService` to send notifications via SMS or WhatsApp.
+This document lists the available message templates for Parents and Teachers in the Rays Machad Management System. These can be used with the `MessagingService` to send notifications via SMS or WhatsApp.
 
 ## 👥 Parent Templates
 
@@ -12,7 +12,7 @@ This document lists the available message templates for Parents and Teachers in 
 | `fee_received` | Jazak'Allah Khair. We have received payment of {amount} for {student_name}. Remaining balance: {balance}. | `amount`, `student_name`, `balance` |
 | `exam_result` | Exam Alert: {student_name} scored {score}% in {subject}. Grade: {grade}. | `student_name`, `score`, `subject`, `grade` |
 | `monthly_report` | Monthly Report for {month}: {student_name} has {attendance}% attendance and is currently on {current_lesson}. See details: {link} | `month`, `student_name`, `attendance`, `current_lesson`, `link` |
-| `holiday_announcement` | Announcement: The Madrasah will be closed from {start_date} to {end_date} for {occasion}. Classes resume on {resume_date}. | `start_date`, `end_date`, `occasion`, `resume_date` |
+| `holiday_announcement` | Announcement: The Rays Machad will be closed from {start_date} to {end_date} for {occasion}. Classes resume on {resume_date}. | `start_date`, `end_date`, `occasion`, `resume_date` |
 | `general_meeting` | Invitation: Dear Parents, please join us for a parent-teacher meeting on {date} at {time} to discuss student progress. | `date`, `time` |
 
 ## 👨‍🏫 Teacher Templates

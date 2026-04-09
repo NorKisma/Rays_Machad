@@ -2,10 +2,10 @@ from app.extensions import db
 
 class SystemSetting(db.Model):
     __tablename__ = 'system_settings'
-    __table_args__ = {'schema': 'madrasah_db'}
+    __table_args__ = {'schema': 'Rays_machda'}
     
     id = db.Column(db.Integer, primary_key=True)
-    school_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.schools.id'), nullable=True)
+    school_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.schools.id'), nullable=True)
     key = db.Column(db.String(50), nullable=False)
     value = db.Column(db.Text)
     description = db.Column(db.String(255))

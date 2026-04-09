@@ -1,0 +1,151 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+            <div>
+                <h3 class="fw-bold mb-1"><i class="fa-solid fa-trophy text-warning me-2"></i>{{ _('Student Exam Rankings') }}</h3>
+                <p class="text-muted small mb-0">{{ _('Overall average and grade performance ranking for all students') }}</p>
+            </div>
+            <div>
+                <!-- Optionally add a filter form here in the future -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table id="rankingsTable" class="table table-hover align-middle mb-0">
+                <thead class="bg-light">
+                    <tr>
+                        <th class="ps-4 py-3 text-uppercase small fw-bold text-muted" style="width: 80px;">{{ _('Rank') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Student') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted">{{ _('Exam Name') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center">{{ _('Subjects') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center">{{ _('Total Marks') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center">{{ _('Average') }}</th>
+                        <th class="py-3 text-uppercase small fw-bold text-muted text-center">{{ _('Grade') }}</th>
+                        <th class="text-end pe-4 py-3 text-uppercase small fw-bold text-muted">{{ _('Actions') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rank in rankings %}
+                    <tr>
+                        <td class="ps-4 fw-bold">
+                            {% if loop.index == 1 %}
+                            <span class="badge bg-warning bg-opacity-25 text-warning px-2 py-1 fs-6"><i class="fa-solid fa-crown me-1"></i>#1</span>
+                            {% elif loop.index == 2 %}
+                            <span class="badge bg-secondary bg-opacity-25 text-secondary px-2 py-1 fs-6">#2</span>
+                            {% elif loop.index == 3 %}
+                            <span class="badge" style="background-color: rgba(205, 127, 50, 0.25); color: #cd7f32; padding: 4px 8px; font-size: 1rem;">#3</span>
+                            {% else %}
+                            <span class="text-muted ms-2">#{{ loop.index }}</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+                                <div class="avatar-sm bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold"
+                                    style="width: 40px; height: 40px;">
+                                    {{ rank.student.full_name[0] | upper }}
+                                </div>
+                                <div>
+                                    <span class="fw-semibold text-dark d-block">{{ rank.student.full_name }}</span>
+                                    <small class="text-muted d-block" style="font-size: 0.75rem;">
+                                        ID: {{ rank.student.enrollment_number }}
+                                        {% if rank.student.class_assigned %}
+                                        • {{ rank.student.class_assigned.class_name }}
+                                        {% endif %}
+                                    </small>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="d-flex flex-wrap gap-1">
+                                {% for en in rank.exam_names %}
+                                <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-25">{{ en }}</span>
+                                {% endfor %}
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span class="badge bg-light text-dark border px-2 py-1 fw-bold">{{ rank.subjects|length }} {{ _('Subjects') }}</span>
+                        </td>
+                        <td class="text-center">
+                            <span class="fw-bold">{{ rank.total_obtained|int }}</span><span class="text-muted small">/{{ rank.total_max|int }}</span>
+                        </td>
+                        <td class="text-center fw-bold text-primary" data-order="{{ rank.percentage }}">
+                            {{ rank.percentage|round(2) }}%
+                        </td>
+                        <td class="text-center">
+                            <span class="badge {% if rank.grade in ['A+', 'A'] %}badge-soft-success
+                                         {% elif rank.grade in ['B+', 'B'] %}badge-soft-info
+                                         {% elif rank.grade in ['C+', 'C'] %}badge-soft-warning
+                                         {% else %}badge-soft-danger{% endif %} px-3">
+                                {{ rank.grade }}
+                            </span>
+                        </td>
+                        <td class="text-end pe-4">
+                            <a href="{{ url_for('exams.student_report', student_id=rank.student.id) }}" class="btn btn-sm btn-light border" title="{{ _('View Report') }}">
+                                <i class="fa-solid fa-file-invoice text-primary"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="8" class="text-center py-5 text-muted">
+                            <i class="fa-solid fa-award fa-3x mb-3 opacity-25"></i>
+                            <p class="mb-0">{{ _('No exam results found to calculate rankings.') }}</p>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const langData = JSON.parse(`{{ {
+                "search": _('Search:'),
+                "lengthMenu": _('Show _MENU_ entries'),
+                "info": _('Showing _START_ to _END_ of _TOTAL_ entries'),
+                "paginate": {
+                    "first": _('First'),
+                    "last": _('Last'),
+                    "next": _('Next'),
+                    "previous": _('Previous')
+                },
+                "emptyTable": _('No students with exams found.')
+            } | tojson | safe }}`);
+
+        if (!$.fn.DataTable.isDataTable('#rankingsTable')) {
+            const table = $('#rankingsTable').DataTable({
+                "pageLength": 25,
+                "order": [[0, "asc"]], // Sort by Rank column (default)
+                "language": langData,
+                "responsive": true,
+                "dom": '<"row align-items-center mb-3 p-3 pb-0"<"col-md-6 d-flex align-items-center gap-3"lB><"col-md-6"f>>t<"row align-items-center mt-3 pt-3 border-top p-3"<"col-md-6"i><"col-md-6"p>>',
+                "buttons": [
+                    { extend: 'copy', className: 'btn btn-sm btn-light border px-3 fw-bold' },
+                    { extend: 'excel', className: 'btn btn-sm btn-light border px-3 fw-bold text-success' },
+                    { extend: 'print', className: 'btn btn-sm btn-light border px-3 fw-bold text-primary' }
+                ]
+            });
+            
+            $('#headerSearchInput').on('keyup', function () {
+                table.search(this.value).draw();
+            });
+            
+            const initialSearch = $('#headerSearchInput').val();
+            if (initialSearch) {
+                table.search(initialSearch).draw();
+            }
+        }
+    });
+</script>
+{% endblock %}

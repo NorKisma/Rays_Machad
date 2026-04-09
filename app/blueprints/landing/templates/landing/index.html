@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Rays Madrasaha | The Future of Islamic Education</title>
+    <title>Rays Rays Machada | The Future of Islamic Education</title>
 
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,13 +21,14 @@
     <style>
         :root {
             /* Design Tokens */
-            --primary: #2563eb;
-            --primary-glow: rgba(37, 99, 235, 0.4);
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
             --secondary: #10b981;
-            --accent: #f59e0b;
-            --dark: #0f172a;
+            --accent: #8b5cf6;
+            --purple: #a855f7;
+            --dark: #0b0f1a;
             --slate: #1e293b;
-            --light: #f8fafc;
+            --light: #f1f5f9;
             --border: rgba(255, 255, 255, 0.1);
             --glass: rgba(255, 255, 255, 0.03);
             --card-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
@@ -61,9 +62,9 @@
             height: 100%;
             z-index: -1;
             background:
-                radial-gradient(circle at 10% 20%, rgba(79, 70, 229, 0.15) 0%, transparent 50%),
-                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 60%);
+                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 90% 80%, rgba(16, 185, 129, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
             filter: blur(100px);
             animation: backgroundFlow 20s infinite alternate;
         }
@@ -138,11 +139,19 @@
             transform: translateY(-2px);
         }
 
+        body.light-mode .navbar-toggler-icon {
+            filter: invert(1);
+        }
+
+        body.light-mode .navbar-toggler {
+            border-color: rgba(0,0,0,0.1);
+        }
+
         .nav-link-custom {
             font-weight: 600;
             font-size: 0.95rem;
             color: var(--light) !important;
-            opacity: 0.6;
+            opacity: 0.9;
             transition: var(--transition);
             padding: 8px 16px;
             position: relative;
@@ -640,7 +649,7 @@
                 <div class="logo-box">
                     <i class="fa-solid fa-mosque text-white"></i>
                 </div>
-                <span class="fw-extrabold fs-4 tracking-tight"> <span class="text-primary">{{ _('RAYS MADRASAH')
+                <span class="fw-extrabold fs-4 tracking-tight"> <span class="text-primary">{{ rays_machad_name|upper
                         }}</span></span>
             </a>
 
@@ -660,7 +669,7 @@
                             style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;">
                             <i class="fa-solid fa-moon"></i>
                         </button>
-                        <a href="/auth/login" class="nav-link nav-link-custom d-none d-lg-block">{{ _('Login') }}</a>
+                        <a href="/auth/login" class="nav-link nav-link-custom">{{ _('Login') }}</a>
                         <a href="#contact" class="btn-elite btn-elite-primary"
                             style="padding: 10px 25px; font-size: 0.95rem; border-radius: 12px;">{{ _('Get Started')
                             }}</a>
@@ -675,14 +684,14 @@
         <div class="container">
             <div class="hero-badge" data-aos="fade-up">
                 <span class="badge bg-primary rounded-pill">{{ _('NEW') }}</span>
-                <span>{{ _('The first all-in-one Madrasah OS is here.') }}</span>
+                <span>{{ _('The first all-in-one Rays Machad OS is here.') }}</span>
             </div>
             <h1 class="display-hero" data-aos="fade-up" data-aos-delay="100">
                 {{ _('Institutional Mastery.') }} <br>{{ _('Digitally Perfected.') }}
             </h1>
             <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">
-                {{ _('A world-class Madrasah engine designed to power Islamic institutions. From automated finance to
-                real-time student tracking, RAYS is the standard for modern Madrasah management.') }}
+                {{ _('A world-class Rays Machad engine designed to power Islamic institutions. From automated finance to
+                real-time student tracking, RAYS is the standard for modern Rays Machad management.') }}
             </p>
             <div class="d-flex justify-content-center gap-4 flex-wrap" data-aos="fade-up" data-aos-delay="300">
                 <a href="{{ url_for('onboarding.register') }}" class="btn-elite btn-elite-primary">
@@ -703,7 +712,7 @@
                             <span class="dot yellow"></span>
                             <span class="dot green"></span>
                         </div>
-                        <div class="mx-auto small opacity-50 fw-bold">{{ _('DASHBOARD - Rays MADRASAH') }}</div>
+                        <div class="mx-auto small opacity-50 fw-bold">{{ _('DASHBOARD') }} - {{ (rays_machad_name or 'RAYS TECH')|upper }}</div>
                     </div>
                     <!-- Dash Body -->
                     <div class="dash-body d-flex flex-column flex-md-row">
@@ -809,38 +818,244 @@
         </div>
     </section>
 
-    <!-- Features -->
-    <section id="features" class="py-5">
+    <!-- Smart Intelligence Section -->
+    <section id="ai-intelligence" class="py-5" style="background: linear-gradient(180deg, transparent 0%, rgba(168, 85, 247, 0.05) 100%);">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right">
+                    <span class="badge bg-purple-glow mb-3 px-3 py-2" style="background: rgba(168, 85, 247, 0.1); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.2);">{{ _('Future-Ready Technology') }}</span>
+                    <h2 class="display-5 fw-bold mb-4">{{ _('Next-Gen AI') }} <br><span style="color: #a855f7;">{{ _('For Smart Education') }}</span></h2>
+                    <p class="opacity-60 fs-5 mb-5">
+                        {{ _('We integrate advanced Machine Learning models to transform your institution into a data-driven powerhouse. Our systems learn, adapt, and automate so you can focus on teaching.') }}
+                    </p>
+                    
+                    <div class="d-flex flex-column gap-4">
+                        <div class="d-flex gap-4">
+                            <div class="icon-sq m-0" style="width: 60px; height: 60px; flex-shrink: 0; color: #a855f7; background: rgba(168, 85, 247, 0.1);">
+                                <i class="fa-solid fa-robot"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-2">{{ _('Intelligent Chatbots') }}</h5>
+                                <p class="opacity-60 small">{{ _('24/7 automated support for students and parents. Handles inquiries, fee status, and schedule updates instantly.') }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <div class="icon-sq m-0" style="width: 60px; height: 60px; flex-shrink: 0; color: #10b981; background: rgba(16, 185, 129, 0.1);">
+                                <i class="fa-solid fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-2">{{ _('Predictive Analytics') }}</h5>
+                                <p class="opacity-60 small">{{ _('Identifying student performance trends and attendance risks before they become problems using TensorFlow models.') }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <div class="icon-sq m-0" style="width: 60px; height: 60px; flex-shrink: 0; color: #f59e0b; background: rgba(245, 158, 11, 0.1);">
+                                <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-2">{{ _('Workflow Automation') }}</h5>
+                                <p class="opacity-60 small">{{ _('Zero-touch processes for billing, reporting, and management. Reduce administrative overhead by up to 70%%.') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left">
+                    <div class="elite-card p-0 overflow-hidden border-0 shadow-lg" style="background: #0f172a; border-radius: 30px;">
+                        <div class="p-4 border-bottom border-light border-opacity-10 d-flex justify-content-between align-items-center">
+                            <div class="d-flex gap-2">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <small class="opacity-50 fw-bold">{{ _('AI TRAINING STATUS') }}</small>
+                        </div>
+                        <div class="p-5">
+                            <div class="d-flex justify-content-between mb-2">
+                                <span class="small fw-bold">{{ _('Model Accuracy') }}</span>
+                                <span class="small text-primary">98.4%</span>
+                            </div>
+                            <div class="progress mb-4" style="height: 6px; background: rgba(255,255,255,0.05);">
+                                <div class="progress-bar" style="width: 98.4%; background: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);"></div>
+                            </div>
+                            
+                            <div class="code-box p-4 rounded-4" style="background: rgba(0,0,0,0.3); font-family: 'Courier New', monospace; font-size: 0.85rem; color: #a855f7;">
+                                <div class="mb-2"><span style="color: #64748b;">>>></span> import tensorflow as tf</div>
+                                <div class="mb-2"><span style="color: #64748b;">>>></span> model = tf.keras.Sequential([</div>
+                                <div class="mb-2">&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(128, activation='relu'),</div>
+                                <div class="mb-2">&nbsp;&nbsp;&nbsp;&nbsp;layers.Dense(1, activation='sigmoid')</div>
+                                <div class="mb-2">])</div>
+                                <div><span style="color: #64748b;">>>></span> model.compile(optimizer='adam')</div>
+                            </div>
+                            
+                            <div class="mt-4 p-3 rounded-4" style="background: rgba(168, 85, 247, 0.05); border: 1px dashed rgba(168, 85, 247, 0.2);">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div class="spinner-grow spinner-grow-sm text-purple" style="color: #a855f7;"></div>
+                                    <span class="small opacity-75">{{ _('Analyzing school data patterns...') }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Evolution Section -->
+    <section id="evolution" class="py-5 bg-dark text-white overflow-hidden">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-5" data-aos="fade-right">
+                    <h2 class="display-5 fw-bold mb-4">{{ _('The Digital Transition') }}</h2>
+                    <p class="opacity-80 fs-5 mb-5 text-white-50">
+                        {{ _('Moving from paper-based records to a cloud-native intelligence system isn’t just an upgrade—it’s a transformation. Rays Technology provides the blueprint for this evolution.') }}
+                    </p>
+                    
+                    <div class="progression-steps">
+                        <div class="d-flex gap-4 mb-4">
+                            <div class="step-num bg-primary rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px; flex-shrink:0;">1</div>
+                            <div>
+                                <h6 class="fw-bold mb-1">{{ _('Phase I: Digitization') }}</h6>
+                                <p class="small opacity-80">{{ _('Centralizing student records and financial data into a secure vault.') }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-4 mb-4">
+                            <div class="step-num bg-success rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px; flex-shrink:0;">2</div>
+                            <div>
+                                <h6 class="fw-bold mb-1">{{ _('Phase II: Automation') }}</h6>
+                                <p class="small opacity-80">{{ _('Deploying automated billing, WhatsApp alerts, and real-time reporting.') }}</p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-4">
+                            <div class="step-num bg-purple rounded-circle d-flex align-items-center justify-content-center" style="width:40px; height:40px; flex-shrink:0; background:#a855f7;">3</div>
+                            <div>
+                                <h6 class="fw-bold mb-1">{{ _('Phase III: Intelligence') }}</h6>
+                                <p class="small opacity-80">{{ _('Using AI to predict performance and optimize institutional resource allocation.') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-7" data-aos="zoom-in">
+                    <div class="evolution-chart p-4 rounded-5 shadow-lg" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);">
+                        <div class="d-flex justify-content-between mb-4">
+                            <h6 class="small fw-bold">{{ _('INSTITUTIONAL EFFICIENCY INDEX') }}</h6>
+                            <span class="badge bg-success bg-opacity-10 text-success">{{ _('+300%% Growth') }}</span>
+                        </div>
+                        <div class="d-flex align-items-end gap-2" style="height: 250px;">
+                            <div class="opacity-20 w-25 rounded-top" style="height: 20%; background: var(--light);" data-bs-toggle="tooltip" title="Manual Era"></div>
+                            <div class="opacity-40 w-25 rounded-top" style="height: 45%; background: var(--primary);" data-bs-toggle="tooltip" title="Basic Software"></div>
+                            <div class="w-25 rounded-top" style="height: 75%; background: var(--primary);" data-bs-toggle="tooltip" title="Rays Base"></div>
+                            <div class="w-25 rounded-top" style="height: 100%; background: var(--accent); box-shadow: 0 0 30px var(--primary-glow);" data-bs-toggle="tooltip" title="Rays AI Mode"></div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3 small opacity-50">
+                            <span>2023</span>
+                            <span>2024</span>
+                            <span>2025</span>
+                            <span>2026 (AI)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Testimonials -->
+    <section id="testimonials" class="py-5" style="background: rgba(255, 255, 255, 0.02);">
         <div class="container py-5">
             <div class="text-center mb-5" data-aos="fade-up">
-                <h2 class="display-5 fw-bold mb-3">{{ _('Engineered for Excellence') }}</h2>
-                <p class="opacity-60 fs-5">{{ _('Everything you need to scale your educational reach.') }}</p>
+                <h2 class="display-5 fw-bold mb-3">{{ _('Trusted by Educators') }}</h2>
+                <p class="opacity-60 fs-5">{{ _('Join hundreds of institutions transforming their management experience.') }}</p>
             </div>
             <div class="row g-4">
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="elite-card">
-                        <div class="icon-sq"><i class="fa-solid fa-fingerprint"></i></div>
-                        <h4 class="fw-bold mb-3">{{ _('Multi-Tenant Vault') }}</h4>
-                        <p class="opacity-60">{{ _('Architectural isolation for every madrasah. Your data is encrypted,
-                            isolated, and accessible only by you.') }}</p>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="bg-primary rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 50px; height: 50px;">A</div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Sheikh Ahmed</h6>
+                                <small class="opacity-50">Director, Kismayo Academy</small>
+                            </div>
+                        </div>
+                        <p class="opacity-75 italic text-start">"{{ _('The automated finance system changed everything for us. No more manual tracking of fees! The AI features are just a bonus.') }}"</p>
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="elite-card">
-                        <div class="icon-sq" style="color:var(--secondary);"><i
-                                class="fa-solid fa-money-bill-transfer"></i></div>
-                        <h4 class="fw-bold mb-3">{{ _('Financial Intelligence') }}</h4>
-                        <p class="opacity-60">{{ _('Automated EVC/eDahab integrations, professional invoicing, and
-                            real-time expense oversight.') }}</p>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="bg-success rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 50px; height: 50px;">M</div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Mariam Ali</h6>
+                                <small class="opacity-50">Administrator, Rays School</small>
+                            </div>
+                        </div>
+                        <p class="opacity-75 italic text-start">"{{ _('Registering students used to take days. Now it takes minutes. The WhatsApp integration is a lifesaver for parent updates.') }}"</p>
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="elite-card">
-                        <div class="icon-sq" style="color:var(--accent);"><i class="fa-solid fa-shield-halved"></i>
+                        <div class="d-flex align-items-center gap-3 mb-4">
+                            <div class="bg-warning rounded-circle d-flex align-items-center justify-content-center text-white fw-bold" style="width: 50px; height: 50px;">O</div>
+                            <div>
+                                <h6 class="fw-bold mb-0">Osman Duale</h6>
+                                <small class="opacity-50">Tech Lead, Rays Tech</small>
+                            </div>
                         </div>
-                        <h4 class="fw-bold mb-3">{{ _('Secure Onboarding') }}</h4>
-                        <p class="opacity-60">{{ _('Deploy your entire institutional infrastructure in less than 5
-                            minutes with our automated provisioning.') }}</p>
+                        <p class="opacity-75 italic text-start">"{{ _('As a developer, I appreciate the clean architecture. The AI/ML capabilities are truly state of the art for this region.') }}"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-5">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-4" data-aos="fade-right">
+                    <h2 class="display-5 fw-bold mb-4">{{ _('Common Questions') }}</h2>
+                    <p class="opacity-60 mb-5">{{ _('Everything you need to know about getting started with the Rays Machad OS.') }}</p>
+                    <div class="p-4 rounded-4" style="background: var(--glass); border: 1px solid var(--border);">
+                        <h6 class="fw-bold mb-2">{{ _('Still have questions?') }}</h6>
+                        <p class="small opacity-60 mb-4">{{ _('Our support team is available 24/7 via WhatsApp.') }}</p>
+                        <a href="#contact" class="btn btn-primary rounded-pill px-4 btn-sm">{{ _('Contact Support') }}</a>
+                    </div>
+                </div>
+                <div class="col-lg-8" data-aos="fade-left">
+                    <div class="accordion accordion-flush" id="faqAccordion">
+                        <div class="accordion-item bg-transparent mb-3 border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" style="background: var(--glass); color: var(--light); border: 1px solid var(--border);">
+                                    {{ _('How long does it take to set up?') }}
+                                </button>
+                            </h2>
+                            <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body opacity-60">
+                                    {{ _('Your entire school portal can be active in less than 5 minutes. We handle all the cloud infrastructure and database setup automatically.') }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-transparent mb-3 border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq2" style="background: var(--glass); color: var(--light); border: 1px solid var(--border);">
+                                    {{ _('Is my data secure?') }}
+                                </button>
+                            </h2>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body opacity-60">
+                                    {{ _('Yes, every institution has its own isolated database vault. We use high-grade encryption and daily backups to ensure your data is always safe.') }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item bg-transparent mb-3 border-0">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed rounded-4 fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#faq3" style="background: var(--glass); color: var(--light); border: 1px solid var(--border);">
+                                    {{ _('Can I use Somali payment methods?') }}
+                                </button>
+                            </h2>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body opacity-60">
+                                    {{ _('Absolutely! We have native support for EVC Plus, eDahab, and Waafi integrated into the billing engine.') }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -894,13 +1109,13 @@
             <div class="mt-5 pt-5 text-center" data-aos="fade-up">
                 <p class="text-uppercase fw-bold opacity-50 ls-1 mb-4">{{ _('Seamless Global & Local Payments') }}</p>
                 <div class="d-flex flex-wrap justify-content-center gap-4">
-                    <div class="payment-pill"><img src="https://img.icons8.com/color/32/bank-cards.png"> EVC Plus</div>
-                    <div class="payment-pill"><img src="https://img.icons8.com/color/32/money-transfer.png"> eDahab
+                    <div class="payment-pill"><i class="fa-solid fa-mobile-screen-button text-primary me-2"></i> EVC Plus</div>
+                    <div class="payment-pill"><i class="fa-solid fa-building-columns text-success me-2"></i> eDahab
                     </div>
-                    <div class="payment-pill"><img src="https://img.icons8.com/color/32/wallet--v1.png"> Waafi</div>
-                    <div class="payment-pill"><img src="https://img.icons8.com/color/32/mastercard.png"> Mastercard
+                    <div class="payment-pill"><i class="fa-solid fa-wallet text-warning me-2"></i> Waafi</div>
+                    <div class="payment-pill"><i class="fa-brands fa-cc-mastercard text-danger me-2"></i> Mastercard
                     </div>
-                    <div class="payment-pill"><img src="https://img.icons8.com/color/32/visa.png"> Visa</div>
+                    <div class="payment-pill"><i class="fa-brands fa-cc-visa text-primary me-2"></i> Visa</div>
                 </div>
             </div>
         </div>
@@ -982,7 +1197,7 @@
         <div class="container py-5">
             <div class="row g-5 justify-content-between text-start">
                 <div class="col-lg-4" data-aos="fade-up">
-                    <h3 class="fw-bold mb-4 text-primary">{{ _('RAYS TECH') }}</h3>
+                    <h3 class="fw-bold mb-4 text-primary">{{ rays_machad_name|upper }}</h3>
                     <p class="opacity-60">{{ _("Kismayo's leading technology hub. We specialize in transforming
                         businesses through high-quality software engineering and digital innovation.") }}</p>
                     <div class="d-flex gap-3 mt-4">

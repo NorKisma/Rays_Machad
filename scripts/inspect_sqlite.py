@@ -2,7 +2,7 @@ import sqlite3
 import os
 
 base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-db_path = os.path.join(base_dir, 'instance', 'madrasah.db')
+db_path = os.path.join(base_dir, 'instance', 'rays_machad.db')
 
 if not os.path.exists(db_path):
     print(f"File {db_path} does not exist.")

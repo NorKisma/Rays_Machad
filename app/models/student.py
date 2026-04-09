@@ -10,7 +10,7 @@ class Student(db.Model, SchoolContextMixin):
     enrollment_number = db.Column(db.String(20), unique=True, nullable=False, index=True)
 
     # Personal Details
-    date_of_birth = db.Column(db.Date)
+    age = db.Column(db.Integer)
     gender = db.Column(db.String(10))  # Male, Female
 
     # Parent / Guardian Details
@@ -19,7 +19,7 @@ class Student(db.Model, SchoolContextMixin):
     parent_contact = db.Column(db.String(20), nullable=False, index=True)
     address = db.Column(db.Text)
 
-    # Academic / Madrasah Details
+    # Academic / Rays Machad Details
     current_juz = db.Column(db.Integer, default=1)
     current_surah = db.Column(db.String(100))
     current_aya = db.Column(db.Integer, default=0)
@@ -29,9 +29,11 @@ class Student(db.Model, SchoolContextMixin):
     monthly_fee = db.Column(db.Numeric(10, 2), default=0.00)
 
     status = db.Column(db.String(20), default='Active')  # Active, Inactive, Graduated
+    admission_date = db.Column(db.Date, default=datetime.utcnow().date)
+    shift = db.Column(db.String(20), default='Morning')  # Morning, Afternoon, Evening
     class_id = db.Column(db.Integer, db.ForeignKey('class_schedules.id'))
-    parent_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.users.id'), nullable=True)
-    student_user_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.users.id'), nullable=True)
+    parent_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.users.id'), nullable=True)
+    student_user_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.users.id'), nullable=True)
     
     # Relationships
     class_assigned = db.relationship('ClassSchedule', backref='students', lazy=True)

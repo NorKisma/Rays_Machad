@@ -15,7 +15,7 @@ class Teacher(db.Model, SchoolContextMixin):
     monthly_salary = db.Column(db.Numeric(10, 2), default=0)
     joining_date = db.Column(db.Date, default=datetime.utcnow().date())
     status = db.Column(db.String(20), default='Active') # Active, Terminated, Resigned
-    user_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.users.id'), nullable=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.users.id'), nullable=True)
     
     # Relationships
     teacher_account = db.relationship('User', foreign_keys=[user_id], backref=db.backref('teacher_profile', uselist=False), lazy=True)

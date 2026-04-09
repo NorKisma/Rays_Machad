@@ -1,6 +1,6 @@
-from app.extensions import celery, db
-from app.models.user import User
-from app.models.school import School
+from .extensions import celery, db
+from .models.user import User
+from .models.school import School
 from datetime import datetime, timedelta
 from flask import current_app
 
@@ -26,7 +26,7 @@ def cleanup_deleted_entities():
         current_app.logger.info(f"PERMANENT CLEANUP: Deleting school {school.subdomain} (Soft-deleted on {school.deleted_at})")
         
         # Optionally, drop the physical database if you want to be very thorough
-        # db_name = f"madrasah_tenant_{school.subdomain}"
+        # db_name = f"rays_machad_tenant_{school.subdomain}"
         # db.session.execute(text(f"DROP DATABASE IF EXISTS {db_name}"))
         
         db.session.delete(school)

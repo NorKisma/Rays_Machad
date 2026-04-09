@@ -1,6 +1,6 @@
-# Rays Madrasah SaaS Transformation Roadmap
+# Rays Rays Machad SaaS Transformation Roadmap
 
-Converting a single-tenant application into a SaaS (Multi-Tenant) platform requires moving from a logic where everyone shares one database to a logic where multiple "Tenants" (Madrasahs) are isolated from each other.
+Converting a single-tenant application into a SaaS (Multi-Tenant) platform requires moving from a logic where everyone shares one database to a logic where multiple "Tenants" (Rays Machads) are isolated from each other.
 
 ---
 
@@ -9,7 +9,7 @@ Converting a single-tenant application into a SaaS (Multi-Tenant) platform requi
 There are two main ways to convert this specific Flask app into a SaaS:
 
 ### Option A: Database-per-Tenant (Isolated & Secure)
-*The app detects the subdomain (e.g., `alnoor.raystechcenter.online`) and connects to `madrasah_alnoor` database.*
+*The app detects the subdomain (e.g., `alnoor.raystechcenter.online`) and connects to `rays_machad_alnoor` database.*
 - **Best for:** High security, easy backups for individual schools.
 - **Effort:** Medium. Requires a "Master Database" to track tenants.
 
@@ -23,7 +23,7 @@ There are two main ways to convert this specific Flask app into a SaaS:
 ## 🚀 Step 2: Implementation (Option A - Recommended)
 
 ### 1. The "Master" Database
-Create a new database called `madrasah_master`. This will store:
+Create a new database called `rays_machad_master`. This will store:
 - **Tenants Table**: `id`, `name`, `subdomain`, `db_connection_string`, `is_active`.
 - **Subscriptions Table**: Billing status, expiry date.
 
@@ -37,7 +37,7 @@ In `app/extensions.py` and `app/__init__.py`, you need to modify how the databas
 ```python
 @app.before_request
 def identify_tenant():
-    host = request.host.split(':')[0] # e.g., madrasah1.com
+    host = request.host.split(':')[0] # e.g., rays_machad1.com
     tenant = MasterDB.query.filter_by(domain=host).first()
     if tenant:
         current_app.config['SQLALCHEMY_DATABASE_URI'] = tenant.db_url
@@ -52,13 +52,13 @@ Instead of running 10 different Gunicorn processes (which uses a lot of RAM), yo
 
 ### 1. The "Super Admin" Dashboard
 A dedicated URL (like `admin.raystechcenter.online`) where YOU (RaysTech) can:
-- Create a new Madrasah.
+- Create a new Rays Machad.
 - Terminate access if they don't pay.
 - View global statistics (total students across all schools).
 
 ### 2. Automatic Provisioning Script
 Create a script (e.g., `scripts/provision_tenant.py`) that:
-1. Creates a new database: `CREATE DATABASE madrasah_[name]`.
+1. Creates a new database: `CREATE DATABASE rays_machad_[name]`.
 2. Runs `flask db upgrade` on that specific DB.
 3. Seeds the initial admin user for that school.
 4. Adds the entry to the Master Database.

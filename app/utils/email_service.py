@@ -12,14 +12,14 @@ class EmailService:
         Sends an activation email to the new school admin.
         """
         try:
-            subject = f"Welcome to Rays Madrasah - Activation Successful for {school_name}"
+            subject = f"Welcome to Rays Rays Machad - Activation Successful for {school_name}"
             msg = Message(subject=subject, recipients=[recipient_email])
             
             # Message body in Somali and English
             msg.body = f"""
 Asc {school_name} Admin,
             
-Hambalyo! Madrasadaada si guul leh  ayaa loo shiday (Activated) nidaamka Rays Madrasah.
+Hambalyo! Madrasadaada si guul leh  ayaa loo shiday (Activated) nidaamka Rays Rays Machad.
 
 Halkan waa macluumaadkaaga gelitaanka (Login Details):
 - Email: {recipient_email}
@@ -30,7 +30,7 @@ Waxaad ka geli kartaa halkan: {current_app.config.get('BASE_URL', 'https://rayst
 Mahadsanid,
 Kooxda Rays Tech
 --------------------------------------------------
-Congratulations! Your madrasah has been successfully activated on the Rays Madrasah system.
+Congratulations! Your rays_machad has been successfully activated on the Rays Rays Machad system.
 
 Here are your login details:
 - Email: {recipient_email}

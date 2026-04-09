@@ -11,6 +11,7 @@ class Config:
     MYSQLDUMP_PATH = os.environ.get('MYSQLDUMP_PATH')
     BASE_URL = os.environ.get('BASE_URL', 'https://raystechcenter.online')
     MAIN_DOMAIN = os.environ.get('MAIN_DOMAIN', 'raystechcenter.online')
+    SYSTEM_TYPE = os.environ.get('SYSTEM_TYPE', 'ray_machad')
 
     # Security Settings
     SESSION_COOKIE_HTTPONLY = True

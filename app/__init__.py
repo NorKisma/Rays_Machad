@@ -8,8 +8,6 @@ from dotenv import load_dotenv
 
 from app.config import Config
 from app.extensions import db, migrate, login_manager, babel, mail, celery, csrf
-from app import tasks # Ensure tasks are registered
-
 def create_app(config_class=Config):
     # Load .env variables
     load_dotenv()
@@ -75,7 +73,8 @@ def create_app(config_class=Config):
         lang = session.get('lang')
         if lang:
             return lang
-        return request.accept_languages.best_match(app.config.get('LANGUAGES', []))
+        match = request.accept_languages.best_match(app.config.get('LANGUAGES', ['en', 'ar', 'so']))
+        return match if match else 'en'
     babel.init_app(app, locale_selector=get_locale)
     
     # SaaS Tenant Identification
@@ -88,13 +87,13 @@ def create_app(config_class=Config):
         school = get_current_school()
         
         # --- PHYSICAL DATABASE SWITCH ---
-        # We assume the user 'madrasah_admin' has access to all tenant databases
+        # We assume the user 'rays_machad_admin' has access to all tenant databases
         if school:
             if not school.is_active or school.status == 'Suspended':
                 from flask import render_template_string
-                return render_template_string("<h1>School Suspended</h1><p>This madrasah's account is currently suspended. Please contact support.</p>"), 403
+                return render_template_string("<h1>School Suspended</h1><p>This school's account is currently suspended. Please contact support.</p>"), 403
                 
-            db_name = f"`madrasah_tenant_{school.subdomain}`"
+            db_name = f"`rays_machad_tenant_{school.subdomain}`"
             try:
                 # Ensure the connection is using the correct database context for business data
                 db.session.execute(text(f"USE {db_name}"))
@@ -106,8 +105,8 @@ def create_app(config_class=Config):
                 return render_template_string("<h1>Setup Pending</h1><p>This school's database is being prepared. Please try again in a few minutes.</p>"), 503
         else:
             # Explicitly switch back to main DB for landing page/admin tools
-            db.session.execute(text("USE `madrasah_db`"))
-            app.logger.debug("Main DB Switch: Database=madrasah_db")
+            db.session.execute(text("USE `Rays_machda`"))
+            app.logger.debug("Main DB Switch: Database=Rays_machda")
 
         # Security: Prevent Cross-Tenant access
         if current_user.is_authenticated:
@@ -130,10 +129,10 @@ def create_app(config_class=Config):
                         logout_user()
                         return redirect(url_for('auth.login'))
         
-        # Redirect invalid subdomains to main page instead of just passing
+        # Redirect truly invalid subdomains to main page, but allow the main 'machad' domain
         host_main = request.host.split('.')[0]
-        if host_main not in ['raystech', 'raystechcenter', '161', 'localhost', 'www', '127'] and not school:
-             return redirect("https://raystechcenter.online") # Or your main domain
+        if host_main not in ['raystech', 'raystechcenter', 'machad', '161', 'localhost', 'www', '127'] and not school:
+             return redirect("https://raystechcenter.online")
 
     # Context processor
     @app.context_processor
@@ -141,23 +140,39 @@ def create_app(config_class=Config):
         from app.models.setting import SystemSetting
         from app.models.permission import RolePermission
         from app.models.fee import Expense
-        from flask import g
+        from flask import g, current_app
         
         school = get_current_school()
         
-        # Override settings with school-specific values if applicable
-        m_name = school.name if school else SystemSetting.get_setting('madrasah_name', 'Rays Madrasah')
+        # Identify the system type for feature toggling
+        system_type = current_app.config.get('SYSTEM_TYPE', 'madrasah')
+        if school:
+            if school.subdomain == 'ray_machad':
+                system_type = 'ray_machad'
+            elif school.subdomain == 'somcoffe':
+                system_type = 'somcoffe'
+            else:
+                system_type = 'tenant'
         
+        # Override settings with school-specific values if applicable
+        m_name = school.name if school else SystemSetting.get_setting('rays_machad_name', 'Rays Machad')
+        
+        from app.models.subject import Subject
+        from app.models.class_schedule import ClassSchedule
+
         return dict(
             get_locale=get_locale,
             current_school=school,
-            madrasah_name=m_name,
-            madrasah_phone=SystemSetting.get_setting('madrasah_phone', '+252...'),
-            madrasah_address=SystemSetting.get_setting('madrasah_address', 'Main Office'),
+            rays_machad_name=m_name,
+            rays_machad_phone=SystemSetting.get_setting('rays_machad_phone', '+252...'),
+            rays_machad_address=SystemSetting.get_setting('rays_machad_address', 'Main Office'),
+            system_type=system_type,
             now=datetime.utcnow(),
             db=db,
             RolePermission=RolePermission,
-            Expense=Expense
+            Expense=Expense,
+            Subject=Subject,
+            ClassSchedule=ClassSchedule
         )
 
     # Flask-Login settings
@@ -228,5 +243,7 @@ def create_app(config_class=Config):
     @app.errorhandler(429)
     def ratelimit_handler(e):
         return render_template("429.html"), 429
+
+    from . import tasks
 
     return app

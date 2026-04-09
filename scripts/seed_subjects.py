@@ -30,20 +30,21 @@ def seed_subjects():
 
         # 2. Define Subjects
         subjects = [
-            # General
+            # Academic (Math, Science, English)
             {'name': 'Math', 'code': 'MATH', 'category': 'General', 'description': 'Mathematics'},
-            {'name': 'Science', 'code': 'SCI', 'category': 'General', 'description': 'Science and Nature'},
+            {'name': 'Science', 'code': 'SCI', 'category': 'General', 'description': 'General Science'},
+            {'name': 'English', 'code': 'ENG', 'category': 'General', 'description': 'English Academic'},
             
-            # Islamic
+            # Islamic (Fiqhi, Tawxiid, Akhlaaq, Taariikh Islaami)
             {'name': 'Fiqhi', 'code': 'FIQ', 'category': 'Islamic', 'description': 'Islamic Jurisprudence'},
-            {'name': 'Tawxiid', 'code': 'TAW', 'category': 'Islamic', 'description': 'Oneness of Allah'},
-            {'name': 'Akhlaaq', 'code': 'AKH', 'category': 'Islamic', 'description': 'Islamic Ethics and Manners'},
+            {'name': 'Tawxiid', 'code': 'TAW', 'category': 'Islamic', 'description': 'Islamic Monotheism'},
+            {'name': 'Akhlaaq', 'code': 'AKH', 'category': 'Islamic', 'description': 'Islamic Ethics and Morality'},
             {'name': 'Taariikh Islaami', 'code': 'TAI', 'category': 'Islamic', 'description': 'Islamic History'},
             
-            # Languages
+            # Languages (Somali, English, Carabi)
             {'name': 'Somali', 'code': 'SOM', 'category': 'Languages', 'description': 'Somali Language'},
-            {'name': 'English', 'code': 'ENG', 'category': 'Languages', 'description': 'English Language'},
             {'name': 'Carabi', 'code': 'ARB', 'category': 'Languages', 'description': 'Arabic Language'}
+            # English is already listed above for Academic, so we don't need to add it twice if code is unique
         ]
 
         for subj_data in subjects:
@@ -63,7 +64,7 @@ def seed_subjects():
         
         # 3. Update System Settings
         from app.models.setting import SystemSetting
-        SystemSetting.set_setting('madrasah_name', 'Machadka Rays (Rays Academy)', 'The name of the institution')
+        SystemSetting.set_setting('rays_machad_name', 'Machadka Rays (Rays Academy)', 'The name of the institution')
         SystemSetting.set_setting('active_term', 'Term One 2026', 'Current academic term')
         
         print("Subject seeding and settings update completed!")

@@ -2,10 +2,11 @@
 # IMPORTS
 # ======================================================
 
-from flask import render_template, redirect, url_for, flash, request, session
+from flask import render_template, redirect, url_for, flash, request, session, current_app
 from flask_login import current_user, login_user, logout_user, login_required
 from werkzeug.security import generate_password_hash
 from datetime import datetime
+import os
 from flask_babel import gettext as _
 
 from app.blueprints.auth import auth_bp
@@ -67,7 +68,7 @@ def send_otp_email(user, otp_code):
     <body style="background-color: #F9FAFB;">
         <div class="container">
             <div class="header">
-                <div class="logo">Madrasah Management</div>
+                <div class="logo">Rays Machad Management</div>
             </div>
             <div class="content">
                 <div class="greeting">{_('Assalamu Alaykum')} {user.name},</div>
@@ -82,7 +83,7 @@ def send_otp_email(user, otp_code):
                 <p style="margin-top: 30px; font-size: 14px; color: #6B7280;">{_('If you did not request this, please ignore this email. No changes will be made to your account.')}</p>
             </div>
             <div class="footer">
-                <p>&copy; {datetime.utcnow().year} Madrasah Management System. {_('All rights reserved.')}</p>
+                <p>&copy; {datetime.utcnow().year} Rays Machad Management System. {_('All rights reserved.')}</p>
                 <p style="margin-top: 5px;">{_('This is an automated message, please do not reply.')}</p>
             </div>
         </div>
@@ -234,7 +235,7 @@ def dashboard():
     total_classes = ClassSchedule.query.filter_by(school_id=school_id).count() if school_id else ClassSchedule.query.count()
     
     active_term = SystemSetting.get_setting('active_term', 'First Term 2026')
-    madrasah_name = school.name if school else SystemSetting.get_setting('madrasah_name', 'Darul Arqam Madrasah')
+    rays_machad_name = school.name if school else SystemSetting.get_setting('rays_machad_name', 'Darul Arqam Rays Machad')
     
     # --- Auto Billing Feature (Admin Only) ---
     if current_user.role == 'A':
@@ -310,7 +311,7 @@ def dashboard():
         'total_teachers': total_teachers,
         'total_classes': total_classes,
         'active_term': active_term,
-        'madrasah_name': madrasah_name,
+        'rays_machad_name': rays_machad_name,
         'announcements': announcements,
         'top_students': top_students,
         'recent_exams': recent_exams,
@@ -538,7 +539,7 @@ def toggle_user_status(user_id):
             
             # 1. Cleanup in Central DB
             try:
-                db.session.execute(text("USE `madrasah_db`"))
+                db.session.execute(text("USE `Rays_machda`"))
                 db.session.execute(text("DELETE FROM otps WHERE user_id = :uid"), {"uid": uid})
                 db.session.execute(text("DELETE FROM login_logs WHERE user_id = :uid"), {"uid": uid})
                 db.session.execute(text("UPDATE teachers SET user_id = NULL WHERE user_id = :uid"), {"uid": uid})
@@ -555,7 +556,7 @@ def toggle_user_status(user_id):
                 from app.models.school import School
                 target_school = School.query.get(user_school_id)
                 if target_school:
-                    tenant_db = f"`madrasah_tenant_{target_school.subdomain}`"
+                    tenant_db = f"`rays_machad_tenant_{target_school.subdomain}`"
                     try:
                         db.session.execute(text(f"USE {tenant_db}"))
                         db.session.execute(text("UPDATE teachers SET user_id = NULL WHERE user_id = :uid"), {"uid": uid})
@@ -569,7 +570,7 @@ def toggle_user_status(user_id):
 
             # 3. Final Step: RAW DELETE
             try:
-                db.session.execute(text("USE `madrasah_db`"))
+                db.session.execute(text("USE `Rays_machda`"))
                 db.session.execute(text("DELETE FROM users WHERE id = :uid"), {"uid": uid})
                 db.session.commit()
                 flash(_("User %(name)s has been permanently deleted.", name=name), "warning")
@@ -612,7 +613,7 @@ def perm_delete_all_users():
         
         # Aggressive cleanup in Main DB
         try:
-            db.session.execute(text("USE `madrasah_db`"))
+            db.session.execute(text("USE `Rays_machda`"))
             db.session.execute(text("DELETE FROM otps WHERE user_id = :uid"), {"uid": uid})
             db.session.execute(text("DELETE FROM login_logs WHERE user_id = :uid"), {"uid": uid})
             db.session.execute(text("UPDATE teachers SET user_id = NULL WHERE user_id = :uid"), {"uid": uid})
@@ -629,7 +630,7 @@ def perm_delete_all_users():
             from app.models.school import School
             target_school = School.query.get(user_school_id)
             if target_school:
-                tenant_db = f"`madrasah_tenant_{target_school.subdomain}`"
+                tenant_db = f"`rays_machad_tenant_{target_school.subdomain}`"
                 try:
                     db.session.execute(text(f"USE {tenant_db}"))
                     db.session.execute(text("UPDATE teachers SET user_id = NULL WHERE user_id = :uid"), {"uid": uid})
@@ -643,7 +644,7 @@ def perm_delete_all_users():
         
         # Final Delete: Use RAW SQL to bypass SQLAlchemy backref loading issues
         try:
-            db.session.execute(text("USE `madrasah_db`"))
+            db.session.execute(text("USE `Rays_machda`"))
             db.session.execute(text("DELETE FROM users WHERE id = :uid"), {"uid": uid})
             db.session.commit()
             count += 1

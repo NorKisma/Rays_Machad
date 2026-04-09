@@ -74,7 +74,7 @@
         border-radius: 50% / 100% 100% 0 0;
     }
 
-    .madrasah-logo-container {
+    .rays_machad-logo-container {
         position: absolute;
         top: 20px;
         left: 20px;
@@ -84,7 +84,7 @@
         gap: 10px;
     }
 
-    .madrasah-name-id {
+    .rays_machad-name-id {
         font-weight: 800;
         font-size: 1rem;
         letter-spacing: 0.5px;
@@ -206,12 +206,12 @@
     <!-- ID CARD FRONT -->
     <div class="id-card-layout">
         <div class="id-card">
-            <div class="watermark-bg"><i class="fa-solid fa-mosque"></i></div>
+            <div class="watermark-bg"><i class="fa-solid fa-graduation-cap"></i></div>
 
             <div class="card-banner">
-                <div class="madrasah-logo-container">
-                    <i class="fa-solid fa-mosque fa-xl"></i>
-                    <h1 class="madrasah-name-id">{{ madrasah_name }}</h1>
+                <div class="rays_machad-logo-container">
+                    <i class="fa-solid fa-school fa-xl"></i>
+                    <h1 class="rays_machad-name-id">{{ rays_machad_name }}</h1>
                 </div>
             </div>
 
@@ -229,8 +229,8 @@
                         <span>{{ student.class_assigned.class_name if student.class_assigned else 'N/A' }}</span>
                     </div>
                     <div class="data-item">
-                        <label>{{ _('Hifz Status') }}</label>
-                        <span>{{ _(student.hifz_status) }}</span>
+                        <label>{{ _('Enrollment ID') }}</label>
+                        <span>{{ student.enrollment_number }}</span>
                     </div>
                     <div class="data-item">
                         <label>{{ _('Parent Contact') }}</label>

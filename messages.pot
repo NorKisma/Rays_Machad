@@ -165,7 +165,7 @@ msgid "Announcements"
 msgstr ""
 
 #: app/blueprints/announcements/templates/announcements/index.html:8
-msgid "Stay updated with the latest news from the Madrasah."
+msgid "Stay updated with the latest news from the Rays Machad."
 msgstr ""
 
 #: app/blueprints/announcements/templates/announcements/index.html:29
@@ -1059,7 +1059,7 @@ msgstr ""
 #: app/blueprints/auth/templates/reset_password.html:7
 #: app/blueprints/auth/templates/reset_password_otp.html:7
 #: app/blueprints/auth/templates/verify_otp.html:7 app/templates/base.html:13
-msgid "Madrasah System"
+msgid "Rays Machad System"
 msgstr ""
 
 #: app/blueprints/auth/templates/forgot_password.html:141
@@ -1087,7 +1087,7 @@ msgstr ""
 
 #: app/blueprints/auth/templates/login.html:343
 msgid ""
-"Welcome to the next generation of Madrasah management. Our secure "
+"Welcome to the next generation of Rays Machad management. Our secure "
 "platform ensures your institutional data is protected while providing "
 "seamless administrative control."
 msgstr ""
@@ -1359,7 +1359,7 @@ msgid "There are currently no students linked to your parent account."
 msgstr ""
 
 #: app/blueprints/auth/templates/my_children.html:59
-msgid "Please contact the Madrasah administration to link your children."
+msgid "Please contact the Rays Machad administration to link your children."
 msgstr ""
 
 #: app/blueprints/auth/templates/my_payments.html:7
@@ -1437,7 +1437,7 @@ msgstr ""
 
 #: app/blueprints/auth/templates/my_payments.html:96
 msgid ""
-"Currently, we accept payments via Cash or Bank Transfer at the Madrasah "
+"Currently, we accept payments via Cash or Bank Transfer at the Rays Machad "
 "office.\n"
 "                Online payment integration is coming soon."
 msgstr ""
@@ -1497,11 +1497,11 @@ msgid "Recent Notifications"
 msgstr ""
 
 #: app/blueprints/auth/templates/parent_dashboard.html:149
-msgid "Madrasah Update"
+msgid "Rays Machad Update"
 msgstr ""
 
 #: app/blueprints/auth/templates/parent_dashboard.html:151
-msgid "Welcome to the new Madrasah Bilaal Parent Portal!"
+msgid "Welcome to the new Rays Machad Bilaal Parent Portal!"
 msgstr ""
 
 #: app/blueprints/auth/templates/parent_dashboard.html:160
@@ -3432,7 +3432,7 @@ msgid "NEW"
 msgstr ""
 
 #: app/blueprints/landing/templates/landing/index.html:678
-msgid "The first all-in-one Madrasah OS is here."
+msgid "The first all-in-one Rays Machad OS is here."
 msgstr ""
 
 #: app/blueprints/landing/templates/landing/index.html:681
@@ -3445,10 +3445,10 @@ msgstr ""
 
 #: app/blueprints/landing/templates/landing/index.html:684
 msgid ""
-"A world-class Madrasah engine designed to power Islamic institutions. "
+"A world-class Rays Machad engine designed to power Islamic institutions. "
 "From automated finance to\n"
 "                real-time student tracking, RAYS is the standard for "
-"modern Madrasah management."
+"modern Rays Machad management."
 msgstr ""
 
 #: app/blueprints/landing/templates/landing/index.html:689
@@ -3525,7 +3525,7 @@ msgstr ""
 
 #: app/blueprints/landing/templates/landing/index.html:824
 msgid ""
-"Architectural isolation for every madrasah. Your data is encrypted,\n"
+"Architectural isolation for every rays_machad. Your data is encrypted,\n"
 "                            isolated, and accessible only by you."
 msgstr ""
 
@@ -3836,7 +3836,7 @@ msgstr ""
 
 #: app/blueprints/reports/routes.py:73
 msgid ""
-"Professional roster of all Madrasah staff members with qualifications and"
+"Professional roster of all Rays Machad staff members with qualifications and"
 " contact info."
 msgstr ""
 
@@ -3870,7 +3870,7 @@ msgid "Reports & Analytics"
 msgstr ""
 
 #: app/blueprints/reports/templates/reports/index.html:7
-msgid "Generate and export professional reports for your madrasah"
+msgid "Generate and export professional reports for your rays_machad"
 msgstr ""
 
 #: app/blueprints/reports/templates/reports/index.html:16
@@ -4000,7 +4000,7 @@ msgstr ""
 #: app/blueprints/reports/templates/reports/profit_loss.html:318
 #: app/blueprints/students/templates/students/print_directory.html:130
 #: app/blueprints/teachers/templates/teachers/print_directory.html:103
-msgid "Madrasah Administration"
+msgid "Rays Machad Administration"
 msgstr ""
 
 #: app/blueprints/reports/templates/reports/profit_loss.html:329
@@ -4060,7 +4060,7 @@ msgstr ""
 
 #: app/blueprints/settings/forms.py:7
 #: app/blueprints/settings/templates/settings/index.html:36
-msgid "Madrasah Name"
+msgid "Rays Machad Name"
 msgstr ""
 
 #: app/blueprints/settings/forms.py:8 app/blueprints/students/forms.py:19
@@ -4233,7 +4233,7 @@ msgid "General Settings"
 msgstr ""
 
 #: app/blueprints/settings/templates/settings/index.html:9
-msgid "Configure your madrasah system information"
+msgid "Configure your rays_machad system information"
 msgstr ""
 
 #: app/blueprints/settings/templates/settings/index.html:20
@@ -4474,7 +4474,7 @@ msgid "Update student profile information"
 msgstr ""
 
 #: app/blueprints/students/templates/students/add_student.html:16
-msgid "Enroll a new student into the madrasah"
+msgid "Enroll a new student into the rays_machad"
 msgstr ""
 
 #: app/blueprints/students/templates/students/add_student.html:29
@@ -4878,7 +4878,7 @@ msgid "Teacher Management"
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/manage_teachers.html:10
-msgid "View and manage madrasah staff members"
+msgid "View and manage rays_machad staff members"
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/manage_teachers.html:20
@@ -4911,7 +4911,7 @@ msgid "Teacher Directory"
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/print_directory.html:7
-msgid "Official roster of all Madrasah staff and teachers."
+msgid "Official roster of all Rays Machad staff and teachers."
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/print_directory.html:36
@@ -5051,7 +5051,7 @@ msgid "Column Visibility"
 msgstr ""
 
 #: app/templates/layout.html:21 app/templates/layout.html:167
-msgid "Madrasah"
+msgid "Rays Machad"
 msgstr ""
 
 #: app/templates/layout.html:43
@@ -5108,7 +5108,7 @@ msgid ""
 msgstr ""
 
 #: app/templates/layout.html:336
-msgid "Settings Madrasah"
+msgid "Settings Rays Machad"
 msgstr ""
 
 #: app/templates/layout.html:380 app/templates/layout.html:394
@@ -5129,7 +5129,7 @@ msgid "Official Record"
 msgstr ""
 
 #: app/templates/layout.html:436
-msgid "Madrasah Management"
+msgid "Rays Machad Management"
 msgstr ""
 
 #: app/templates/layout.html:440
@@ -5241,7 +5241,7 @@ msgstr ""
 
 #: app/utils/message_templates.py:25
 msgid ""
-"Announcement: The Madrasah will be closed from {start_date} to {end_date}"
+"Announcement: The Rays Machad will be closed from {start_date} to {end_date}"
 " for {occasion}. Classes resume on {resume_date}."
 msgstr ""
 

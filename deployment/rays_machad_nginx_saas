@@ -24,13 +24,13 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/var/www/RaysTech/madrasah_mgmt/madrasah.sock;
+        proxy_pass http://unix:/var/www/RaysTech/Rays_Machad/rays_machad.sock;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_set_header X-Forwarded-Host $host;
     }
 
     location /static {
-        alias /var/www/RaysTech/madrasah_mgmt/app/static;
+        alias /var/www/RaysTech/Rays_Machad/app/static;
         expires 30d;
     }
 }

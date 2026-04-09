@@ -3,7 +3,7 @@ from app.models.mixins import SchoolContextMixin
 
 class RolePermission(db.Model, SchoolContextMixin):
     __tablename__ = 'role_permissions'
-    __table_args__ = {'schema': 'madrasah_db'}
+    __table_args__ = {'schema': 'Rays_machda'}
     
     id = db.Column(db.Integer, primary_key=True)
     role = db.Column(db.String(10), nullable=False) # 'A', 'T', 'S', 'F', 'P', 'U'

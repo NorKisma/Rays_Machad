@@ -2,7 +2,7 @@
 
 ## Supported Languages
 
-The Madrasah Management System supports **3 languages**:
+The Rays Machad Management System supports **3 languages**:
 
 1. 🇺🇸 **English (en)** - Default
 2. 🇸🇦 **Arabic (ar)** - العربية (Full RTL support)
@@ -79,7 +79,7 @@ The Madrasah Management System supports **3 languages**:
 ### 1. Extract New Strings
 
 ```bash
-cd /var/www/RaysTech/madrasah_mgmt
+cd /var/www/RaysTech/rays_machad_mgmt
 pybabel extract -F babel.cfg -o messages.pot app run.py
 ```
 
@@ -116,7 +116,7 @@ pybabel compile -d app/translations
 ### 5. Restart Application
 
 ```bash
-sudo systemctl restart madrasah.service
+sudo systemctl restart rays_machad.service
 ```
 
 ## Translation Files Location

@@ -7,6 +7,7 @@ from app.models.class_schedule import ClassSchedule # Assuming this holds class 
 from app.models.user import User
 from app.extensions import db
 from flask_babel import _
+from datetime import datetime
 
 from app.utils.decorators import admin_required, permission_required
 from app.utils.generators import generate_student_id
@@ -83,18 +84,16 @@ def add_student():
             full_name=form.full_name.data,
             enrollment_number=form.enrollment_number.data,
             class_id=form.student_class.data,
-            date_of_birth=form.date_of_birth.data,
+            age=form.age.data,
             gender=form.gender.data,
             father_name=form.father_name.data,
             mother_name=form.mother_name.data,
             parent_contact=form.parent_contact.data,
             address=form.address.data,
-            hifz_status=form.hifz_status.data,
-            current_juz=form.current_juz.data,
-            current_surah=form.current_surah.data,
-            current_aya=form.current_aya.data,
             monthly_fee=form.monthly_fee.data,
             status=form.status.data,
+            admission_date=form.admission_date.data or datetime.utcnow().date(),
+            shift=form.shift.data,
             parent_id=form.linked_parent.data if form.linked_parent.data != 0 else None,
             student_user_id=form.student_user.data if form.student_user.data != 0 else None
         )
@@ -136,12 +135,7 @@ def student_profile(student_id):
     attendance_history = student.attendances.order_by(db.desc('attendance_date')).limit(30).all()
     exam_results = student.exam_results.order_by(db.desc('id')).all()
     
-    # Quran Progress
-    from app.models.quran import QuranProgress, QuranSession
-    quran_progress = QuranProgress.query.filter_by(student_id=student.id).first()
-    quran_sessions = []
-    if quran_progress:
-        quran_sessions = QuranSession.query.filter_by(progress_id=quran_progress.id).order_by(db.desc('session_date')).limit(15).all()
+
 
     # Only fetch fees if NOT a teacher
     fees = []
@@ -163,9 +157,7 @@ def student_profile(student_id):
                            exam_results=exam_results,
                            fees=fees,
                            attendance_stats=attendance_stats,
-                           attendance_labels=attendance_labels,
-                           quran_progress=quran_progress,
-                           quran_sessions=quran_sessions)
+                           attendance_labels=attendance_labels)
 
 @students_bp.route('/edit/<int:student_id>', methods=['GET', 'POST'])
 @permission_required('students')
@@ -192,18 +184,16 @@ def edit_student(student_id):
         student.full_name = form.full_name.data
         student.enrollment_number = form.enrollment_number.data
         student.class_id = form.student_class.data
-        student.date_of_birth = form.date_of_birth.data
+        student.age = form.age.data
         student.gender = form.gender.data
         student.father_name = form.father_name.data
         student.mother_name = form.mother_name.data
         student.parent_contact = form.parent_contact.data
         student.address = form.address.data
-        student.hifz_status = form.hifz_status.data
-        student.current_juz = form.current_juz.data
-        student.current_surah = form.current_surah.data
-        student.current_aya = form.current_aya.data
         student.monthly_fee = form.monthly_fee.data
         student.status = form.status.data
+        student.admission_date = form.admission_date.data or student.admission_date or datetime.utcnow().date()
+        student.shift = form.shift.data
         student.parent_id = form.linked_parent.data if form.linked_parent.data != 0 else None
         student.student_user_id = form.student_user.data if form.student_user.data != 0 else None
         
@@ -245,20 +235,13 @@ def send_whatsapp(student_id):
     
     lang = session.get('lang') or request.accept_languages.best_match(['en', 'so', 'ar']) or 'en'
     
-    # Generate a simple progress update message
+    # Generate a simple update message
     parent_name = student.father_name or student.mother_name or _("Parent")
-    message = bot.generate_progress_update(
-        parent_name, 
-        student.full_name, 
-        student.current_juz or 1, 
-        student.current_surah or 'N/A', 
-        student.current_aya or '0',
-        lang=lang
-    )
+    message = f"Asc {parent_name}, xogta ardayga {student.full_name} waa la cusboonaysiiyay."
     
     success, info = messenger.send_hybrid_message(student.parent_contact, message)
     if success:
-        flash(_("Progress update sent to parent successfully!"), 'success')
+        flash(_("Update sent to parent successfully!"), 'success')
     else:
         flash(_("Failed to send message: %(error)s", error=str(info)), 'danger')
         

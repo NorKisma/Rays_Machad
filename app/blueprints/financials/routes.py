@@ -33,28 +33,28 @@ def view_receipt(fee_id):
     if not is_authorized:
         abort(403)
 
-    madrasah_name = SystemSetting.get_setting('madrasah_name', 'Darul Arqam Madrasah')
-    madrasah_address = SystemSetting.get_setting('madrasah_address', '123 Islamic Center Way, City, Country')
-    madrasah_phone = SystemSetting.get_setting('madrasah_phone', '+123 456 7890')
+    rays_machad_name = SystemSetting.get_setting('rays_machad_name', 'Darul Arqam Rays Machad')
+    rays_machad_address = SystemSetting.get_setting('rays_machad_address', '123 Islamic Center Way, City, Country')
+    rays_machad_phone = SystemSetting.get_setting('rays_machad_phone', '+123 456 7890')
     
     return render_template('financials/receipt.html', 
                            fee=fee, 
-                           madrasah_name=madrasah_name,
-                           madrasah_address=madrasah_address,
-                           madrasah_phone=madrasah_phone,
+                           rays_machad_name=rays_machad_name,
+                           rays_machad_address=rays_machad_address,
+                           rays_machad_phone=rays_machad_phone,
                            now=datetime.utcnow())
 
 @financials_bp.route('/voucher/<int:expense_id>')
 @permission_required('financials')
 def view_voucher(expense_id):
     expense = Expense.query.get_or_404(expense_id)
-    madrasah_name = SystemSetting.get_setting('madrasah_name', 'Darul Arqam Madrasah')
-    madrasah_address = SystemSetting.get_setting('madrasah_address', '123 Islamic Center Way, City, Country')
+    rays_machad_name = SystemSetting.get_setting('rays_machad_name', 'Darul Arqam Rays Machad')
+    rays_machad_address = SystemSetting.get_setting('rays_machad_address', '123 Islamic Center Way, City, Country')
     
     return render_template('financials/voucher.html', 
                            expense=expense,
-                           madrasah_name=madrasah_name,
-                           madrasah_address=madrasah_address,
+                           rays_machad_name=rays_machad_name,
+                           rays_machad_address=rays_machad_address,
                            now=datetime.utcnow())
 
 @financials_bp.route('/')

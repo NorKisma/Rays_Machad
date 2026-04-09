@@ -1,7 +1,7 @@
 # OTP-Based Password Reset Feature
 
 ## Overview
-The Madrasah Management System now supports **OTP (One-Time Password)** based password reset functionality. Users can securely reset their passwords by receiving a 6-digit code via email.
+The Rays Machad Management System now supports **OTP (One-Time Password)** based password reset functionality. Users can securely reset their passwords by receiving a 6-digit code via email.
 
 ## How It Works
 
@@ -204,7 +204,7 @@ When `FLASK_ENV=development` and email sending fails:
 ## Support
 
 For issues or questions:
-- Check the error logs in `/var/www/RaysTech/madrasah_mgmt/`
+- Check the error logs in `/var/www/RaysTech/rays_machad_mgmt/`
 - Review Flask application logs
 - Contact system administrator
 
@@ -212,4 +212,4 @@ For issues or questions:
 
 **Version**: 1.0.0
 **Last Updated**: 2026-02-07
-**Author**: Madrasah Management System Team
+**Author**: Rays Machad Management System Team

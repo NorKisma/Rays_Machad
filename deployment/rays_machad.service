@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve Rays Machad App
+After=network.target
+
+[Service]
+User=root
+Group=www-data
+WorkingDirectory=/var/www/RaysTech/Rays_Machad
+Environment="PATH=/var/www/RaysTech/Rays_Machad/venv/bin"
+ExecStart=/var/www/RaysTech/Rays_Machad/venv/bin/python3 -m gunicorn --workers 3 --bind unix:rays_machad.sock -m 007 run:app
+
+[Install]
+WantedBy=multi-user.target

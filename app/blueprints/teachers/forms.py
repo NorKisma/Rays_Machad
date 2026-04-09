@@ -8,17 +8,6 @@ class TeacherRegistrationForm(FlaskForm):
     employee_number = StringField(_('Employee ID'), validators=[DataRequired()])
     email = StringField(_('Email Address'), validators=[DataRequired(), Email()])
     phone = StringField(_('Phone Number'))
-    specialization = SelectField(_('Specialization'), choices=[
-        ('Hifz', _('Hifz')),
-        ('Tajwid', _('Tajwid')),
-        ('Arabic', _('Arabic')),
-        ('Islamic Studies', _('Islamic Studies')),
-        ('Sharia', _('Sharia')),
-        ('Fiqh', _('Fiqh')),
-        ('Hadith', _('Hadith')),
-        ('Sira', _('Sira')),
-        ('General', _('General'))
-    ])
     qualification = StringField(_('Qualification'))
     monthly_salary = StringField(_('Monthly Salary'), default='0')
     joining_date = DateField(_('Joining Date'), validators=[Optional()])

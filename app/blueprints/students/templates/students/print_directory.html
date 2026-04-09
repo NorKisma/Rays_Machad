@@ -23,12 +23,12 @@
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-3">
             <div class="logo-icon bg-primary p-3 rounded-4 shadow-sm">
-                <i class="fa-solid fa-mosque fa-2xl text-white"></i>
+                <i class="fa-solid fa-school fa-2xl text-white"></i>
             </div>
             <div>
-                <h2 class="fw-bold mb-0 text-primary">{{ madrasah_name }}</h2>
-                <p class="text-muted small mb-0">{{ madrasah_address }}</p>
-                <p class="text-muted small mb-0">{{ madrasah_phone }}</p>
+                <h2 class="fw-bold mb-0 text-primary">{{ rays_machad_name }}</h2>
+                <p class="text-muted small mb-0">{{ rays_machad_address }}</p>
+                <p class="text-muted small mb-0">{{ rays_machad_phone }}</p>
             </div>
         </div>
         <div class="text-end">
@@ -49,7 +49,6 @@
                         <th class="text-uppercase fw-bold text-muted">{{ _('Parents') }}</th>
                         <th class="text-uppercase fw-bold text-muted">{{ _('Contact/Address') }}</th>
                         <th class="text-uppercase fw-bold text-muted">{{ _('Academic') }}</th>
-                        <th class="text-uppercase fw-bold text-muted">{{ _('Hifz Detail') }}</th>
                         <th class="pe-3 text-uppercase fw-bold text-muted">{{ _('Status/Reg') }}</th>
                     </tr>
                 </thead>
@@ -88,14 +87,8 @@
                                 <span class="text-muted small italic">{{ _('No Class') }}</span>
                                 {% endif %}
                             </div>
-                        </td>
-                        <td>
-                            <div class="badge bg-indigo bg-opacity-10 text-indigo px-2 mb-1" style="font-size: 0.6rem;">
-                                {{ student.hifz_status }}</div>
-                            <div class="small">
-                                <span class="fw-bold">{{ _('Juz') }} {{ student.current_juz }}</span>
-                                <span class="text-muted mx-1">|</span>
-                                <span class="text-muted">{{ student.current_surah or 'N/A' }}</span>
+                            <div class="text-muted small">
+                                <span>{{ _('Admission:') }} {{ student.admission_date.strftime('%Y-%m-%d') if student.admission_date else 'N/A' }}</span>
                             </div>
                         </td>
                         <td class="pe-3">
@@ -127,7 +120,7 @@
         <div class="text-center" style="width: 250px;">
             <div class="mb-2" style="border-bottom: 2px solid #334155; height: 40px;"></div>
             <p class="fw-bold text-uppercase small mb-0">{{ _('Authorized Signature') }}</p>
-            <small class="text-muted">{{ _('Madrasah Administration') }}</small>
+            <small class="text-muted">{{ _('Rays Machad Administration') }}</small>
         </div>
     </div>
 </div>

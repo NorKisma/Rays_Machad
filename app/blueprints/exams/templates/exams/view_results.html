@@ -94,7 +94,7 @@
                                 <span class="fw-semibold">{{ student.full_name }}</span>
                             </div>
                         </td>
-                        <td class="fw-bold">
+                        <td class="fw-bold" data-order="{{ result.marks_obtained if result and result.marks_obtained is not none else -1 }}">
                             {% if result and result.marks_obtained is not none %}
                             {{ result.marks_obtained }}/{{ exam.total_marks }}
                             {% else %}
@@ -158,4 +158,50 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    $(document).ready(function () {
+        const langData = JSON.parse(`{{ {
+                "search": _('Search:'),
+                "lengthMenu": _('Show _MENU_ entries'),
+                "info": _('Showing _START_ to _END_ of _TOTAL_ entries'),
+                "paginate": {
+                    "first": _('First'),
+                    "last": _('Last'),
+                    "next": _('Next'),
+                    "previous": _('Previous')
+                },
+                "emptyTable": _('No exam results found for these students.')
+            } | tojson | safe }}`);
+
+        // Only initialize if not already initialized by js.js
+        if (!$.fn.DataTable.isDataTable('#resultsTable')) {
+            const table = $('#resultsTable').DataTable({
+                "pageLength": 25,
+                "order": [[0, "asc"]],
+                "language": langData,
+                "responsive": true,
+                "dom": '<"row align-items-center mb-3 p-3 pb-0"<"col-md-6 d-flex align-items-center gap-3"lB><"col-md-6"f>>t<"row align-items-center mt-3 pt-3 border-top p-3"<"col-md-6"i><"col-md-6"p>>',
+                "buttons": [
+                    { extend: 'copy', className: 'btn btn-sm btn-light border px-3 fw-bold' },
+                    { extend: 'excel', className: 'btn btn-sm btn-light border px-3 fw-bold text-success' },
+                    { extend: 'print', className: 'btn btn-sm btn-light border px-3 fw-bold text-primary' }
+                ]
+            });
+            
+            // Link the global search bar in the header to DataTables
+            $('#headerSearchInput').on('keyup', function () {
+                table.search(this.value).draw();
+            });
+            
+            // If there's already a search value from server-side, apply it
+            const initialSearch = $('#headerSearchInput').val();
+            if (initialSearch) {
+                table.search(initialSearch).draw();
+            }
+        }
+    });
+</script>
 {% endblock %}

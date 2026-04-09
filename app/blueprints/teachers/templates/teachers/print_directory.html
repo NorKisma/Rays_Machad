@@ -4,7 +4,7 @@
 <div class="d-flex justify-content-between align-items-center mb-4 no-print">
     <div>
         <h3 class="fw-bold mb-0 text-dark">{{ _('Teacher Directory') }}</h3>
-        <p class="text-muted small mb-0">{{ _('Official roster of all Madrasah staff and teachers.') }}</p>
+        <p class="text-muted small mb-0">{{ _('Official roster of all Rays Machad staff and teachers.') }}</p>
     </div>
     <div class="d-flex gap-2">
         <button onclick="window.print()"
@@ -23,12 +23,12 @@
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-3">
             <div class="logo-icon bg-primary p-3 rounded-4 shadow-sm">
-                <i class="fa-solid fa-mosque fa-2xl text-white"></i>
+                <i class="fa-solid fa-graduation-cap fa-2xl text-white"></i>
             </div>
             <div>
-                <h2 class="fw-bold mb-0 text-primary">{{ madrasah_name }}</h2>
-                <p class="text-muted small mb-0">{{ madrasah_address }}</p>
-                <p class="text-muted small mb-0">{{ madrasah_phone }}</p>
+                <h2 class="fw-bold mb-0 text-primary">{{ rays_machad_name }}</h2>
+                <p class="text-muted small mb-0">{{ rays_machad_address }}</p>
+                <p class="text-muted small mb-0">{{ rays_machad_phone }}</p>
             </div>
         </div>
         <div class="text-end">
@@ -52,9 +52,9 @@
                         <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
                             {{ _('Contact Info') }}</th>
                         <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
-                            {{ _('Specialization') }}</th>
-                        <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
                             {{ _('Qualification') }}</th>
+                        <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
+                            {{ _('Subjects') }}</th>
                         <th class="text-uppercase fw-bold text-dark" style="border-bottom: 2px solid #000 !important;">
                             {{ _('Joined Date') }}</th>
                         <th class="pe-3 text-uppercase fw-bold text-dark text-center"
@@ -70,8 +70,24 @@
                             <div class="text-muted" style="font-size: 0.75rem;">{{ teacher.email }}</div>
                         </td>
                         <td class="fw-bold">{{ teacher.phone }}</td>
-                        <td class="text-muted">{{ teacher.specialization or '' }}</td>
                         <td class="text-muted">{{ teacher.qualification or 'N/A' }}</td>
+                        <td>
+                            {% set teacher_subjects = [] %}
+                            {% for cls in teacher.classes %}
+                                {% if cls.subject and cls.subject.name not in teacher_subjects %}
+                                    {% set _ = teacher_subjects.append(cls.subject.name) %}
+                                {% endif %}
+                            {% endfor %}
+                            <div class="d-flex flex-wrap gap-1">
+                                {% if teacher_subjects %}
+                                    {% for sub in teacher_subjects %}
+                                        <span class="badge border bg-light text-primary px-2" style="font-size: 0.7rem;">{{ sub }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <small class="text-muted italic">{{ _('None') }}</small>
+                                {% endif %}
+                            </div>
+                        </td>
                         <td class="text-muted">{{ teacher.joining_date.strftime('%Y-%m-%d') if teacher.joining_date else
                             'N/A' }}</td>
                         <td class="pe-3 text-center">
@@ -100,7 +116,7 @@
         <div class="text-center" style="width: 250px;">
             <div class="mb-2" style="border-bottom: 2px solid #334155; height: 40px;"></div>
             <p class="fw-bold text-uppercase small mb-0">{{ _('AUTHORIZED SIGNATURE') }}</p>
-            <small class="text-muted">{{ _('Madrasah Administration') }}</small>
+            <small class="text-muted">{{ _('Rays Machad Administration') }}</small>
         </div>
     </div>
 </div>

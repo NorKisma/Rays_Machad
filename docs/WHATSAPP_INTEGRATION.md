@@ -1,6 +1,6 @@
 # WhatsApp Integration Guide (Production Focused)
 
-This guide details the architecture and implementation of the WhatsApp integration for Madrasah Management. It follows best practices for reliability, rate limiting, and security.
+This guide details the architecture and implementation of the WhatsApp integration for Rays Machad Management. It follows best practices for reliability, rate limiting, and security.
 
 ## Architecture Overview
 
@@ -39,11 +39,11 @@ sudo systemctl start redis-server
 ### 2. Running the Worker (Background Queue)
 For production, use Supervisor to keep the Celery worker running.
 
-**Create Supervisor Config:** `/etc/supervisor/conf.d/madrasah_celery.conf`
+**Create Supervisor Config:** `/etc/supervisor/conf.d/rays_machad_celery.conf`
 ```ini
-[program:madrasah_celery]
-directory=/var/www/RaysTech/madrasah_mgmt
-command=/var/www/RaysTech/madrasah_mgmt/venv/bin/celery -A app.celery worker --loglevel=info
+[program:rays_machad_celery]
+directory=/var/www/RaysTech/rays_machad_mgmt
+command=/var/www/RaysTech/rays_machad_mgmt/venv/bin/celery -A app.celery worker --loglevel=info
 user=www-data
 autostart=true
 autorestart=true
@@ -56,8 +56,8 @@ Run `sudo supervisorctl reread && sudo supervisorctl update`.
 
 ### 3. HTTPS & Webhooks (Crucial)
 Meta REQUIRES `https://` for webhooks.
--   **Domain**: `https://your-madrasah-domain.com`
--   **Webhook URL**: `https://your-madrasah-domain.com/whatsapp/webhook`
+-   **Domain**: `https://your-rays_machad-domain.com`
+-   **Webhook URL**: `https://your-rays_machad-domain.com/whatsapp/webhook`
 -   **Verify Token**: Must match `WHATSAPP_VERIFY_TOKEN` in `.env`.
 
 In Meta App Dashboard > WhatsApp > Configuration:

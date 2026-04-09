@@ -1,8 +1,8 @@
-# Madrasah Management System - Role Permissions Summary
+# Rays Machad Management System - Role Permissions Summary
 
 ## Updated: 2026-01-27 (Dynamic System)
 
-This document outlines the **Dynamic Access Control System** implemented in the Madrasah Management System. Unlike hardcoded roles, the Admin can now manage permissions for each role dynamically through the system settings.
+This document outlines the **Dynamic Access Control System** implemented in the Rays Machad Management System. Unlike hardcoded roles, the Admin can now manage permissions for each role dynamically through the system settings.
 
 ---
 
@@ -69,6 +69,6 @@ All permission titles and descriptions are available in:
 
 ---
 
-**System:** Madrasah Management System  
+**System:** Rays Machad Management System  
 **Version:** 3.0 (Dynamic RBAC)  
 **Last Updated:** January 27, 2026

@@ -2,7 +2,7 @@
 
 ## ✅ Feature Successfully Implemented!
 
-The Madrasah Management System now has a fully functional **OTP-based password reset** feature.
+The Rays Machad Management System now has a fully functional **OTP-based password reset** feature.
 
 ## 🚀 What Was Done
 

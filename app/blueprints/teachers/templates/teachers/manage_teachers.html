@@ -7,7 +7,7 @@
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
     <div>
         <h3 class="fw-bold mb-0 text-dark">{{ _('Teacher Management') }}</h3>
-        <p class="text-muted small mb-0">{{ _('View and manage madrasah staff members') }}</p>
+        <p class="text-muted small mb-0">{{ _('View and manage rays_machad staff members') }}</p>
     </div>
 
     <div class="d-flex gap-2 ms-auto">
@@ -51,29 +51,15 @@
         </div>
     </div>
     <div class="col-md-3">
-        <div class="card stats-card stats-card-info p-3 h-100">
+        <div class="card stats-card stats-card-dark p-3 h-100">
             <div class="d-flex align-items-center gap-3">
                 <div class="icon-box-glass">
-                    <i class="fa-solid fa-mosque fa-xl"></i>
+                    <i class="fa-solid fa-user-slash fa-xl"></i>
                 </div>
                 <div>
-                    <h6 class="mb-0 text-muted small text-uppercase fw-bold">{{ _('Hifz Teachers') }}</h6>
-                    <h4 class="mb-0 fw-bold text-dark">{{ teachers|selectattr('specialization', 'equalto',
-                        'Hifz')|list|length }}</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <div class="card stats-card stats-card-pending p-3 h-100">
-            <div class="d-flex align-items-center gap-3">
-                <div class="icon-box-glass">
-                    <i class="fa-solid fa-book-quran fa-xl"></i>
-                </div>
-                <div>
-                    <h6 class="mb-0 text-muted small text-uppercase fw-bold">{{ _('Tajwid') }}</h6>
-                    <h4 class="mb-0 fw-bold text-dark">{{ teachers|selectattr('specialization', 'equalto',
-                        'Tajwid')|list|length }}</h4>
+                    <h6 class="mb-0 text-muted small text-uppercase fw-bold">{{ _('Inactive/Resigned') }}</h6>
+                    <h4 class="mb-0 fw-bold text-dark">{{ teachers|selectattr('status', 'ne', 'Active')|list|length
+                        }}</h4>
                 </div>
             </div>
         </div>
@@ -90,8 +76,8 @@
                         <th class="ps-4 text-uppercase small fw-bold text-muted">{{ _('Teacher') }}</th>
                         <th class="text-uppercase small fw-bold text-muted">{{ _('ID No.') }}</th>
                         <th class="text-uppercase small fw-bold text-muted">{{ _('Phone') }}</th>
-                        <th class="text-uppercase small fw-bold text-muted">{{ _('Specialization') }}</th>
                         <th class="text-uppercase small fw-bold text-muted">{{ _('Qualification') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Subjects') }}</th>
                         <th class="text-uppercase small fw-bold text-muted">{{ _('Status') }}</th>
                         <th class="text-end pe-4 text-uppercase small fw-bold text-muted">{{ _('Actions') }}</th>
                     </tr>
@@ -112,16 +98,26 @@
                             </div>
                         </td>
                         <td class="text-muted">{{ t.employee_number }}</td>
-                        <td class="small">{{ t.phone }}</td>
+                        <td class="small text-muted">{{ t.phone }}</td>
+                        <td class="small text-muted">{{ t.qualification or 'N/A' }}</td>
                         <td>
-                            <div class="d-flex flex-column">
-                                <span
-                                    class="badge bg-light text-primary border border-primary border-opacity-10 px-3 mb-1">{{
-                                    _(t.specialization) }}</span>
-                                <small class="text-muted text-center">{{ t.classes|length }} {{ _('Classes') }}</small>
+                            <div class="d-flex flex-wrap gap-1">
+                                {% set subjects = [] %}
+                                {% for cls in t.classes %}
+                                    {% if cls.subject and cls.subject.name not in subjects %}
+                                        {% set _ = subjects.append(cls.subject.name) %}
+                                    {% endif %}
+                                {% endfor %}
+                                
+                                {% if subjects %}
+                                    {% for sub in subjects %}
+                                    <span class="badge bg-primary px-2 py-1 rounded-pill shadow-sm" style="font-size: 0.75rem;">{{ sub }}</span>
+                                    {% endfor %}
+                                {% else %}
+                                    <small class="text-muted italic">{{ _('None') }}</small>
+                                {% endif %}
                             </div>
                         </td>
-                        <td class="small text-muted">{{ t.qualification or 'N/A' }}</td>
                         <td>
                             {% if t.status == 'Active' %}
                             <span class="badge badge-soft-success px-3">{{ _('Active') }}</span>

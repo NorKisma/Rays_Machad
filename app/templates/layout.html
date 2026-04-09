@@ -13,12 +13,12 @@
                 <i class="fa-solid fa-bars-staggered"></i>
             </button>
             <div class="d-flex align-items-center gap-2 ms-1">
-                <div class="bg-gradient-premium p-1 rounded-2 shadow-sm"
-                    style="width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">
-                    <i class="fa-solid fa-graduation-cap text-white" style="font-size: 0.85rem;"></i>
+                <div class="bg-white p-0 rounded-2 shadow-sm overflow-hidden"
+                    style="width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;">
+                    <img src="{{ url_for('static', filename='machad_logo.png') }}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <span class="fw-bold text-dark" style="letter-spacing: -0.5px; font-size: 1rem;">
-                    {{ madrasah_name.split()[0] if madrasah_name else _('Academy') }}</span>
+                    {{ rays_machad_name.split()[0] if rays_machad_name else _('Academy') }}</span>
             </div>
         </div>
 
@@ -159,16 +159,16 @@
 
         <div class="p-4 d-none d-md-block">
             <div class="d-flex align-items-center gap-3">
-                <div class="logo-icon bg-gradient-premium p-2 rounded-3 shadow-sm">
-                    <i class="fa-solid fa-school fa-xl text-white"></i>
+                <div class="logo-icon bg-white p-0 rounded-3 shadow-sm overflow-hidden" style="width: 48px; height: 48px;">
+                    <img src="{{ url_for('static', filename='machad_logo.png') }}" alt="Logo" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div>
                     <h4 class="mb-0 fw-bold text-white letter-spacing-1 text-truncate" style="max-width: 150px;">
-                        {{ madrasah_name.split()[0] if madrasah_name else _('Academy') }}
+                        {{ rays_machad_name.split()[0] if rays_machad_name else _('Academy') }}
                     </h4>
                     <small class="text-white-50 text-uppercase fw-bold text-truncate d-block"
                         style="font-size: 0.65rem; letter-spacing: 0.1em; max-width: 150px;">
-                        {{ ' '.join(madrasah_name.split()[1:]) if madrasah_name and madrasah_name.split()|length > 1
+                        {{ ' '.join(rays_machad_name.split()[1:]) if rays_machad_name and rays_machad_name.split()|length > 1
                         else _('Hub') }}
                     </small>
                 </div>
@@ -236,18 +236,31 @@
             </li>
             {% endif %}
 
-            <li class="nav-item">
-                <a class="nav-link {{ 'active' if request.blueprint == 'quran' else '' }}"
-                    href="{{ url_for('quran.index') }}">
-                    <i class="fa-solid fa-book-quran me-2"></i> {{ _('Quran Progress') }}
-                </a>
-            </li>
+            <!-- Sidebar navigation items -->
             {% if RolePermission.check(current_user.role, 'exams') %}
             <li class="nav-item">
-                <a class="nav-link {{ 'active' if request.blueprint == 'exams' else '' }}"
-                    href="{{ url_for('exams.manage_exams') }}">
-                    <i class="fa-solid fa-chart-line me-2"></i> {{ _('Exams') }}
+                <a class="nav-link d-flex align-items-center justify-content-between {{ 'active' if request.blueprint == 'exams' else '' }}"
+                    data-bs-toggle="collapse" href="#examsDropdown" role="button"
+                    aria-expanded="{{ 'true' if request.blueprint == 'exams' else 'false' }}">
+                    <span><i class="fa-solid fa-chart-line me-2"></i> {{ _('Exams') }}</span>
+                    <i class="fa-solid fa-chevron-down ms-auto small transition-300"></i>
                 </a>
+                <div class="collapse {{ 'show' if request.blueprint == 'exams' else '' }}" id="examsDropdown">
+                    <ul class="nav flex-column ms-3 border-start border-light border-opacity-10">
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'exams.manage_exams' else '' }}"
+                                href="{{ url_for('exams.manage_exams') }}">
+                                <i class="fa-solid fa-list me-2 small"></i> {{ _('Manage Exams') }}
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link py-2 {{ 'active' if request.endpoint == 'exams.student_rankings' else '' }}"
+                                href="{{ url_for('exams.student_rankings') }}">
+                                <i class="fa-solid fa-trophy me-2 small text-warning"></i> {{ _('Student Rankings') }}
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </li>
             {% endif %}
 
@@ -423,9 +436,9 @@
         <div class="d-none d-print-block mb-4 p-4 border-bottom">
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <h2 class="fw-bold mb-0 text-primary">{{ madrasah_name }}</h2>
-                    <p class="text-muted small mb-0">{{ madrasah_address }}</p>
-                    <p class="text-muted small mb-0">{{ madrasah_phone }}</p>
+                    <h2 class="fw-bold mb-0 text-primary">{{ rays_machad_name }}</h2>
+                    <p class="text-muted small mb-0">{{ rays_machad_address }}</p>
+                    <p class="text-muted small mb-0">{{ rays_machad_phone }}</p>
                 </div>
                 <div class="text-end">
                     <h4 class="text-uppercase text-muted letter-spacing-1 mb-0">{{ _('Official Record') }}</h4>

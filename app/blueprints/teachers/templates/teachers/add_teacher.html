@@ -42,7 +42,7 @@
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-muted">{{ _('Email Address') }}</label>
-                            {{ form.email(class="form-control", placeholder="teacher@madrasah.com") }}
+                            {{ form.email(class="form-control", placeholder="teacher@rays_machad.com") }}
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-muted">{{ _('Phone Number') }}</label>
@@ -59,15 +59,11 @@
                     </div>
 
                     <div class="row g-4 mb-5">
-                        <div class="col-md-4">
-                            <label class="form-label small fw-bold text-muted">{{ _('Specialization') }}</label>
-                            {{ form.specialization(class="form-select") }}
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label small fw-bold text-muted">{{ _('Qualification') }}</label>
                             {{ form.qualification(class="form-control", placeholder=_("e.g. Islamic Law Degree")) }}
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <label class="form-label small fw-bold text-muted">{{ _('Status') }}</label>
                             {{ form.status(class="form-select") }}
                         </div>

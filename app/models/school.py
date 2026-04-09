@@ -3,7 +3,7 @@ from datetime import datetime
 
 class School(db.Model):
     __tablename__ = 'schools'
-    __table_args__ = {'schema': 'madrasah_db'}
+    __table_args__ = {'schema': 'Rays_machda'}
     
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)

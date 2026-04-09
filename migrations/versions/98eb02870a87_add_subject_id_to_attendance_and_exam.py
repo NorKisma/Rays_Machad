@@ -21,83 +21,83 @@ def upgrade():
     with op.batch_alter_table('announcements', schema=None) as batch_op:
         batch_op.drop_constraint('announcements_ibfk_3', type_='foreignkey')
         batch_op.drop_constraint('announcements_ibfk_2', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'users', ['created_by_id'], ['id'], referent_schema='madrasah_db')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'users', ['created_by_id'], ['id'], referent_schema='Rays_machda')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('attendance', schema=None) as batch_op:
         batch_op.add_column(sa.Column('subject_id', sa.Integer(), nullable=True))
         batch_op.drop_constraint('attendance_ibfk_4', type_='foreignkey')
         batch_op.create_foreign_key(None, 'subjects', ['subject_id'], ['id'])
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('categories', schema=None) as batch_op:
         batch_op.drop_constraint('categories_ibfk_2', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('class_schedules', schema=None) as batch_op:
         batch_op.drop_constraint('class_schedules_ibfk_2', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('class_sessions', schema=None) as batch_op:
         batch_op.drop_constraint('class_sessions_ibfk_2', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('exam_results', schema=None) as batch_op:
         batch_op.drop_constraint('exam_results_ibfk_5', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('exams', schema=None) as batch_op:
         batch_op.add_column(sa.Column('subject_id', sa.Integer(), nullable=True))
         batch_op.drop_constraint('exams_ibfk_4', type_='foreignkey')
         batch_op.create_foreign_key(None, 'subjects', ['subject_id'], ['id'])
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('expenses', schema=None) as batch_op:
         batch_op.drop_constraint('expenses_ibfk_3', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('fees', schema=None) as batch_op:
         batch_op.drop_constraint('fees_ibfk_2', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('login_logs', schema=None) as batch_op:
         batch_op.drop_constraint('login_logs_ibfk_1', type_='foreignkey')
         batch_op.drop_constraint('login_logs_ibfk_2', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'users', ['user_id'], ['id'], referent_schema='madrasah_db')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'users', ['user_id'], ['id'], referent_schema='Rays_machda')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('message_logs', schema=None) as batch_op:
         batch_op.drop_constraint('message_logs_ibfk_1', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('otps', schema=None) as batch_op:
         batch_op.drop_constraint('otps_ibfk_2', type_='foreignkey')
         batch_op.drop_constraint('otps_ibfk_1', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
-        batch_op.create_foreign_key(None, 'users', ['user_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
+        batch_op.create_foreign_key(None, 'users', ['user_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('role_permissions', schema=None) as batch_op:
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('students', schema=None) as batch_op:
         batch_op.create_index(batch_op.f('ix_students_school_id'), ['school_id'], unique=False)
         batch_op.drop_constraint('students_ibfk_4', type_='foreignkey')
         batch_op.drop_constraint('students_ibfk_2', type_='foreignkey')
         batch_op.drop_constraint('students_ibfk_3', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'users', ['parent_id'], ['id'], referent_schema='madrasah_db')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
-        batch_op.create_foreign_key(None, 'users', ['student_user_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'users', ['parent_id'], ['id'], referent_schema='Rays_machda')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
+        batch_op.create_foreign_key(None, 'users', ['student_user_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('subjects', schema=None) as batch_op:
         batch_op.drop_index('code')
         batch_op.drop_index('name')
         batch_op.create_index(batch_op.f('ix_subjects_school_id'), ['school_id'], unique=False)
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('system_settings', schema=None) as batch_op:
         batch_op.drop_index('uix_school_key')
         batch_op.drop_constraint('system_settings_ibfk_1', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('teachers', schema=None) as batch_op:
         batch_op.drop_index('email')
@@ -105,13 +105,13 @@ def upgrade():
         batch_op.create_index(batch_op.f('ix_teachers_school_id'), ['school_id'], unique=False)
         batch_op.drop_constraint('teachers_ibfk_2', type_='foreignkey')
         batch_op.drop_constraint('teachers_ibfk_1', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
-        batch_op.create_foreign_key(None, 'users', ['user_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
+        batch_op.create_foreign_key(None, 'users', ['user_id'], ['id'], referent_schema='Rays_machda')
 
     with op.batch_alter_table('users', schema=None) as batch_op:
-        batch_op.create_index(batch_op.f('ix_madrasah_db_users_school_id'), ['school_id'], unique=False)
+        batch_op.create_index(batch_op.f('ix_Rays_machda_users_school_id'), ['school_id'], unique=False)
         batch_op.drop_constraint('users_ibfk_1', type_='foreignkey')
-        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='madrasah_db')
+        batch_op.create_foreign_key(None, 'schools', ['school_id'], ['id'], referent_schema='Rays_machda')
 
     # ### end Alembic commands ###
 
@@ -121,7 +121,7 @@ def downgrade():
     with op.batch_alter_table('users', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='foreignkey')
         batch_op.create_foreign_key('users_ibfk_1', 'schools', ['school_id'], ['id'])
-        batch_op.drop_index(batch_op.f('ix_madrasah_db_users_school_id'))
+        batch_op.drop_index(batch_op.f('ix_Rays_machda_users_school_id'))
 
     with op.batch_alter_table('teachers', schema=None) as batch_op:
         batch_op.drop_constraint(None, type_='foreignkey')

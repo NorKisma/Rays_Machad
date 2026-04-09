@@ -17,7 +17,7 @@ class IPayService:
         self.api_user_id = current_app.config.get('IPAY_API_USER_ID')
         self.base_url = "https://api.waafipay.net/v1/gateway"
 
-    def initiate_payment(self, phone, amount, description="Madrasah Subscription"):
+    def initiate_payment(self, phone, amount, description="Rays Machad Subscription"):
         """
         Triggers a USSD push (EVC Plus / Waafi) to the user's phone.
         """

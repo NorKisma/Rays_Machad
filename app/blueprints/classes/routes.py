@@ -32,14 +32,19 @@ def add_class():
     form = ClassForm()
     # Populate teachers dropdown
     form.teacher_id.choices = [(0, _('Select Teacher'))] + [(t.id, t.full_name) for t in Teacher.query.filter_by(status='Active').all()]
+    form.subject_ids.choices = [(s.id, s.name) for s in Subject.query.all()]
     
     if form.validate_on_submit():
         new_class = ClassSchedule(
             class_name=form.class_name.data,
             description=form.description.data,
-            teacher_id=form.teacher_id.data,
-
+            teacher_id=form.teacher_id.data
         )
+        for sub_id in form.subject_ids.data:
+            subject = Subject.query.get(sub_id)
+            if subject:
+                new_class.subjects.append(subject)
+
         db.session.add(new_class)
         db.session.commit()
         flash(_("Class created successfully!"), "success")
@@ -54,11 +59,21 @@ def edit_class(class_id):
     form = ClassForm(obj=cls)
     # Populate teachers dropdown
     form.teacher_id.choices = [(0, _('Select Teacher'))] + [(t.id, t.full_name) for t in Teacher.query.filter_by(status='Active').all()]
+    form.subject_ids.choices = [(s.id, s.name) for s in Subject.query.all()]
     
+    if request.method == 'GET':
+        form.subject_ids.data = [s.id for s in cls.subjects]
+        
     if form.validate_on_submit():
         cls.class_name = form.class_name.data
         cls.description = form.description.data
         cls.teacher_id = form.teacher_id.data
+        
+        cls.subjects.clear()
+        for sub_id in form.subject_ids.data:
+            subject = Subject.query.get(sub_id)
+            if subject:
+                cls.subjects.append(subject)
 
         db.session.commit()
         flash(_("Class updated successfully!"), "success")

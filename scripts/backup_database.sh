@@ -2,9 +2,9 @@
 # Database Backup Script
 # Creates timestamped backup of the database
 
-BACKUP_DIR="/var/www/RaysTech/madrasah_mgmt/backups"
-DB_NAME="madrasah_db"
-DB_USER="madrasah_admin"
+BACKUP_DIR="/var/www/RaysTech/rays_machad_mgmt/backups"
+DB_NAME="Rays_machda"
+DB_USER="rays_machad_admin"
 DB_PASS="RaysTech2026"
 TIMESTAMP=$(date +"%Y%m%d_%H%M%S")
 BACKUP_FILE="$BACKUP_DIR/${DB_NAME}_${TIMESTAMP}.sql"

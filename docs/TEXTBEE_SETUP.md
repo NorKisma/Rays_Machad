@@ -17,7 +17,7 @@ TextBee allows you to use your own Android phone as an SMS Gateway. This is a co
 3.  Go to **API Keys** and generate a new key. Copy this **API Key**.
 
 ### Step C: Configure Your App
-1.  Open the `.env` file on your server (at `/var/www/RaysTech/madrasah_mgmt/.env`).
+1.  Open the `.env` file on your server (at `/var/www/RaysTech/rays_machad_mgmt/.env`).
 2.  Find the section `# TextBee SMS Configuration`.
 3.  Update the values with your credentials:
 
@@ -29,7 +29,7 @@ TEXTBEE_DEVICE_ID=your_device_id_here
 
 4.  Save the file and restart the service:
     ```bash
-    sudo systemctl restart madrasah
+    sudo systemctl restart rays_machad
     ```
 
 ## 3. How the Hybrid System Works
@@ -64,7 +64,7 @@ from app.utils.messaging import MessagingService
 
 ms = MessagingService()
 # Test SMS directly
-ms.send_textbee_sms("+1234567890", "Test SMS from Madrasah App")
+ms.send_textbee_sms("+1234567890", "Test SMS from Rays Machad App")
 
 # Test Hybrid (will try WhatsApp first)
 ms.send_hybrid_message("+1234567890", "Test Hybrid Message")

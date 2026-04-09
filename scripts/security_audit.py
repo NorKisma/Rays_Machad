@@ -85,12 +85,12 @@ def check_file_permissions():
     
     critical_files = [
         '.env',
-        'instance/madrasah.db',
+        'instance/rays_machad.db',
         'app/config.py',
         'run.py'
     ]
     
-    base_path = '/var/www/RaysTech/madrasah_mgmt'
+    base_path = '/var/www/RaysTech/rays_machad_mgmt'
     
     for file in critical_files:
         file_path = os.path.join(base_path, file)
@@ -160,7 +160,7 @@ def check_backup_status():
     """Check backup directory and recent backups"""
     print_header("💾 BACKUP STATUS CHECK")
     
-    backup_dir = '/var/www/RaysTech/madrasah_mgmt/backups'
+    backup_dir = '/var/www/RaysTech/rays_machad_mgmt/backups'
     
     if os.path.exists(backup_dir):
         backups = [f for f in os.listdir(backup_dir) if f.endswith('.db')]

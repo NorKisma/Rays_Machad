@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField, TextAreaField, SubmitField, DecimalField
+from wtforms import StringField, SelectField, TextAreaField, SubmitField, DecimalField, SelectMultipleField
 from wtforms.validators import DataRequired, Optional
 from flask_babel import lazy_gettext as _
 
@@ -7,6 +7,7 @@ class ClassForm(FlaskForm):
     class_name = StringField(_('Class Name'), validators=[DataRequired()])
     description = TextAreaField(_('Description'))
     teacher_id = SelectField(_('Main Teacher'), coerce=int, validators=[DataRequired()])
+    subject_ids = SelectMultipleField(_('Subjects'), coerce=int)
 
     submit = SubmitField(_('Save Class'))
 class ClassSessionForm(FlaskForm):
@@ -23,7 +24,6 @@ class SubjectForm(FlaskForm):
     name = StringField(_('Subject Name'), validators=[DataRequired()])
     code = StringField(_('Subject Code'), validators=[Optional()])
     category = SelectField(_('Category'), choices=[
-        ('Quranic', _('Quranic')),
         ('Arabic', _('Arabic')),
         ('Islamic Studies', _('Islamic Studies')),
         ('General', _('General Literacy')),

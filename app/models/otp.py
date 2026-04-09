@@ -7,10 +7,10 @@ from app.models.mixins import SchoolContextMixin
 
 class OTP(db.Model, SchoolContextMixin):
     __tablename__ = 'otps'
-    __table_args__ = {'schema': 'madrasah_db'}
+    __table_args__ = {'schema': 'Rays_machda'}
     
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.users.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.users.id'), nullable=False)
     code = db.Column(db.String(6), nullable=False)
     purpose = db.Column(db.String(50), nullable=False, default='password_reset')  # password_reset, login, etc
     is_used = db.Column(db.Boolean, default=False)

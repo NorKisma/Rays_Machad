@@ -166,7 +166,7 @@ msgid "Announcements"
 msgstr "Ogeysiisyada"
 
 #: app/blueprints/announcements/templates/announcements/index.html:8
-msgid "Stay updated with the latest news from the Madrasah."
+msgid "Stay updated with the latest news from the Rays Machad."
 msgstr ""
 
 #: app/blueprints/announcements/templates/announcements/index.html:29
@@ -1060,7 +1060,7 @@ msgstr ""
 #: app/blueprints/auth/templates/reset_password.html:7
 #: app/blueprints/auth/templates/reset_password_otp.html:7
 #: app/blueprints/auth/templates/verify_otp.html:7 app/templates/base.html:13
-msgid "Madrasah System"
+msgid "Rays Machad System"
 msgstr ""
 
 #: app/blueprints/auth/templates/forgot_password.html:141
@@ -1088,7 +1088,7 @@ msgstr "Heer sare oo xirfadeed oo dhinaca Waxbarashada Islaamka ah"
 
 #: app/blueprints/auth/templates/login.html:343
 msgid ""
-"Welcome to the next generation of Madrasah management. Our secure "
+"Welcome to the next generation of Rays Machad management. Our secure "
 "platform ensures your institutional data is protected while providing "
 "seamless administrative control."
 msgstr ""
@@ -1363,7 +1363,7 @@ msgid "There are currently no students linked to your parent account."
 msgstr ""
 
 #: app/blueprints/auth/templates/my_children.html:59
-msgid "Please contact the Madrasah administration to link your children."
+msgid "Please contact the Rays Machad administration to link your children."
 msgstr ""
 
 #: app/blueprints/auth/templates/my_payments.html:7
@@ -1441,7 +1441,7 @@ msgstr ""
 
 #: app/blueprints/auth/templates/my_payments.html:96
 msgid ""
-"Currently, we accept payments via Cash or Bank Transfer at the Madrasah "
+"Currently, we accept payments via Cash or Bank Transfer at the Rays Machad "
 "office.\n"
 "                Online payment integration is coming soon."
 msgstr ""
@@ -1501,11 +1501,11 @@ msgid "Recent Notifications"
 msgstr ""
 
 #: app/blueprints/auth/templates/parent_dashboard.html:149
-msgid "Madrasah Update"
+msgid "Rays Machad Update"
 msgstr ""
 
 #: app/blueprints/auth/templates/parent_dashboard.html:151
-msgid "Welcome to the new Madrasah Bilaal Parent Portal!"
+msgid "Welcome to the new Rays Machad Bilaal Parent Portal!"
 msgstr ""
 
 #: app/blueprints/auth/templates/parent_dashboard.html:160
@@ -3437,7 +3437,7 @@ msgid "NEW"
 msgstr "CUSUB"
 
 #: app/blueprints/landing/templates/landing/index.html:678
-msgid "The first all-in-one Madrasah OS is here."
+msgid "The first all-in-one Rays Machad OS is here."
 msgstr "Nidaamkii ugu horreeyay ee dhammaystiran ee Madrasada ayaa halkan jooga."
 
 #: app/blueprints/landing/templates/landing/index.html:681
@@ -3450,10 +3450,10 @@ msgstr "Si dhijitaal ah loo dhammaystiray."
 
 #: app/blueprints/landing/templates/landing/index.html:684
 msgid ""
-"A world-class Madrasah engine designed to power Islamic institutions. "
+"A world-class Rays Machad engine designed to power Islamic institutions. "
 "From automated finance to\n"
 "                real-time student tracking, RAYS is the standard for "
-"modern Madrasah management."
+"modern Rays Machad management."
 msgstr ""
 
 #: app/blueprints/landing/templates/landing/index.html:689
@@ -3540,7 +3540,7 @@ msgstr "Xogta Dhexda ah ee kala madax-bannaan"
 
 #: app/blueprints/landing/templates/landing/index.html:824
 msgid ""
-"Architectural isolation for every madrasah. Your data is encrypted,\n"
+"Architectural isolation for every rays_machad. Your data is encrypted,\n"
 "                            isolated, and accessible only by you."
 msgstr ""
 
@@ -3863,7 +3863,7 @@ msgstr ""
 
 #: app/blueprints/reports/routes.py:73
 msgid ""
-"Professional roster of all Madrasah staff members with qualifications and"
+"Professional roster of all Rays Machad staff members with qualifications and"
 " contact info."
 msgstr ""
 
@@ -3897,7 +3897,7 @@ msgid "Reports & Analytics"
 msgstr ""
 
 #: app/blueprints/reports/templates/reports/index.html:7
-msgid "Generate and export professional reports for your madrasah"
+msgid "Generate and export professional reports for your rays_machad"
 msgstr ""
 
 #: app/blueprints/reports/templates/reports/index.html:16
@@ -4027,7 +4027,7 @@ msgstr ""
 #: app/blueprints/reports/templates/reports/profit_loss.html:318
 #: app/blueprints/students/templates/students/print_directory.html:130
 #: app/blueprints/teachers/templates/teachers/print_directory.html:103
-msgid "Madrasah Administration"
+msgid "Rays Machad Administration"
 msgstr ""
 
 #: app/blueprints/reports/templates/reports/profit_loss.html:329
@@ -4087,7 +4087,7 @@ msgstr ""
 
 #: app/blueprints/settings/forms.py:7
 #: app/blueprints/settings/templates/settings/index.html:36
-msgid "Madrasah Name"
+msgid "Rays Machad Name"
 msgstr ""
 
 #: app/blueprints/settings/forms.py:8 app/blueprints/students/forms.py:19
@@ -4260,7 +4260,7 @@ msgid "General Settings"
 msgstr "Dejinta Guud"
 
 #: app/blueprints/settings/templates/settings/index.html:9
-msgid "Configure your madrasah system information"
+msgid "Configure your rays_machad system information"
 msgstr ""
 
 #: app/blueprints/settings/templates/settings/index.html:20
@@ -4501,7 +4501,7 @@ msgid "Update student profile information"
 msgstr ""
 
 #: app/blueprints/students/templates/students/add_student.html:16
-msgid "Enroll a new student into the madrasah"
+msgid "Enroll a new student into the rays_machad"
 msgstr ""
 
 #: app/blueprints/students/templates/students/add_student.html:29
@@ -4905,7 +4905,7 @@ msgid "Teacher Management"
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/manage_teachers.html:10
-msgid "View and manage madrasah staff members"
+msgid "View and manage rays_machad staff members"
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/manage_teachers.html:20
@@ -4938,7 +4938,7 @@ msgid "Teacher Directory"
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/print_directory.html:7
-msgid "Official roster of all Madrasah staff and teachers."
+msgid "Official roster of all Rays Machad staff and teachers."
 msgstr ""
 
 #: app/blueprints/teachers/templates/teachers/print_directory.html:36
@@ -5078,7 +5078,7 @@ msgid "Column Visibility"
 msgstr ""
 
 #: app/templates/layout.html:21 app/templates/layout.html:167
-msgid "Madrasah"
+msgid "Rays Machad"
 msgstr ""
 
 #: app/templates/layout.html:43
@@ -5135,7 +5135,7 @@ msgid ""
 msgstr ""
 
 #: app/templates/layout.html:336
-msgid "Settings Madrasah"
+msgid "Settings Rays Machad"
 msgstr ""
 
 #: app/templates/layout.html:380 app/templates/layout.html:394
@@ -5156,7 +5156,7 @@ msgid "Official Record"
 msgstr "Diiwaanka Rasmiga ah"
 
 #: app/templates/layout.html:436
-msgid "Madrasah Management"
+msgid "Rays Machad Management"
 msgstr "Maamulka Madrasadda"
 
 #: app/templates/layout.html:440
@@ -5268,7 +5268,7 @@ msgstr ""
 
 #: app/utils/message_templates.py:25
 msgid ""
-"Announcement: The Madrasah will be closed from {start_date} to {end_date}"
+"Announcement: The Rays Machad will be closed from {start_date} to {end_date}"
 " for {occasion}. Classes resume on {resume_date}."
 msgstr ""
 
@@ -5722,7 +5722,7 @@ msgstr ""
 #~ msgid "Announcements"
 #~ msgstr "Ogeysiisyada"
 
-#~ msgid "Stay updated with the latest news from the Madrasah."
+#~ msgid "Stay updated with the latest news from the Rays Machad."
 #~ msgstr ""
 
 #~ msgid "Important Update"
@@ -6250,7 +6250,7 @@ msgstr ""
 #~ msgid "Forgot Password"
 #~ msgstr "Erayga Sirta Ilaabtay"
 
-#~ msgid "Madrasah System"
+#~ msgid "Rays Machad System"
 #~ msgstr "Nidaamka Madrasadda"
 
 #~ msgid "Enter your email to receive a 6-digit OTP code"
@@ -6267,7 +6267,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "Welcome to the next generation of "
-#~ "Madrasah management. Our secure platform "
+#~ "Rays Machad management. Our secure platform "
 #~ "ensures your institutional\n"
 #~ "          data is protected while "
 #~ "providing seamless administrative control."
@@ -6441,7 +6441,7 @@ msgstr ""
 #~ msgid "There are currently no students linked to your parent account."
 #~ msgstr ""
 
-#~ msgid "Please contact the Madrasah administration to link your children."
+#~ msgid "Please contact the Rays Machad administration to link your children."
 #~ msgstr ""
 
 #~ msgid "Payment Management"
@@ -6486,7 +6486,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "Currently, we accept payments via Cash"
-#~ " or Bank Transfer at the Madrasah "
+#~ " or Bank Transfer at the Rays Machad "
 #~ "office.\n"
 #~ "                Online payment integration is coming soon."
 #~ msgstr ""
@@ -6532,10 +6532,10 @@ msgstr ""
 #~ msgid "Recent Notifications"
 #~ msgstr "Ogeysiisyada"
 
-#~ msgid "Madrasah Update"
+#~ msgid "Rays Machad Update"
 #~ msgstr "Magaca Dugsiga"
 
-#~ msgid "Welcome to the new Madrasah Bilaal Parent Portal!"
+#~ msgid "Welcome to the new Rays Machad Bilaal Parent Portal!"
 #~ msgstr ""
 
 #~ msgid "Attendance System"
@@ -6650,7 +6650,7 @@ msgstr ""
 #~ msgid "Type"
 #~ msgstr "Nooca"
 
-# Madrasah Specific
+# Rays Machad Specific
 #~ msgid "Marks"
 #~ msgstr "Buundooyinka"
 
@@ -7527,7 +7527,7 @@ msgstr ""
 #~ msgid "View Voucher"
 #~ msgstr "Eeg foojarka"
 
-# Madrasah Specific
+# Rays Machad Specific
 #~ msgid "Mark as Paid"
 #~ msgstr "U calaamadee sidii la bixiyey"
 
@@ -8002,7 +8002,7 @@ msgstr ""
 #~ msgstr "Diiwaanka Shaqaalaha & Macallimiinta"
 
 #~ msgid ""
-#~ "Professional roster of all Madrasah "
+#~ "Professional roster of all Rays Machad "
 #~ "staff members with qualifications and "
 #~ "contact info."
 #~ msgstr ""
@@ -8033,7 +8033,7 @@ msgstr ""
 #~ msgid "Reports & Analytics"
 #~ msgstr "Warbixinnada & Falanqaynta"
 
-#~ msgid "Generate and export professional reports for your madrasah"
+#~ msgid "Generate and export professional reports for your rays_machad"
 #~ msgstr "Samee oo soo saar warbixinnada xirfadeed ee madrasadaada"
 
 #~ msgid "Active Students"
@@ -8128,7 +8128,7 @@ msgstr ""
 #~ msgstr ""
 
 # User Roles
-#~ msgid "Madrasah Administration"
+#~ msgid "Rays Machad Administration"
 #~ msgstr "Maamulaha"
 
 #~ msgid "Section II: Detailed Transaction Schedule"
@@ -8175,7 +8175,7 @@ msgstr ""
 #~ msgid "Search Transactions:"
 #~ msgstr ""
 
-#~ msgid "Madrasah Name"
+#~ msgid "Rays Machad Name"
 #~ msgstr "Magaca Dugsiga"
 
 #~ msgid "Address"
@@ -8299,7 +8299,7 @@ msgstr ""
 #~ msgid "General Settings"
 #~ msgstr "Dejinta Guud"
 
-#~ msgid "Configure your madrasah system information"
+#~ msgid "Configure your rays_machad system information"
 #~ msgstr "Habee macluumaadka nidaamka dugsiga"
 
 #~ msgid "System Configuration"
@@ -8462,7 +8462,7 @@ msgstr ""
 #~ msgid "Update student profile information"
 #~ msgstr "Cusboonaysii macluumaadka ardayga"
 
-#~ msgid "Enroll a new student into the madrasah"
+#~ msgid "Enroll a new student into the rays_machad"
 #~ msgstr "Diiwaangeli arday cusub oo dugsiga ah"
 
 #~ msgid "Personal Information"
@@ -8754,7 +8754,7 @@ msgstr ""
 #~ msgid "Teacher Management"
 #~ msgstr "Maamulka Macalimiinta"
 
-#~ msgid "View and manage madrasah staff members"
+#~ msgid "View and manage rays_machad staff members"
 #~ msgstr "Fiiri oo maamul xubnaha shaqaalaha madrasada"
 
 #~ msgid "Add Teacher"
@@ -8778,7 +8778,7 @@ msgstr ""
 #~ msgid "Teacher Directory"
 #~ msgstr "Guddiga Macalinka"
 
-#~ msgid "Official roster of all Madrasah staff and teachers."
+#~ msgid "Official roster of all Rays Machad staff and teachers."
 #~ msgstr ""
 
 #~ msgid "Official Roster"
@@ -8886,7 +8886,7 @@ msgstr ""
 #~ msgid "Column Visibility"
 #~ msgstr ""
 
-#~ msgid "Madrasah"
+#~ msgid "Rays Machad"
 #~ msgstr ""
 
 #~ msgid "Select Language"
@@ -8929,7 +8929,7 @@ msgstr ""
 #~ "                                Account"
 #~ msgstr ""
 
-#~ msgid "Settings Madrasah"
+#~ msgid "Settings Rays Machad"
 #~ msgstr ""
 
 #~ msgid "My Profile"
@@ -8941,7 +8941,7 @@ msgstr ""
 #~ msgid "Official Record"
 #~ msgstr ""
 
-#~ msgid "Madrasah Management"
+#~ msgid "Rays Machad Management"
 #~ msgstr "Maareynta Madrasada"
 
 #~ msgid "Admin Dashboard"
@@ -9037,7 +9037,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "Announcement: The Madrasah will be "
+#~ "Announcement: The Rays Machad will be "
 #~ "closed from {start_date} to {end_date} "
 #~ "for {occasion}. Classes resume on "
 #~ "{resume_date}."
@@ -9082,3 +9082,171 @@ msgstr ""
 #~ "been DENIED. Please contact administration."
 #~ msgstr ""
 
+
+msgid "AI / Machine Learning"
+msgstr "AI / Barashada Mashiinka"
+
+msgid "Building smart systems (chatbots, automation) with tools like TensorFlow and PyTorch. Best for future tech + automation."
+msgstr "In la dhiso nidaamyo caqli badan (chatbots, automation) iyadoo la isticmaalayo aaladaha sida TensorFlow iyo PyTorch. Waxay ku fiican tahay tignoolajiyada mustaqbalka iyo is-maamulidda (automation)."
+
+msgid "Future-Ready Technology"
+msgstr "Tignoolajiyada Diyaar u ah Mustaqbalka"
+
+msgid "Next-Gen AI"
+msgstr "AI-da Casriga ah (Next-Gen)"
+
+msgid "For Smart Education"
+msgstr "Ee Waxbarashada Caqliga badan"
+
+msgid "We integrate advanced Machine Learning models to transform your institution into a data-driven powerhouse. Our systems learn, adapt, and automate so you can focus on teaching."
+msgstr "Waxaan ku dhex jirnaa moodallo horumarsan oo Machine Learning ah si aan machadkaaga ugu beddelno xarun xogta ku shaqaysa. Nidaamyadayadu way bartaan, la qabsadaan, oo si toos ah u shaqeeyaan si aad diiradda u saarto waxbarashada."
+
+msgid "Intelligent Chatbots"
+msgstr "Chatbots-ka Caqliga badan"
+
+msgid "24/7 automated support for students and parents. Handles inquiries, fee status, and schedule updates instantly."
+msgstr "Taageero toos ah oo 24/7 ah oo loogu talagalay ardayda iyo waalidiinta. Waxay si degdeg ah u maamulaan weydiimaha, xaaladda ujrada, iyo cusboonaysiinta jadwalka."
+
+msgid "Predictive Analytics"
+msgstr "Falanqaynta Saadaalinta"
+
+msgid "Identifying student performance trends and attendance risks before they become problems using TensorFlow models."
+msgstr "Aqoonsiga isbeddellada waxqabadka ardayda iyo khataraha imaanshaha ka hor intaanay dhibaato noqon iyadoo la isticmaalayo moodellada TensorFlow."
+
+msgid "Workflow Automation"
+msgstr "Otomaatiga Shaqada (Workflow)"
+
+msgid "Zero-touch processes for billing, reporting, and management. Reduce administrative overhead by up to 70%."
+msgstr "Geedi-socodyo toos ah oo loogu talagalay biilasha, warbixinnada, iyo maamulka. Isku yaree culayska maamulka ilaa 70%."
+
+msgid "AI TRAINING STATUS"
+msgstr "Xaaladda Tababarka AI"
+
+msgid "Model Accuracy"
+msgstr "Saxnaanta Moodalka"
+
+msgid "Analyzing school data patterns..."
+msgstr "Falanqaynta xogta dugsiga..."
+
+msgid "The Digital Transition"
+msgstr "Kala-guurka Dijitaalka ah"
+
+msgid "Moving from paper-based records to a cloud-native intelligence system isn’t just an upgrade—it’s a transformation. Rays Technology provides the blueprint for this evolution."
+msgstr "Ka guurista diiwaannada waraaqaha ah loona guurayo nidaam caqliyeed oo daruura ah (cloud) kaliya maaha casriyeyn—waa isbeddel dhab ah. Rays Technology waxay bixisaa qorshaha isbeddelkaas."
+
+msgid "Phase I: Digitization"
+msgstr "Wajiga I: Dijitaalaynta"
+
+msgid "Centralizing student records and financial data into a secure vault."
+msgstr "Isku keenista diiwaannada ardayda iyo xogta maaliyadda meel ammaan ah oo sugan."
+
+msgid "Phase II: Automation"
+msgstr "Wajiga II: Otomaatiga"
+
+msgid "Deploying automated billing, WhatsApp alerts, and real-time reporting."
+msgstr "Hirgelinta biilasha tooska ah, ogeysiisyada WhatsApp, iyo warbixinnada wakhtiga dhabta ah."
+
+msgid "Phase III: Intelligence"
+msgstr "Wajiga III: Caqliga (Intelligence)"
+
+msgid "Using AI to predict performance and optimize institutional resource allocation."
+msgstr "Adeegsiga AI si loo saadaaliyo waxqabadka loona hagaajiyo qaybinta agabka machadka."
+
+msgid "INSTITUTIONAL EFFICIENCY INDEX"
+msgstr "TUSMAHA HUFNAANTA MACHADKA"
+
+msgid "Trusted by Educators"
+msgstr "Waxaa nagu kalsoon Macallimiinta"
+
+msgid "Join hundreds of institutions transforming their management experience."
+msgstr "Ku biir boqollaal machadood oo beddelaya habka maamulkooda."
+
+msgid "The automated finance system changed everything for us. No more manual tracking of fees! The AI features are just a bonus."
+msgstr "Nidaamka maaliyadda ee otomaatiga ah ayaa wax walba noo beddelay. Ma jiro dambe lasocodka gacanta ee ujrada! Astaamaha AI-da waa hadiyad dheeraad ah."
+
+msgid "Registering students used to take days. Now it takes minutes. The WhatsApp integration is a lifesaver for parent updates."
+msgstr "Diiwaangelinta ardaydu waxay qaadan jirtay maalmo. Hadda waxay qaadataa daqiiqado. Isku-xidhka WhatsApp-ku waa badbaado u ah cusboonaysiinta waalidiinta."
+
+msgid "As a developer, I appreciate the clean architecture. The AI/ML capabilities are truly state of the art for this region."
+msgstr "Anigoo horumariye ah, waxaan u mahadcelinayaa qaab-dhismeedka nadiifka ah. Awoodaha AI/ML runtii waa kuwa ugu casrisan gobolkan."
+
+msgid "Common Questions"
+msgstr "Su'aalaha Badanaa la Isweydiiyo"
+
+msgid "Everything you need to know about getting started with the Rays Machad OS."
+msgstr "Wax kasta oo aad u baahan tahay inaad ka ogaato bilaabista Rays Machad OS."
+
+msgid "Still have questions?"
+msgstr "Wali ma qabtaa su'aalo?"
+
+msgid "Our support team is available 24/7 via WhatsApp."
+msgstr "Kooxdayada taageerada waxay diyaar yihiin 24/7 iyadoo la isticmaalayo WhatsApp."
+
+msgid "Contact Support"
+msgstr "La xiriir Taageerada"
+
+msgid "How long does it take to set up?"
+msgstr "Muddo intee le'eg ayay qaadataa dejintu?"
+
+msgid "Your entire school portal can be active in less than 5 minutes. We handle all the cloud infrastructure and database setup automatically."
+msgstr "Dhammaan portal-ka dugsigaagu wuxuu shaqayn karaa wax ka yar 5 daqiiqo. Waxaan si otomaatig ah u maareeynaa dhammaan kaabayaasha daruuraha iyo dejinta xogta."
+
+msgid "Is my data secure?"
+msgstr "Xogtaydu ma ammaan baa?"
+
+msgid "Yes, every institution has its own isolated database vault. We use high-grade encryption and daily backups to ensure your data is always safe."
+msgstr "Haa, machad kastaa wuxuu leeyahay khasnada xogta oo gooni u ah. Waxaan isticmaalnaa sir-qarxin heer sare ah iyo koobiyo maalinle ah si aan u hubinno in xogtaadu mar walba badbaado tahay."
+
+msgid "Can I use Somali payment methods?"
+msgstr "Ma isticmaali karaa hababka lacag bixinta Soomaalida?"
+
+msgid "Absolutely! We have native support for EVC Plus, eDahab, and Waafi integrated into the billing engine."
+msgstr "Xaqiiqdii! Waxaan leenahay taageero rasmi ah oo loogu talagalay EVC Plus, eDahab, iyo Waafi oo ku dhex jira nidaamka biilasha."
+
+msgid "Trusted by Educators"
+msgstr "Waxaa nagu kalsoon Macallimiinta"
+
+msgid "Join hundreds of institutions transforming their management experience."
+msgstr "Ku biir boqollaal machadood oo beddelaya habka maamulkooda."
+
+msgid "The automated finance system changed everything for us. No more manual tracking of fees! The AI features are just a bonus."
+msgstr "Nidaamka maaliyadda ee otomaatiga ah ayaa wax walba noo beddelay. Ma jiro dambe lasocodka gacanta ee ujrada! Astaamaha AI-da waa hadiyad dheeraad ah."
+
+msgid "Registering students used to take days. Now it takes minutes. The WhatsApp integration is a lifesaver for parent updates."
+msgstr "Diiwaangelinta ardaydu waxay qaadan jirtay maalmo. Hadda waxay qaadataa daqiiqado. Isku-xidhka WhatsApp-ku waa badbaado u ah cusboonaysiinta waalidiinta."
+
+msgid "As a developer, I appreciate the clean architecture. The AI/ML capabilities are truly state of the art for this region."
+msgstr "Anigoo horumariye ah, waxaan u mahadcelinayaa qaab-dhismeedka nadiifka ah. Awoodaha AI/ML runtii waa kuwa ugu casrisan gobolkan."
+
+msgid "Common Questions"
+msgstr "Su'aalaha Badanaa la Isweydiiyo"
+
+msgid "Everything you need to know about getting started with the Rays Machad OS."
+msgstr "Wax kasta oo aad u baahan tahay inaad ka ogaato bilaabista Rays Machad OS."
+
+msgid "Still have questions?"
+msgstr "Wali ma qabtaa su'aalo?"
+
+msgid "Our support team is available 24/7 via WhatsApp."
+msgstr "Kooxdayada taageerada waxay diyaar yihiin 24/7 iyadoo la isticmaalayo WhatsApp."
+
+msgid "Contact Support"
+msgstr "La xiriir Taageerada"
+
+msgid "How long does it take to set up?"
+msgstr "Muddo intee le'eg ayay qaadataa dejintu?"
+
+msgid "Your entire school portal can be active in less than 5 minutes. We handle all the cloud infrastructure and database setup automatically."
+msgstr "Dhammaan portal-ka dugsigaagu wuxuu shaqayn karaa wax ka yar 5 daqiiqo. Waxaan si otomaatig ah u maareeynaa dhammaan kaabayaasha daruuraha iyo dejinta xogta."
+
+msgid "Is my data secure?"
+msgstr "Xogtaydu ma ammaan baa?"
+
+msgid "Yes, every institution has its own isolated database vault. We use high-grade encryption and daily backups to ensure your data is always safe."
+msgstr "Haa, machad kastaa wuxuu leeyahay khasnada xogta oo gooni u ah. Waxaan isticmaalnaa sir-qarxin heer sare ah iyo koobiyo maalinle ah si aan u hubinno in xogtaadu mar walba badbaado tahay."
+
+msgid "Can I use Somali payment methods?"
+msgstr "Ma isticmaali karaa hababka lacag bixinta Soomaalida?"
+
+msgid "Absolutely! We have native support for EVC Plus, eDahab, and Waafi integrated into the billing engine."
+msgstr "Xaqiiqdii! Waxaan leenahay taageero rasmi ah oo loogu talagalay EVC Plus, eDahab, iyo Waafi oo ku dhex jira nidaamka biilasha."

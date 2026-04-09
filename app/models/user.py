@@ -7,7 +7,7 @@ from app.models.mixins import SchoolContextMixin
 
 class User(db.Model, UserMixin, SchoolContextMixin):
     __tablename__ = 'users'
-    __table_args__ = {'schema': 'madrasah_db'}
+    __table_args__ = {'schema': 'Rays_machda'}
  
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)

@@ -1,6 +1,6 @@
-from app.extensions import celery, db
-from app.utils.messaging import MessagingService
-from app.models.message_log import MessageLog
+from ...extensions import celery, db
+from ...utils.messaging import MessagingService
+from ...models.message_log import MessageLog
 from flask import current_app
 import json
 

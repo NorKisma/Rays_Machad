@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 8.0.45, for Linux (x86_64)
 --
--- Host: localhost    Database: madrasah_db
+-- Host: localhost    Database: Rays_machda
 -- ------------------------------------------------------
 -- Server version	8.0.45-0ubuntu0.22.04.1
 
@@ -650,7 +650,7 @@ CREATE TABLE `system_settings` (
 
 LOCK TABLES `system_settings` WRITE;
 /*!40000 ALTER TABLE `system_settings` DISABLE KEYS */;
-INSERT INTO `system_settings` VALUES (1,'last_auto_billing_month','2026-02','Last month fees were auto-generated',NULL),(2,'madrasah_name','RaysMadrasah',NULL,NULL),(3,'madrasah_address','kismayo',NULL,NULL),(4,'madrasah_phone','+252771990022',NULL,NULL),(5,'madrasah_email','raystechcenter@gmail.com',NULL,NULL),(6,'active_term','Winter 2026',NULL,NULL),(7,'currency','USD',NULL,NULL),(8,'whatsapp_access_token','EAARZCLPIxWXQBQtxDDCFSwGRJAc7t4qy6i14Kxs2iLAIOgLTvzGQHGcyrZBnA1MtVxE7eNn7JDCq4ubaUG6N3hQq0dDqIZCbPTON7V56YPNI6ByJ7GZAmt4YifiVW11rKwdYFOBuFARZCr7YdpS74xQuuu8N3geyjyIGPhZBBqZAvTxFyVezpk1z7l8YrkHcf3Uy1IPsa05TkjF0VsMeaeICK6LI9eWb5a35jOxBCoh3Jkyc5avQdy1MvbvbHqk86fvr20NDDnbGpZBn5714MiZCLdulW0AZDZD',NULL,NULL),(9,'whatsapp_phone_number_id','945092975361826',NULL,NULL),(10,'whatsapp_mode','live',NULL,NULL),(18,'madrasah_name','nor',NULL,12),(19,'active_term','First Term 2026',NULL,12);
+INSERT INTO `system_settings` VALUES (1,'last_auto_billing_month','2026-02','Last month fees were auto-generated',NULL),(2,'rays_machad_name','RaysMadrasah',NULL,NULL),(3,'rays_machad_address','kismayo',NULL,NULL),(4,'rays_machad_phone','+252771990022',NULL,NULL),(5,'rays_machad_email','raystechcenter@gmail.com',NULL,NULL),(6,'active_term','Winter 2026',NULL,NULL),(7,'currency','USD',NULL,NULL),(8,'whatsapp_access_token','EAARZCLPIxWXQBQtxDDCFSwGRJAc7t4qy6i14Kxs2iLAIOgLTvzGQHGcyrZBnA1MtVxE7eNn7JDCq4ubaUG6N3hQq0dDqIZCbPTON7V56YPNI6ByJ7GZAmt4YifiVW11rKwdYFOBuFARZCr7YdpS74xQuuu8N3geyjyIGPhZBBqZAvTxFyVezpk1z7l8YrkHcf3Uy1IPsa05TkjF0VsMeaeICK6LI9eWb5a35jOxBCoh3Jkyc5avQdy1MvbvbHqk86fvr20NDDnbGpZBn5714MiZCLdulW0AZDZD',NULL,NULL),(9,'whatsapp_phone_number_id','945092975361826',NULL,NULL),(10,'whatsapp_mode','live',NULL,NULL),(18,'rays_machad_name','nor',NULL,12),(19,'active_term','First Term 2026',NULL,12);
 /*!40000 ALTER TABLE `system_settings` ENABLE KEYS */;
 UNLOCK TABLES;
 

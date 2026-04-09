@@ -1,6 +1,6 @@
-# Rays Madrasah SaaS - Build & Deployment Guide
+# Rays Rays Machad SaaS - Build & Deployment Guide
 
-This guide provides a comprehensive, step-by-step walkthrough for building and deploying the **Rays Madrasah Management System** as a production-ready SaaS application.
+This guide provides a comprehensive, step-by-step walkthrough for building and deploying the **Rays Rays Machad Management System** as a production-ready SaaS application.
 
 ---
 
@@ -36,8 +36,8 @@ cd /var/www/RaysTech
 
 ### 2. Clone the Repository
 ```bash
-git clone <your-repository-url> madrasah_mgmt
-cd madrasah_mgmt
+git clone <your-repository-url> rays_machad_mgmt
+cd rays_machad_mgmt
 ```
 
 ### 3. Create Virtual Environment
@@ -66,7 +66,7 @@ nano .env
 
 **Key Variables to Set:**
 - `SECRET_KEY`: A long random string.
-- `DATABASE_URL`: `mysql+pymysql://user:password@localhost/madrasah_db`
+- `DATABASE_URL`: `mysql+pymysql://user:password@localhost/Rays_machda`
 - `AI_API_KEY`: Your OpenAI/Gemini API key.
 - `MAIL_SERVER`, `MAIL_USERNAME`, `MAIL_PASSWORD`: For notifications and backups.
 
@@ -75,9 +75,9 @@ nano .env
 sudo mysql -u root -p
 ```
 ```sql
-CREATE DATABASE madrasah_db CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
-CREATE USER 'madrasah_user'@'localhost' IDENTIFIED BY 'your_secure_password';
-GRANT ALL PRIVILEGES ON madrasah_db.* TO 'madrasah_user'@'localhost';
+CREATE DATABASE Rays_machda CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'rays_machad_user'@'localhost' IDENTIFIED BY 'your_secure_password';
+GRANT ALL PRIVILEGES ON Rays_machda.* TO 'rays_machad_user'@'localhost';
 FLUSH PRIVILEGES;
 EXIT;
 ```
@@ -102,25 +102,25 @@ python3 scripts/seed_permissions.py
 ## 🌐 Phase 5: Production Deployment (Nginx & Gunicorn)
 
 ### 1. Create Systemd Service
-Create `/etc/systemd/system/madrasah.service`:
+Create `/etc/systemd/system/rays_machad.service`:
 ```ini
 [Unit]
-Description=Gunicorn instance to serve Madrasah App
+Description=Gunicorn instance to serve Rays Machad App
 After=network.target
 
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/var/www/RaysTech/madrasah_mgmt
-Environment="PATH=/var/www/RaysTech/madrasah_mgmt/venv/bin"
-ExecStart=/var/www/RaysTech/madrasah_mgmt/venv/bin/gunicorn --workers 3 --bind unix:madrasah.sock -m 007 run:app
+WorkingDirectory=/var/www/RaysTech/rays_machad_mgmt
+Environment="PATH=/var/www/RaysTech/rays_machad_mgmt/venv/bin"
+ExecStart=/var/www/RaysTech/rays_machad_mgmt/venv/bin/gunicorn --workers 3 --bind unix:rays_machad.sock -m 007 run:app
 
 [Install]
 WantedBy=multi-user.target
 ```
 
 ### 2. Configure Nginx
-Create `/etc/nginx/sites-available/madrasah`:
+Create `/etc/nginx/sites-available/rays_machad`:
 ```nginx
 server {
     listen 80;
@@ -128,11 +128,11 @@ server {
 
     location / {
         include proxy_params;
-        proxy_pass http://unix:/var/www/RaysTech/madrasah_mgmt/madrasah.sock;
+        proxy_pass http://unix:/var/www/RaysTech/rays_machad_mgmt/rays_machad.sock;
     }
 
     location /static {
-        alias /var/www/RaysTech/madrasah_mgmt/app/static;
+        alias /var/www/RaysTech/rays_machad_mgmt/app/static;
         expires 30d;
     }
 }
@@ -140,9 +140,9 @@ server {
 
 ### 3. Enable and Start Services
 ```bash
-sudo ln -s /etc/nginx/sites-available/madrasah /etc/nginx/sites-enabled
-sudo systemctl start madrasah
-sudo systemctl enable madrasah
+sudo ln -s /etc/nginx/sites-available/rays_machad /etc/nginx/sites-enabled
+sudo systemctl start rays_machad
+sudo systemctl enable rays_machad
 sudo systemctl restart nginx
 ```
 
@@ -160,14 +160,14 @@ sudo certbot --nginx -d yourdomain.com
 
 ## 🏢 Phase 7: Scaling for SaaS (Multi-Tenancy)
 
-To host multiple Madrasahs (clients), you have two primary options:
+To host multiple Rays Machads (clients), you have two primary options:
 
 ### Option A: Multiple Instances (Recommended for Privacy)
 Each client gets their own folder, database, and systemd service.
-1. Duplicate the folder: `cp -r madrasah_mgmt madrasah_client2`.
+1. Duplicate the folder: `cp -r rays_machad_mgmt rays_machad_client2`.
 2. Create a new database for `client2`.
-3. Update `.env` in `madrasah_client2`.
-4. Create a new systemd service (e.g., `madrasah_client2.service`) with a different `.sock` file.
+3. Update `.env` in `rays_machad_client2`.
+4. Create a new systemd service (e.g., `rays_machad_client2.service`) with a different `.sock` file.
 5. Add a new Nginx `server` block or `location` block for the new client.
 
 ### Option B: Path-Based Routing (Single IP)
@@ -175,7 +175,7 @@ As seen in your configuration, you can use paths:
 ```nginx
 location /madrasha {
     include proxy_params;
-    proxy_pass http://unix:/var/www/RaysTech/madrasah_mgmt/madrasah.sock;
+    proxy_pass http://unix:/var/www/RaysTech/rays_machad_mgmt/rays_machad.sock;
 }
 
 location /college {

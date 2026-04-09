@@ -42,7 +42,14 @@
                         </ul>
                     </div>
                 </div>
-                <h5 class="fw-bold text-dark mb-1">{{ c.class_name }}</h5>
+                <div class="d-flex align-items-center flex-wrap gap-2 mb-2">
+                    <h5 class="fw-bold text-dark mb-0 me-2">{{ c.class_name }}</h5>
+                    {% if c.subjects %}
+                        {% for subj in c.subjects %}
+                            <span class="badge bg-primary px-3 py-1 rounded-pill shadow-sm" style="font-size: 0.7rem;">{{ subj.name }}</span>
+                        {% endfor %}
+                    {% endif %}
+                </div>
                 <p class="text-muted small mb-4 line-clamp-2">{{ c.description or _('No description available.') }}</p>
 
                 <div class="d-flex align-items-center gap-2 pt-3 border-top">

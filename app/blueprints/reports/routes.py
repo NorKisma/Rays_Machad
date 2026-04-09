@@ -70,7 +70,7 @@ def index():
         {
             'id': 'teachers',
             'title': _('Staff & Teacher Directory'),
-            'description': _('Professional roster of all Madrasah staff members with qualifications and contact info.'),
+            'description': _('Professional roster of all Rays Machad staff members with qualifications and contact info.'),
             'icon': 'fa-user-tie',
             'color': 'dark',
             'link': 'teachers.print_all_teachers'

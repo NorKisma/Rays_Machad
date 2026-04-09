@@ -36,11 +36,41 @@ def manage_exams():
         query = query.filter_by(subject_id=subject_id)
         
     exams = query.order_by(Exam.exam_date.desc()).all()
+    
+    # Group exams by name, type, month-year, and class
+    from collections import OrderedDict
+    grouped_exams_dict = OrderedDict()
+    
+    for exam in exams:
+        class_id_str = str(exam.class_id) if exam.class_id else "none"
+        group_key = f"{exam.exam_name.lower().strip()}_{exam.exam_type}_{exam.exam_date.strftime('%Y-%m')}_{class_id_str}"
+        
+        if group_key not in grouped_exams_dict:
+            grouped_exams_dict[group_key] = {
+                'exam_name': exam.exam_name,
+                'exam_type': exam.exam_type,
+                'exam_date': exam.exam_date,
+                'teacher': exam.teacher,
+                'class_assigned': exam.class_assigned,
+                'status': exam.status,
+                'sub_exams': [],
+                'student_ids': set()
+            }
+        
+        group = grouped_exams_dict[group_key]
+        group['sub_exams'].append(exam)
+        # Count unique students who have results with marks
+        for result in exam.results:
+            if result.marks_obtained is not None:
+                group['student_ids'].add(result.student_id)
+                
+    grouped_exams = list(grouped_exams_dict.values())
+    
     subjects = Subject.query.order_by(Subject.name).all()
     classes = ClassSchedule.query.order_by(ClassSchedule.class_name).all()
     
     return render_template('exams/manage_exams.html', 
-                           exams=exams, 
+                           grouped_exams=grouped_exams, 
                            subjects=subjects, 
                            classes=classes)
 
@@ -240,3 +270,81 @@ def student_report(student_id):
     results = ExamResult.query.filter_by(student_id=student_id).join(Exam).order_by(Exam.exam_date.desc()).all()
     
     return render_template('exams/student_report.html', student=student, results=results)
+
+
+@exams_bp.route('/rankings')
+@login_required
+def student_rankings():
+    """Overall Student Rankings based on their exam results"""
+    from app.models.student import Student
+    
+    # Get all active students
+    students = Student.query.filter_by(status='Active').all()
+    rankings = []
+    
+    for student in students:
+        results = [r for r in student.exam_results if r.marks_obtained is not None and r.exam.total_marks]
+        
+        if not results:
+            continue
+            
+        total_obtained = sum(r.marks_obtained for r in results)
+        total_max = sum(r.exam.total_marks for r in results)
+        
+        if total_max > 0:
+            percentage = (total_obtained / total_max) * 100
+        else:
+            percentage = 0
+            
+        # Fetch grading thresholds from settings (default values if not set)
+        from app.models.setting import SystemSetting
+        grade_a_plus = int(SystemSetting.get_setting('grade_a_plus', '90'))
+        grade_a = int(SystemSetting.get_setting('grade_a', '80'))
+        grade_b_plus = int(SystemSetting.get_setting('grade_b_plus', '70'))
+        grade_b = int(SystemSetting.get_setting('grade_b', '60'))
+        grade_c_plus = int(SystemSetting.get_setting('grade_c_plus', '55'))
+        grade_c = int(SystemSetting.get_setting('grade_c', '50'))
+        grade_d = int(SystemSetting.get_setting('grade_d', '40'))
+
+        # Determine grade
+        if percentage >= grade_a_plus:
+            grade = 'A+'
+        elif percentage >= grade_a:
+            grade = 'A'
+        elif percentage >= grade_b_plus:
+            grade = 'B+'
+        elif percentage >= grade_b:
+            grade = 'B'
+        elif percentage >= grade_c_plus:
+            grade = 'C+'
+        elif percentage >= grade_c:
+            grade = 'C'
+        elif percentage >= grade_d:
+            grade = 'D'
+        else:
+            grade = 'F'
+            
+        subjects_set = set()
+        exam_names_set = set()
+        for r in results:
+            if r.exam.subject:
+                subjects_set.add(r.exam.subject.name)
+            else:
+                subjects_set.add(_('General'))
+            exam_names_set.add(r.exam.exam_name)
+            
+        rankings.append({
+            'student': student,
+            'exams_taken': len(results),
+            'total_obtained': total_obtained,
+            'total_max': total_max,
+            'percentage': round(percentage, 2),
+            'grade': grade,
+            'subjects': sorted(list(subjects_set)),
+            'exam_names': sorted(list(exam_names_set))
+        })
+        
+    # Sort rankings by percentage descending
+    rankings.sort(key=lambda x: x['percentage'], reverse=True)
+    
+    return render_template('exams/rankings.html', rankings=rankings)

@@ -30,8 +30,8 @@ class NotificationBot:
 
         if not self.api_key:
             from app.models.setting import SystemSetting
-            madrasah_name = SystemSetting.get_setting('madrasah_name', 'Rays Tech Center')
-            madrasah_phone = SystemSetting.get_setting('madrasah_phone', '617...')
+            rays_machad_name = SystemSetting.get_setting('rays_machad_name', 'Rays Tech Center')
+            rays_machad_phone = SystemSetting.get_setting('rays_machad_phone', '617...')
             
             # High-quality Fallback Template
             if lang == 'so':
@@ -40,10 +40,10 @@ class NotificationBot:
                         f"Joogitaanka (Attendance): {attendance}%\n"
                         f"Hifdinta Qur’aanka: Juz {juz} ({surah})\n"
                         f"Xaaladda Lacagta: {fee_status} (Lacag harsan: ${balance})\n\n"
-                        f"Fadlan lacagta bisha soo bixi kuna soo dir Tel: {madrasah_phone},\n"
+                        f"Fadlan lacagta bisha soo bixi kuna soo dir Tel: {rays_machad_phone},\n"
                         f"nala soo socodsii marka aad bixiso.\n\n"
                         f"Mahadsanid.\n"
-                        f"{madrasah_name}")
+                        f"{rays_machad_name}")
             elif lang == 'ar':
                 return (f"السلام عليكم {parent_name}، إليكم تقرير شهر {month} للطالب {student_name}.\n"
                         f"- الحضور: {attendance}%\n"
@@ -56,7 +56,7 @@ class NotificationBot:
                     f"- Financial Status: {fee_status} (Balance: ${balance})\n"
                     f"Thank you, Rays Tech Center.")
 
-        prompt = (f"Act as a professional Madrasah administrator. Generate a warm, personalized monthly report message "
+        prompt = (f"Act as a professional Rays Machad administrator. Generate a warm, personalized monthly report message "
                   f"for parent {parent_name} regarding their child {student_name} for the month of {month}. "
                   f"Include: Attendance {attendance}%, Hifz Progress (Juz {juz}, last surah {surah}), "
                   f"and Fee Status ({fee_status}, Outstanding Balance: ${balance}). "
@@ -73,7 +73,7 @@ class NotificationBot:
         Generate a warm progress update message for parents.
         """
         from app.models.setting import SystemSetting
-        madrasah_name = SystemSetting.get_setting('madrasah_name', 'Rays Tech Center')
+        rays_machad_name = SystemSetting.get_setting('rays_machad_name', 'Rays Tech Center')
         
         if lang == 'so':
              return (f"Assalamu Calaykum {parent_name},\n\n"
@@ -83,7 +83,7 @@ class NotificationBot:
                     f"✨ Ayada: {aya}\n\n"
                     f"Allaah ha u barakeeyo cilmiga, hana ka dhigo kii ku intifaaca. Aamiin.\n\n"
                     f"Mahadsanid,\n"
-                    f"{madrasah_name}")
+                    f"{rays_machad_name}")
                     
         return (f"Assalamu Alaykum {parent_name},\n\n"
                 f"We are pleased to share {student_name}'s progress in Quranic studies.\n\n"
@@ -92,32 +92,32 @@ class NotificationBot:
                 f"✨ Aya: {aya}\n\n"
                 f"May Allah bless them with knowledge and wisdom. Ameen.\n\n"
                 f"Best regards,\n"
-                f"{madrasah_name}")
+                f"{rays_machad_name}")
 
     def generate_fee_reminder(self, parent_name, student_name, month, balance, lang='en'):
         """
         Generate a polite fee reminder message.
         """
         from app.models.setting import SystemSetting
-        madrasah_name = SystemSetting.get_setting('madrasah_name', 'Rays Tech Center')
-        madrasah_phone = SystemSetting.get_setting('madrasah_phone', '')
+        rays_machad_name = SystemSetting.get_setting('rays_machad_name', 'Rays Tech Center')
+        rays_machad_phone = SystemSetting.get_setting('rays_machad_phone', '')
 
         if lang == 'so':
             return (f"Assalamu Calaykum {parent_name},\n\n"
                     f"Kani waa xasuusin ku saabsan lacagta bisha {month} ee ardayga {student_name}.\n\n"
                     f"💰 Lacagta hartay: ${balance}\n\n"
-                    f"Fadlan lacagta ku soo dir Tel: {madrasah_phone}.\n"
+                    f"Fadlan lacagta ku soo dir Tel: {rays_machad_phone}.\n"
                     f"Haddii aad bixisay, fadlan iska ilow farriintan.\n\n"
                     f"Mahadsanid,\n"
-                    f"{madrasah_name}")
+                    f"{rays_machad_name}")
                     
         return (f"Assalamu Alaykum {parent_name},\n\n"
                 f"This is a friendly reminder regarding the fees for {month} for {student_name}.\n\n"
                 f"💰 Balance Due: ${balance}\n\n"
-                f"Please make the payment to: {madrasah_phone}.\n"
+                f"Please make the payment to: {rays_machad_phone}.\n"
                 f"If you have already paid, please ignore this message.\n\n"
                 f"Thank you,\n"
-                f"{madrasah_name}")
+                f"{rays_machad_name}")
 
     def suggest_notifications(self, user_activity):
         """

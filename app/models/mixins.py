@@ -7,7 +7,7 @@ class SchoolContextMixin:
     """
     A mixin to add school_id and a relationship to School for multi-tenancy.
     """
-    school_id = db.Column(db.Integer, db.ForeignKey('madrasah_db.schools.id'), nullable=True, index=True)
+    school_id = db.Column(db.Integer, db.ForeignKey('Rays_machda.schools.id'), nullable=True, index=True)
     
     @classmethod
     def tenant_query(cls):

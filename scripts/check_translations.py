@@ -23,7 +23,7 @@ def find_missing_translations(po_file_path):
     return missing
 
 if __name__ == "__main__":
-    ar_missing = find_missing_translations('/var/www/RaysTech/madrasah_mgmt/app/translations/so/LC_MESSAGES/messages.po')
+    ar_missing = find_missing_translations('/var/www/RaysTech/rays_machad_mgmt/app/translations/so/LC_MESSAGES/messages.po')
     print(f"Arabic missing: {len(ar_missing)}")
     for m in ar_missing[:50]:
         print(f" - {m}")

@@ -114,9 +114,10 @@
                     <tr>
                         <th class="ps-4 text-uppercase small fw-bold text-muted">{{ _('Student') }}</th>
                         <th class="text-uppercase small fw-bold text-muted">{{ _('ID') }}</th>
-                        <th class="text-uppercase small fw-bold text-muted">{{ _('Assigned Class') }}</th>
-                        <th class="text-uppercase small fw-bold text-muted">{{ _('Hifz Status') }}</th>
-                        <th class="text-uppercase small fw-bold text-muted">{{ _('Juz') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Class') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Gender') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Joined Date') }}</th>
+                        <th class="text-uppercase small fw-bold text-muted">{{ _('Parent Contact') }}</th>
                         <th class="text-uppercase small fw-bold text-muted">{{ _('Status') }}</th>
                         <th class="text-end pe-4 text-uppercase small fw-bold text-muted">{{ _('Actions') }}</th>
                     </tr>
@@ -132,7 +133,7 @@
                                 </div>
                                 <div>
                                     <span class="fw-semibold text-dark d-block">{{ s.full_name }}</span>
-                                    <small class="text-muted">{{ s.parent_contact }}</small>
+                                    <small class="text-muted">{{ _('Enrollment') }}</small>
                                 </div>
                             </div>
                         </td>
@@ -142,16 +143,17 @@
                                 s.class_assigned.class_name if s.class_assigned else _('Not Assigned') }}</span>
                         </td>
                         <td>
-                            {% if s.hifz_status == 'Nazira' %}
-                            <span class="badge badge-soft-nazira px-3">{{ _('Nazira') }}</span>
-                            {% elif s.hifz_status == 'Hifz' %}
-                            <span class="badge badge-soft-hifz px-3">{{ _('Hifz') }}</span>
-                            {% else %}
-                            <span class="badge badge-soft-revision px-3">{{ _('Revision') }}</span>
-                            {% endif %}
+                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary border-opacity-10 px-3">{{
+                                _(s.gender) if s.gender else '-' }}</span>
+                        </td>
+                        <td class="text-muted small">
+                            {{ s.admission_date.strftime('%d %b %Y') if s.admission_date else '-' }}
                         </td>
                         <td>
-                            <span class="fw-bold text-indigo">{{ _('Juz') }} {{ s.current_juz }}</span>
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="fa-solid fa-phone-flip text-muted small"></i>
+                                <span class="fw-bold text-dark">{{ s.parent_contact }}</span>
+                            </div>
                         </td>
                         <td>
                             {% if s.status == 'Active' %}

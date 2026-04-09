@@ -6,7 +6,7 @@
         <div class="d-flex justify-content-between align-items-center mb-4">
             <div>
                 <h3 class="fw-bold mb-0 text-dark">{{ _('General Settings') }}</h3>
-                <p class="text-muted small mb-0">{{ _('Configure your madrasah system information') }}</p>
+                <p class="text-muted small mb-0">{{ _('Configure your rays_machad system information') }}</p>
             </div>
         </div>
 
@@ -33,8 +33,8 @@
 
                     <div class="row g-4 mb-5">
                         <div class="col-md-12">
-                            <label class="form-label small fw-bold text-muted">{{ _('Madrasah Name') }}</label>
-                            {{ form.madrasah_name(class="form-control", placeholder=_("e.g. Darul Arqam Academy")) }}
+                            <label class="form-label small fw-bold text-muted">{{ _('Rays Machad Name') }}</label>
+                            {{ form.rays_machad_name(class="form-control", placeholder=_("e.g. Darul Arqam Academy")) }}
                         </div>
                     </div>
 
@@ -46,15 +46,15 @@
                     <div class="row g-4 mb-5">
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-muted">{{ _('Email Address') }}</label>
-                            {{ form.madrasah_email(class="form-control", placeholder="info@madrasah.com") }}
+                            {{ form.rays_machad_email(class="form-control", placeholder="info@rays_machad.com") }}
                         </div>
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-muted">{{ _('Phone Number') }}</label>
-                            {{ form.madrasah_phone(class="form-control", placeholder="+252 ...") }}
+                            {{ form.rays_machad_phone(class="form-control", placeholder="+252 ...") }}
                         </div>
                         <div class="col-md-12">
                             <label class="form-label small fw-bold text-muted">{{ _('Physical Address') }}</label>
-                            {{ form.madrasah_address(class="form-control", placeholder=_("Main Street, Mogadishu")) }}
+                            {{ form.rays_machad_address(class="form-control", placeholder=_("Main Street, Mogadishu")) }}
                         </div>
                     </div>
 
@@ -71,6 +71,76 @@
                         <div class="col-md-6">
                             <label class="form-label small fw-bold text-muted">{{ _('System Currency') }}</label>
                             {{ form.currency(class="form-control", placeholder="USD / SOS") }}
+                        </div>
+                    </div>
+
+                    <div class="section-header d-flex align-items-center gap-2 mb-4 mt-5">
+                        <h6 class="fw-bold mb-0 text-primary">{{ _('Grading Scale Thresholds') }} (%)</h6>
+                        <div class="flex-grow-1 border-bottom ms-2 opacity-25"></div>
+                    </div>
+
+                    <div class="row g-4 mb-4">
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Minimum for') }} A+</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text fw-bold bg-success bg-opacity-10 text-success border-success border-opacity-25" style="width: 45px; justify-content: center;">A+</span>
+                                {{ form.grade_a_plus(class="form-control fw-bold", type="number", min="0", max="100") }}
+                                <span class="input-group-text bg-light text-muted">%</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Minimum for') }} A</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text fw-bold bg-success bg-opacity-10 text-success border-success border-opacity-25" style="width: 45px; justify-content: center;">A</span>
+                                {{ form.grade_a(class="form-control fw-bold", type="number", min="0", max="100") }}
+                                <span class="input-group-text bg-light text-muted">%</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Minimum for') }} B+</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text fw-bold bg-info bg-opacity-10 text-info border-info border-opacity-25" style="width: 45px; justify-content: center;">B+</span>
+                                {{ form.grade_b_plus(class="form-control fw-bold", type="number", min="0", max="100") }}
+                                <span class="input-group-text bg-light text-muted">%</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Minimum for') }} B</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text fw-bold bg-info bg-opacity-10 text-info border-info border-opacity-25" style="width: 45px; justify-content: center;">B</span>
+                                {{ form.grade_b(class="form-control fw-bold", type="number", min="0", max="100") }}
+                                <span class="input-group-text bg-light text-muted">%</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Minimum for') }} C+</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text fw-bold bg-warning bg-opacity-10 text-warning border-warning border-opacity-25" style="width: 45px; justify-content: center;">C+</span>
+                                {{ form.grade_c_plus(class="form-control fw-bold", type="number", min="0", max="100") }}
+                                <span class="input-group-text bg-light text-muted">%</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Minimum for') }} C</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text fw-bold bg-warning bg-opacity-10 text-warning border-warning border-opacity-25" style="width: 45px; justify-content: center;">C</span>
+                                {{ form.grade_c(class="form-control fw-bold", type="number", min="0", max="100") }}
+                                <span class="input-group-text bg-light text-muted">%</span>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-3 col-md-4 col-sm-6">
+                            <label class="form-label small fw-bold text-muted">{{ _('Minimum for') }} D</label>
+                            <div class="input-group input-group-sm mb-3">
+                                <span class="input-group-text fw-bold bg-danger bg-opacity-10 text-danger border-danger border-opacity-25" style="width: 45px; justify-content: center;">D</span>
+                                {{ form.grade_d(class="form-control fw-bold", type="number", min="0", max="100") }}
+                                <span class="input-group-text bg-light text-muted">%</span>
+                            </div>
                         </div>
                     </div>
 
